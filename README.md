@@ -1,6 +1,6 @@
-#Adobe Summit EMEA 2019  
+# Adobe Summit EMEA 2019  
   
-##Technical Lab 30 : Building a Progressive Web Application with AEM
+## Technical Lab 30 : Building a Progressive Web Application with AEM
 
 Progressive Web Applications bring mobile-app-like experiences to end users without requiring them to install an app from a App store/ Play store.
 This technical lab will help you explore how to create a Progressive Web Application (PWA) with AEM.
