@@ -1,4 +1,4 @@
-<img src="chapters/images/adobe-logo.jpeg" style="text-align:left" alt="adobe logo" /><img src="chapters/images/aem-logo.jpeg" style="text-align:right" alt="aem logo" />
+<img src="chapters/images/adobe-logo.jpeg" style="text-align:left" alt="adobe logo" /><img src="chapters/images/aem-logo.png" style="text-align:right" alt="aem logo" />
 <h1 style="text-align:center" > Adobe Summit EMEA 2019  </h1> 
   
 ## Technical Lab 30 : Building a Progressive Web Application with AEM
