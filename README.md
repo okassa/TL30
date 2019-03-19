@@ -1,13 +1,12 @@
-<img src="chapters/images/adobe-logo.png" style="text-align:left" alt="adobe logo" />
-<img src="chapters/images/aem-logo.jpeg" style="text-align:right" alt="aem logo" />
-<h1 style="text-align:center" > Adobe Summit EMEA 2019  </h1> 
-  
+![AEM Adobe](chapters/images/Lab-Header.png)  
 ## Technical Lab 30 : Building a Progressive Web Application with AEM
 
-Progressive Web Applications bring mobile-app-like experiences to end users without requiring them to install an app from a App store/ Play store.
+<p>
+Progressive Web Applications bring mobile-app-like experiences to end users without requiring them to install an app from a App store/ Play store.</br>
 This technical lab will help you explore how to create a Progressive Web Application (PWA) with AEM.
  
  Add a picture of a smartphone with the logo of the mobile app.
+</p>
  
 #### Resources to download
 
