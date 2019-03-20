@@ -1,4 +1,6 @@
-# 2. Update your manifest.json file
+![AEM Adobe](../chapters/images/Lab-Header.png)  
+
+## 2. Update your manifest.json file
 
 ### Change application properties
 

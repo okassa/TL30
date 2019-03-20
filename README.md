@@ -1,11 +1,34 @@
 ![AEM Adobe](chapters/images/Lab-Header.png)  
 ## Technical Lab 30 : Building a Progressive Web Application with AEM
 
+**Lab overview** 
 <p>
-Progressive Web Applications bring mobile-app-like experiences to end users without requiring them to install an app from a App store/ Play store.</br>
-This technical lab will help you explore how to create a Progressive Web Application (PWA) with AEM.
+Deliver fast, engaging and reliable experiences is key for customers. Having the reach and accessibility of a web page on mobile is even better as customer are using mobile for daily activities. 
+Building a mobile application is not just a mean to achieve a great digital transformation, it's key for customer retention.
  
- Add a picture of a smartphone with the logo of the mobile app.
+Marketing and Technical teams have faced many challenges since a decade to build compelling mobile experiences: technical adoption of platforms specific languages (Objective-C for iOS, Java for Android), 
+poor user experience for mobile applications built onto cross platforms engine (Phonegap, Xamarin...). 
+
+The issue remained the same: 
+**How can we build web apps that look and feel like native mobile apps for iOS and Android?**
+
+This question has been answered by Google Engineering Teams: Build Progressive Web Application.
+ 
+**Scope**
+ 
+In this training you will learn how to get started with Progressive Web Applications wth AEM.It could be a 
+good starting point for extending an existing website or building a new one as a progressive web application.
+This technical lab aims to create a web application (HTML, CSS, JavaScript) within AEM with PWA capabilities
+ 
+_Key takeaways :_
+
+- Access smartphone capabilities such as its camera
+- Use service workers (JavaScript) for offline mode
+- Send push notifications to users
+- Test your localhost web app on a Virtual Device (Android)
+- Adding your app to your device home screen
+
+ ##### @TODO Add a picture of a smartphone with the logo of the mobile app.
 </p>
  
 #### Resources to download

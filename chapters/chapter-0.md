@@ -1,3 +1,5 @@
+![AEM Adobe](../chapters/images/Lab-Header.png)  
+
 # 0. Before you start
 
 ### A. Start your AEM instance
@@ -24,3 +26,5 @@ Go to the [CRX Package Manager](http://localhost:4503/crx/packmgr/index.jsp) and
 - Click on the followings : Three vertical dots button on top right corner > More Tools > Remote Devices
  
 - Enable port forwarding by clicking on Add Rule button then 4503 : localhost:4503
+
+Go to the next chapter : [Setting up your Progressive Web Apllication](/chapters/chapter-1.md)

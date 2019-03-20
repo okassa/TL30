@@ -1,4 +1,5 @@
-# 1. Setting up your Progressive Web Apllication
+![AEM Adobe](../chapters/images/Lab-Header.png)  
+## 1. Setting up your Progressive Web Apllication
 
 ### Install the PWA
 

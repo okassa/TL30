@@ -1,7 +1,7 @@
 {
-  "name": "pwa-complete-guide",
+  "name": "Adobe-Summit-EMEA-2019-TL30",
   "version": "1.0.0",
-  "description": "A complete guide to PWAs. Building a simple Instagram clone.",
+  "description": "A technical lab about PWAs. Building a simple blog and use an android emulator.",
   "main": "index.js",
   "scripts": {
     "start": "http-server -c-1 -p 3000"
@@ -11,10 +11,13 @@
     "progressive",
     "web",
     "app",
-    "complete",
-    "tutorial"
+    "aem",
+    "adobe",
+    "summit",
+    "wcm",
+    "mobile"
   ],
-  "author": "Maximilian Schwarzmüller",
+  "author": "Olympe Kassa",
   "license": "ISC",
   "devDependencies": {
     "http-server": "^0.10.0"
