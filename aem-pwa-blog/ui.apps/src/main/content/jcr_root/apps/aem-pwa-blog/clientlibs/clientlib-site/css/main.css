@@ -1,0 +1,69 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 2rem;
+    font-family: 'adobe-clean', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+
+@media screen and (max-width: 63.9375em) {
+    body {
+        font-size: 14px;
+    }
+
+}
+
+.aem-pwa-blog__mainContainer {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #fff;
+}
+
+.aem-pwa-blog__navigation {
+    background-color: #eceeef !important;
+    width: 100%;
+}
+
+.aem-pwa-blog__summitLogo {
+    height: 23px;
+}
+
+.aem-pwa-blog__navLink {
+    color: #000000 !important;
+}
+
+
+.aem-pwa-blog__navTogglerIcon {
+    color: black;
+}
+
+
+.jumbotron {
+    background-color: #fff7ea;
+}
+
+.aem-pwa-blog__separator {
+    padding: 0.05em;
+    background-color: #000000;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+.aem-pwa-blog__centerFooterSection {
+    text-align: center;
+}
+
+
+
+
+
+
+
+
