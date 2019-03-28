@@ -1,41 +1,8 @@
 <sly data-sly-resource="${'navigation' @ resourceType='aem-pwa-blog/components/content/navigation'}"></sly>
 
-<!-- Main jumbotron for a primary marketing message or call to action
-<div class="jumbotron">
-    <div class="container">
-
-        <section class="row">
-            <section class="col-7">
-                <img src="/etc/clientlibs/aem-pwa-blog/images/pwa-logo.png" height="100%" width="100%" />
-            </section>
-            <section class="col-5">
-                <img src="/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png" height="100%" width="100%" />
-            </section>
-        </section>
-        <section class="row">
-            <h4 class="display-3">Build a PWA within AEM</h4>
-
-            <p>This is a template for a simple marketing or informational website.
-                It includes a large callout called a jumbotron and three supporting pieces of content.
-                Use it as a starting point to create something more unique.</p>
-            <p>
-        </section>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Let's get started &raquo;</a></p>
-    </div>
-</div>
--->
 <section class="aem-pwa-blog__mainContainer">
     <div class="container ">
-            <!-- Example row of columns -->
-            <div class="row" data-sly-list="${[1,2,3]}">
-
-                <div class="col-md-4">
-                    <h2>Heading ${itemList.index}</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                </div>
-            </div>
-        <hr>
+        <sly data-sly-resource="${'tiles' @ resourceType='aem-pwa-blog/components/content/tiles'}"></sly>
     </div> <!-- /container -->
 </section>
 <sly data-sly-resource="${'footer' @ resourceType='aem-pwa-blog/components/content/footer'}"></sly>

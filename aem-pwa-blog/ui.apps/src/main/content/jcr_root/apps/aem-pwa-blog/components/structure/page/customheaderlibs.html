@@ -17,8 +17,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<link rel="manifest" href="${resource.path}.manifest.json">
 <link rel="icon" href="/content/dam/aem-pwa-blog/static/favicon.ico">
 
-<title>AEM Progressive Web Application Blog</title>
+<title>${resource.jcr:title}</title>
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
      data-sly-call="${clientlib.css @ categories='aem-pwa-blog.base'}"/>

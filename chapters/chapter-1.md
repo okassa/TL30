@@ -9,4 +9,4 @@
 
 - Exit from Chrome  and switch to Nexus 5 main screen.
 
-Go to the next chapter : [Update your manifest.json file](/chapters/chapter-2.md)
+Go to the next chapter : [Update your manifest.json file](chapter-2.md)

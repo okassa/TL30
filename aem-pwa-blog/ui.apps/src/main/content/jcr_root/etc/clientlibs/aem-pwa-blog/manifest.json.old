@@ -1,0 +1,52 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "PWA-TL30",
+  "description": "PWA-TL30 is a progressive web application powerded by Adobe Experience Manager",
+  "short_name": "PWA-TL30",
+  "icons": [
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-48x48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-96x96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-144x144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-256x256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-384x384.png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-512x512.png",
+      "sizes": "512x512"
+    }
+  ],
+  "scope": "/content/aem-pwa-blog/",
+  "start_url": "/content/aem-pwa-blog/en.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "aliceblue",
+  "background_color": "red",
+  "serviceworker": {
+    "src": "/etc.clientlibs/clientlib-serviceworker.js",
+    "scope": "/content/aem-pwa-blog/",
+    "update_via_cache": "none"
+  }
+}

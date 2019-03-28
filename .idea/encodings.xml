@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/adobe-summit-emea-19-pwa" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/adobe-summit-emea-19-pwa/core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/adobe-summit-emea-19-pwa/ui.apps" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/adobe-summit-emea-19-pwa/ui.content" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/adobe-summit-emea-pwa" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aem-pwa-blog" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aem-pwa-blog/core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aem-pwa-blog/ui.apps" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aem-pwa-blog/ui.content" charset="UTF-8" />
+  </component>
 </project>
