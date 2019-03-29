@@ -158,21 +158,21 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
                  name = "orientation",
                  description = "orientation"
          )
-         String orientation() default "landscape";
+         String orientation() default "portrait";
 
         // "theme_color": "aliceblue",
         @AttributeDefinition(
                 name = "theme_color",
                 description = "theme_color"
         )
-        String themeColor() default "aliceblue";
+        String themeColor() default "#003c7f";
 
         //"background_color": "red",
         @AttributeDefinition(
                 name = "background_color",
                 description = "background_color"
         )
-        String backgroundColor() default "red";
+        String backgroundColor() default "#003c7f";
 
         /*     *   "serviceworker": {
          *     "src": "/etc.clientlibs/sw.js",
