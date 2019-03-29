@@ -1,5 +1,4 @@
 
-
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
@@ -16,6 +15,15 @@ body {
 @media screen and (max-width: 63.9375em) {
     body {
         font-size: 14px;
+    }
+    .aem-pwa-blog__footerLi {
+        display: inline;
+    }
+    .aem-pwa-blog__footerLi:first-child {
+        float: left;
+    }
+    .aem-pwa-blog__footerLi:last-child {
+        float: right;
     }
 
 }
@@ -60,10 +68,8 @@ body {
     text-align: center;
 }
 
-
-
-
-
-
-
-
+.aem-pwa-blog__footerBorderSection {
+    border-color: grey;
+    border: solid 0.1em;
+  	padding: 0.6em;
+}
