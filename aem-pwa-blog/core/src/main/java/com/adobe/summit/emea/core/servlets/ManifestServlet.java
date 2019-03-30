@@ -77,7 +77,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
         manifest.put("orientation",config.orientation());
         manifest.put("theme_color",config.themeColor());
         manifest.put("background_color",config.backgroundColor());
-        manifest.put("serviceworker",gson.fromJson(config.serviceworker(), HashMap.class));
+        //manifest.put("serviceworker",gson.fromJson(config.serviceworker(), HashMap.class));
     }
 
     @ObjectClassDefinition(name="OSGi Annotation Demo Servlet")

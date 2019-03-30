@@ -12,8 +12,8 @@ native mobile apps for iOS and Android?**
 This question has been answered by Google Engineering Teams: Build Progressive Web Applications.PWA will help marketers deliver fast, 
 engaging and reliable experiences for customers on mobile. Having a PWA is not just a mean to achieve a great digital 
 transformation, it's one of the key factor for customer retention and brand intimacy.
- 
- ![AEM Adobe](chapters/images/hero-pwa-discovery.jpg) 
+  
+ ![AEM Adobe PWA](chapters/images/hero-pwa-discovery.jpg)
  
 **Scope**
  
