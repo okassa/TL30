@@ -12,7 +12,7 @@ body {
 }
 
 
-@media screen and (max-width: 63.9375em) {
+@media (min-width: 0px) and (max-width: 767.98px) {
     body {
         font-size: 14px;
     }
@@ -41,6 +41,7 @@ body {
 
 .aem-pwa-blog__summitLogo {
     height: 23px;
+    float: right;
 }
 
 .aem-pwa-blog__navLink {
@@ -69,7 +70,7 @@ body {
 }
 
 .aem-pwa-blog__footerBorderSection {
-    border-color: grey;
-    border: solid 0.1em;
-  	padding: 0.6em;
+    border-top: 0.05em solid grey;
+    border-bottom: 0.05em solid grey;
+  	padding-top: 0.6em;
 }
