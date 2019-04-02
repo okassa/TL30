@@ -2,7 +2,7 @@
 <nav class="navbar navbar-toggleable-xs navbar-toggleable-sm navbar-inverse fixed-top aem-pwa-blog__navigation ">
 
 	<!-- MOBILE DISPLAY -->
-    <button class="navbar-toggler navbar-toggler-left shadow-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-left shadow-none" type="button" data-toggle="collapse" data-target="#navbarsItems" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu aem-pwa-blog__navTogglerIcon"></span>
     </button>
     <a class="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="#">
@@ -14,28 +14,27 @@
         <a class="navbar-brand  d-none d-sm-none d-md-block d-lg-block" href="#">
             <img src="/content/dam/aem-pwa-blog/static/summit-logo-m.png" class="aem-pwa-blog__summitLogo">
         </a>
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <br>
+        <div class="collapse navbar-collapse" id="navbarsItems">
             <ul class="navbar-nav ml-auto ">
+
                 <li class="nav-item active">
-                    <a class="nav-link aem-pwa-blog__navLink" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link aem-pwa-blog__navLink" href="#">Profile</a>
+                    <a class="nav-link aem-pwa-blog__navLink" href="#"><i class="fa fa-home" aria-hidden="true"></i>  Home <span class="sr-only">(current)</span></a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle aem-pwa-blog__navLink" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Post</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                <div class="aem-pwa-blog__separatorVertical"></div>
+
+                <li class="nav-item">
+                    <a class="nav-link aem-pwa-blog__navLink" href="#"><i class="fa fa-user" aria-hidden="true"></i>  Profile</a>
                 </li>
+
+                <div class="aem-pwa-blog__separatorVertical"></div>
+
+                <li class="nav-item">
+                    <a class="nav-link aem-pwa-blog__navLink" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Create a post</a>
+                </li>
+
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
 	</section>
 </nav>

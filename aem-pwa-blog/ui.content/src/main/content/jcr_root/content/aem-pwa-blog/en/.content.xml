@@ -136,5 +136,7 @@
                     sling:resourceType="aem-pwa-blog/components/content/sharing"/>
             </responsivegrid>
         </root>
+        <image/>
     </jcr:content>
+    <login/>
 </jcr:root>
