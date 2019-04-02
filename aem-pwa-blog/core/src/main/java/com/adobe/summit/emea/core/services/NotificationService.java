@@ -1,14 +1,13 @@
 package com.adobe.summit.emea.core.services;
 
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PublicKey;
-import java.util.Map;
+
+import com.google.gson.JsonObject;
+
+import java.io.IOException;
 
 public interface NotificationService {
 
-    public void suscribe(Object suscribtion);
+    void sendCommonMessage(String title,String body) throws IOException;
 
-    public Map<String,String> generateKeys() throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException;
+    void sendMessage(JsonObject message) throws IOException ;
 }

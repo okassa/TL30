@@ -76,6 +76,8 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
         manifest.put("display",config.display());
         manifest.put("orientation",config.orientation());
         manifest.put("theme_color",config.themeColor());
+        manifest.put("gcm_sender_id",config.gcmSenderId());
+        manifest.put("gcm_user_visible_only",config.gcmUserVisibleOnly());
         manifest.put("background_color",config.backgroundColor());
         //manifest.put("serviceworker",gson.fromJson(config.serviceworker(), HashMap.class));
     }
@@ -102,6 +104,22 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
                 description = "Name"
         )
         String name() default "PWA-TL30";
+
+
+        //"gcm_sender_id": "847244712742",
+        @AttributeDefinition(
+                name = "gcmSenderId",
+                description = "gcmSenderId"
+        )
+        String gcmSenderId() default "294077202000";
+
+        //"gcm_user_visible_only": true
+        @AttributeDefinition(
+                name = "Name",
+                description = "Name"
+        )
+        boolean gcmUserVisibleOnly() default true;
+
 
         //"description": "PWA-TL30 is a progressive web application powerded by Adobe Experience Manager",
         @AttributeDefinition(

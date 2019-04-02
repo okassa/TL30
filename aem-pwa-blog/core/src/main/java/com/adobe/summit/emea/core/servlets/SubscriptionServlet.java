@@ -16,7 +16,6 @@
 package com.adobe.summit.emea.core.servlets;
 
 import com.adobe.summit.emea.core.services.NotificationService;
-import com.day.cq.commons.jcr.JcrConstants;
 import com.google.gson.Gson;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -25,21 +24,17 @@ import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.framework.Constants;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
-import org.osgi.service.metatype.annotations.ObjectClassDefinition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Servlet that writes some sample content into the response. It is mounted for
@@ -50,13 +45,15 @@ import java.util.stream.Stream;
 @Component(service=Servlet.class,
         property={
                 Constants.SERVICE_DESCRIPTION + "=Simple Demo Servlet",
-                "sling.servlet.methods=" + HttpConstants.METHOD_GET,
+                "sling.servlet.methods=" + HttpConstants.METHOD_POST,
                 "sling.servlet.resourceTypes="+ "aem-pwa-blog/components/structure/page",
-                "sling.servlet.selectors=" + "{send,suscribe}",
+                "sling.servlet.selectors=" + "subscription",
                 "sling.servlet.extensions=" + "json"
         })
 @Designate(ocd = ManifestServlet.Configuration.class)
-public class NotificationsServlet extends SlingAllMethodsServlet {
+public class SubscriptionServlet extends SlingAllMethodsServlet {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionServlet.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -69,18 +66,16 @@ public class NotificationsServlet extends SlingAllMethodsServlet {
 
 
     @Override
-    protected void doGet(final SlingHttpServletRequest req,
-                         final SlingHttpServletResponse resp) throws ServletException, IOException {
-        final Resource resource = req.getResource();
-        resp.setContentType("application/json");
-
-        resp.getWriter().write("Nothing to suscribe to");
-    }
-
-    @Override
     protected void doPost(SlingHttpServletRequest req, SlingHttpServletResponse resp) throws ServletException, IOException {
         final Resource resource = req.getResource();
         resp.setContentType("application/json");
+
+        // Get request body.
+        String body = req.getReader().lines().collect(Collectors.joining());
+
+
+        // Save subscription at /var/aem-pwa-blog/subscription
+
 
         resp.getWriter().write("Nothing to suscribe to");
     }

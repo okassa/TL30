@@ -16,18 +16,15 @@
 package com.adobe.summit.emea.core.services;
 
 import com.adobe.summit.emea.core.services.impl.NotificationServiceImpl;
-import com.adobe.summit.emea.core.servlets.SimpleServlet;
+import com.google.gson.JsonElement;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
-import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
-import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.junit.Rule;
 import org.junit.Test;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.Map;
+import com.google.gson.JsonObject;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class NotificationServiceTest {
 
@@ -37,9 +34,8 @@ public class NotificationServiceTest {
     private NotificationService notificationService = new NotificationServiceImpl();
 
     @Test
-    public void testNotificationService() throws Exception {
+    public void testSendMessage() throws Exception {
 
-        Map<String,String> keys = notificationService.generateKeys();
-        assertEquals("Title = resource title", keys.get("PublicKey"));
+       notificationService.sendCommonMessage("Summit Lab EH", "An event occured in the blog, we know you might be inetrested");
     }
 }
