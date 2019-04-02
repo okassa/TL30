@@ -5,4 +5,5 @@
     <content-page/>
     <rep:policy/>
     <login-page/>
+    <create-profile-page/>
 </jcr:root>
