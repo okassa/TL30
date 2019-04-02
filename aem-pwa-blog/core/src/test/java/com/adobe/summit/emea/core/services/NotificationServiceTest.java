@@ -16,6 +16,11 @@
 package com.adobe.summit.emea.core.services;
 
 import com.adobe.summit.emea.core.services.impl.NotificationServiceImpl;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.JsonElement;
 import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.junit.Rule;
@@ -23,7 +28,10 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
+import java.io.FileInputStream;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class NotificationServiceTest {
@@ -36,6 +44,10 @@ public class NotificationServiceTest {
     @Test
     public void testSendMessage() throws Exception {
 
-       notificationService.sendCommonMessage("Summit Lab EH", "An event occured in the blog, we know you might be inetrested");
+        context.registerInjectActivateService(notificationService);
+        NotificationService osgiNotificationService = context.getService(NotificationService.class);
+
+      String id =  osgiNotificationService.sendMessage("Summit Lab EH", "An event occured in the blog, we know you might be inetrested","to-summit");
+        assertNotNull(id);
     }
 }
