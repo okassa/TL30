@@ -76,5 +76,6 @@ buildNumber.properties
 *.iml
 
 .DS_Store
+.idea/misc.xml
 .idea/compiler.xml
 .idea/workspace.xml
