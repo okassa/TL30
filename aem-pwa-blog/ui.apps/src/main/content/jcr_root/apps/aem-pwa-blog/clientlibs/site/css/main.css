@@ -65,6 +65,13 @@ body {
     margin-bottom: 0.3em;
 }
 
+.aem-pwa-blog__separatorVertical {
+    padding: 0.07em;
+    background-color: #000000;
+	margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
 .aem-pwa-blog__centerFooterSection {
     text-align: center;
 }
