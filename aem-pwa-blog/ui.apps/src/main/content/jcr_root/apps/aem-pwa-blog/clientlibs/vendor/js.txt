@@ -18,4 +18,5 @@ jquery-1.11.2.min.js
 tether.js
 bootstrap.js
 plugins.js
+firebase.js
 modernizr-2.8.3-respond-1.4.2.min.js

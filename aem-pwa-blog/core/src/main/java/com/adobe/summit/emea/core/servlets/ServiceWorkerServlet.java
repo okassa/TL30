@@ -43,11 +43,6 @@ public class ServiceWorkerServlet extends HttpServlet {
         try(ResourceResolver resourceResolver = resourceResolverFactory.getResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "msm-service"))){
             resp.setContentType("text/javascript");
 
-            // Add promise first
-            //Resource promiseResource = resourceResolver.getResource("/etc/clientlibs/aem-pwa-blog/vendor/promise.js/jcr:content");
-            //InputStream promiseResourceInputStream = promiseResource.adaptTo(InputStream.class);
-            //String promise = IOUtils.toString(promiseResourceInputStream, "UTF-8");
-            // Get /apps/aem-pwa-blog/clientlibs/sw
             Resource serviceWorkerDataResource = resourceResolver.getResource("/etc/clientlibs/aem-pwa-blog/sw.js/jcr:content");
             InputStream serviceWorkerInputStream = serviceWorkerDataResource.adaptTo(InputStream.class);
             String serviceWorker = IOUtils.toString(serviceWorkerInputStream, "UTF-8");

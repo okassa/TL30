@@ -79,7 +79,6 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
         manifest.put("gcm_sender_id",config.gcmSenderId());
         manifest.put("gcm_user_visible_only",config.gcmUserVisibleOnly());
         manifest.put("background_color",config.backgroundColor());
-        //manifest.put("serviceworker",gson.fromJson(config.serviceworker(), HashMap.class));
     }
 
     @ObjectClassDefinition(name="OSGi Annotation Demo Servlet")
@@ -146,8 +145,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
              "{\"src\": \"/etc/clientlibs/aem-pwa-blog/icons/summit-icon-96x96.png\",\"sizes\": \"96x96\"}",
              "{\"src\": \"/etc/clientlibs/aem-pwa-blog/icons/summit-icon-144x144.png\",\"sizes\": \"144x144\"}",
              "{\"src\": \"/etc/clientlibs/aem-pwa-blog/icons/summit-icon-192x192.png\",\"sizes\": \"192x192\"}",
-             "{\"src\": \"/etc/clientlibs/aem-pwa-blog/icons/summit-icon-256x256.png\",\"sizes\": \"256x256\"}",
-             "{\"src\": \"/etc/clientlibs/aem-pwa-blog/icons/summit-icon-384x384.png\",\"sizes\": \"384x384\"}"
+             "{\"src\": \"/etc/clientlibs/aem-pwa-blog/icons/summit-icon-256x256.png\",\"sizes\": \"256x256\"}"
          };
 
          //"scope": "/content/aem-pwa-blog/"
@@ -162,7 +160,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
                  name = "startUrl",
                  description = "startUrl"
          )
-         String startUrl() default "/content/aem-pwa-blog/en/_jcr_content.html";
+         String startUrl() default "/content/aem-pwa-blog/en.html";
 
          //"display": "fullscreen",
          @AttributeDefinition(

@@ -20,22 +20,16 @@
                     <a class="nav-link aem-pwa-blog__navLink" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link aem-pwa-blog__navLink" href="#">Profile</a>
+                    <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog" href="#">Profile</a>
                 </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle aem-pwa-blog__navLink" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Post</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog aem-pwa-blog__navLinkPost" href="${currentPage.path}.post.html">Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aem-pwa-blog__navLink enable-notifications" href="#">Notification</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+
         </div>
 	</section>
 </nav>

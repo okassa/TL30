@@ -1,10 +1,75 @@
-<!-- Example row of columns -->
-<div class="row" data-sly-list="${[1,2,3]}">
+<script>
 
-    <div class="col-md-4">
-        <h2>Heading ${itemList.index}</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+var navLinkPost = document.querySelector('.aem-pwa-blog__navLinkPost');
+var tiles = document.querySelector('.aem-pwa-blog__tiles');
+var createPost = document.querySelector('.aem-pwa-blog__createPost');
+
+navLinkPost.addEventListener('click', function (event) {
+    createPost.removeAttribute("hidden");
+    tiles.setAttribute("hidden","hidden");
+});
+</script>
+
+<div class="aem-pwa-blog__tiles" data-async-url="${currentPage.path}/_jcr_content.posts.json">
+    <!-- Example row of columns -->
+    <div class="row">
+        <h5 class="text-center mdl-color-text--primary">Share your Moments</h5>
+        <div id="shared-moments"></div>
     </div>
-    <hr>
+    <div class="floating-button">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"
+                id="share-image-button">
+            <i class="material-icons">add</i>
+        </button>
+    </div>
+    <div id="confirmation-toast" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button type="button" class="mdl-snackbar__action"></button>
+    </div>
+    <div class="row" data-sly-list="${[1,2,3]}">
+
+        <div class="col-md-4">
+            <h2>Heading ${itemList.index}</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <hr>
+    </div>
+</div>
+<div id="aem-pwa-blog__createPost" hidden>
+    <video id="player" autoplay></video>
+    <canvas id="canvas" width="320px" height="240px"></canvas>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="capture-btn">Capture
+    </button>
+    <div id="pick-image">
+        <h6>Pick an Image instead</h6>
+        <input type="file" accept="image/*" id="image-picker">
+    </div>
+    <form>
+        <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="title">
+            <label class="mdl-textfield__label" for="title" name="title">Title</label>
+        </div>
+        <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="manual-location">
+            <input class="mdl-textfield__input" type="text" id="location">
+            <label class="mdl-textfield__label" for="location" name="location">Location</label>
+        </div>
+        <div class="input-section">
+            <button class="mdl-button mdl-js-button mdl-button mdl-button--colored" type="button" id="location-btn">Get Location
+            </button>
+            <div class="mdl-spinner mdl-js-spinner is-active" id="location-loader"></div>
+        </div>
+        <br>
+        <div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--accent"
+                    type="submit" id="post-btn">Post!
+            </button>
+        </div>
+        <br>
+        <div>
+            <button class="mdl-button mdl-js-button mdl-button--fab" id="close-create-post-modal-btn" type="button">
+                <i class="material-icons">close</i>
+            </button>
+        </div>
+    </form>
 </div>

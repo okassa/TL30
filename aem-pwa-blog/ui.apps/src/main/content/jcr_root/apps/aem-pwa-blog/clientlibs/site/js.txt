@@ -14,4 +14,10 @@
 # limitations under the License.
 ###############################################################################
 #base=js
+tools/promise.js
+tools/fetch.js
+tools/idb.js
+
+utility.js
+feed.js
 main.js

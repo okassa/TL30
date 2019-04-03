@@ -31,10 +31,10 @@ import org.junit.Test;
 /**
  * Simple JUnit test verifying the HelloWorldModel
  */
-public class HelloWorldModelTest {
+public class TilesListModelTest {
 
     //@Inject
-    private HelloWorldModel hello;
+    private TilesListModel hello;
     
     private String slingId;
     
@@ -44,15 +44,15 @@ public class HelloWorldModelTest {
         slingId = UUID.randomUUID().toString();
         when(settings.getSlingId()).thenReturn(slingId);
 
-        hello = new HelloWorldModel();
+        hello = new TilesListModel();
         PrivateAccessor.setField(hello, "settings", settings);
-        hello.init();
+
     }
     
     @Test
     public void testGetMessage() throws Exception {
         // some very basic junit tests
-        String msg = hello.getMessage();
+        String msg = hello.getDescription();
         assertNotNull(msg);
         assertTrue(msg.length() > 0);
     }

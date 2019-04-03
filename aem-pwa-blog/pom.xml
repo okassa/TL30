@@ -42,6 +42,8 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <netty.version>4.1.22.Final</netty.version>
+        <project.http.version>1.28.0</project.http.version>
     </properties>
 
     <build>
@@ -70,6 +72,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
+                <configuration>
+                    <includes>
+                        <include>src/main/resources/serviceAccountKey.json</include>
+                    </includes>
+                </configuration>
             </plugin>
             <!-- Maven Enforcer Plugin -->
             <plugin>
@@ -104,6 +111,28 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/extra-resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/non-packaged-resources</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Maven IntelliJ IDEA Plugin -->
             <plugin>
@@ -343,6 +372,31 @@
                         <enabled>false</enabled>
                     </snapshots>
                 </repository>
+                <repository>
+                    <id>maven-central</id>
+                    <name>Maven Central Repository</name>
+                    <url>http://central.maven.org/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>sonatype-central</id>
+                    <name>Sonatype Central Repository</name>
+                    <url>https://oss.sonatype.org/content/repositories/releases//</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
             </repositories>
 
             <pluginRepositories>
@@ -350,6 +404,30 @@
                     <id>adobe-public-releases</id>
                     <name>Adobe Public Repository</name>
                     <url>https://repo.adobe.com/nexus/content/groups/public</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>maven-central</id>
+                    <name>Maven Central Repository</name>
+                    <url>http://central.maven.org/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>sonatype-central</id>
+                    <name>Sonatype Central Repository</name>
+                    <url>https://oss.sonatype.org/content/repositories/releases//</url>
                     <releases>
                         <enabled>true</enabled>
                         <updatePolicy>never</updatePolicy>
@@ -522,6 +600,12 @@
                 <version>6.3.0</version>
                 <classifier>apis</classifier>
                 <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.adobe.cq</groupId>

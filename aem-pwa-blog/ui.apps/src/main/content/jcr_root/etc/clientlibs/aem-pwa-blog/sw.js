@@ -7,7 +7,7 @@ self.addEventListener('install', function(event) {
         caches.open(CACHE_STATIC_NAME)
             .then(function(cache) {
                 console.log('[TL30-PWA] >>>>> Precaching App Shell');
-                cache.addAll([
+               /* cache.addAll([
                     '/',
                     '/content/aem-pwa-blog/en.html',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/vendor.js',
@@ -17,7 +17,7 @@ self.addEventListener('install', function(event) {
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/base.css',
                     '/content/dam/aem-pwa-blog/static/summit-logo-m.png',
                     '/etc/clientlibs/aem-pwa-blog/icons/favicon.ico'
-                ]);
+                ]);*/
             })
     )
 });
@@ -49,7 +49,7 @@ self.addEventListener('fetch', function(event) {
                         .then(function(res) {
                             return caches.open(CACHE_DYNAMIC_NAME)
                                 .then(function(cache) {
-                                    cache.put(event.request.url, res.clone());
+                                    //cache.put(event.request.url, res.clone());
                                     return res;
                                 })
                         })
