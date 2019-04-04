@@ -40,17 +40,14 @@ import java.util.List;
 import java.util.Map;
 
 @Model(
-        adaptables = { Resource.class}
+        adaptables = { SlingHttpServletRequest.class}
 )
 public class NavigationModel {
 
     public static final String RESOURCE_TYPE = "aem-pwa-blog/components/content/navigation";
-    @Self
-    private Resource resource ;
 
-    @SlingObject
-    @Required
-    private ResourceResolver resourceResolver;
+    @Self
+    private SlingHttpServletRequest request;
 
 
     private List<Resource> menuPages;
@@ -58,7 +55,8 @@ public class NavigationModel {
     @PostConstruct
     protected void init() {
         // Add sub nodes
-        //Resource resource = request.getResource();
+        Resource resource = request.getResource();
+        ResourceResolver resourceResolver = request.getResourceResolver();
        String resourceParentPath = ResourceUtil.getParent(resource.getPath(),2);
         menuPages = IteratorUtils.toList(resourceResolver.resolve(resourceParentPath).listChildren());
         // Add virtual resource for HEnable notification

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:lastModified="{Date}2019-01-22T13:17:02.163+01:00"
@@ -8,7 +8,8 @@
         jcr:description="Display a rich text paragraph"
         jcr:primaryType="cq:PageContent"
         jcr:title="Post"
-        icon="fa fa-pencil-square-o"
-        sling:resourceType="aem-pwa-blog/components/post-page">
+        sling:resourceType="aem-pwa-blog/components/structure/post-page"
+        icon="fa fa-pencil-square-o">
+        <image/>
     </jcr:content>
 </jcr:root>

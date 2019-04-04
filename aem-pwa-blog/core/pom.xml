@@ -106,7 +106,7 @@
                         </Import-Package>
                         <Embed-Transitive>true</Embed-Transitive>
                         <Sling-Model-Packages>
-                            com.adobe.summit.emea.core
+                            com.adobe.summit.emea.core.models
                         </Sling-Model-Packages>
                         <_dsannotations>*</_dsannotations>
                         <_metatypeannotations>*</_metatypeannotations>

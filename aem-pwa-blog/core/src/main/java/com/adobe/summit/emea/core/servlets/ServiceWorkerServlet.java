@@ -47,6 +47,8 @@ public class ServiceWorkerServlet extends HttpServlet {
             InputStream serviceWorkerInputStream = serviceWorkerDataResource.adaptTo(InputStream.class);
             String serviceWorker = IOUtils.toString(serviceWorkerInputStream, "UTF-8");
 
+            // Use request dispatcher instead
+
             resp.getWriter().write(""+serviceWorker);
 
         }catch (Exception e){

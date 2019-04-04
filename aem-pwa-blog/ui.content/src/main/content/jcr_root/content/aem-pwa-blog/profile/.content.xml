@@ -8,16 +8,14 @@
         jcr:description="Display a rich text paragraph"
         jcr:primaryType="cq:PageContent"
         jcr:title="Profile"
-        icon="fa fa-user"
-        sling:resourceType="aem-pwa-blog/components/structure/profile-page">
+        sling:resourceType="aem-pwa-blog/components/structure/profile-page"
+        icon="fa fa-user">
         <root
             jcr:primaryType="nt:unstructured"
             sling:resourceType="wcm/foundation/components/responsivegrid">
             <responsivegrid
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="wcm/foundation/components/responsivegrid">
-
-            </responsivegrid>
+                sling:resourceType="wcm/foundation/components/responsivegrid"/>
         </root>
         <image jcr:primaryType="nt:unstructured">
             <file/>
