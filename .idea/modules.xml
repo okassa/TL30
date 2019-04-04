@@ -3,10 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Adobe-Summit-EMEA-19-TL30.iml" filepath="$PROJECT_DIR$/Adobe-Summit-EMEA-19-TL30.iml" />
-      <module fileurl="file://$PROJECT_DIR$/aem-pwa-blog/aem-pwa-blog.iml" filepath="$PROJECT_DIR$/aem-pwa-blog/aem-pwa-blog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aem-pwa-blog/aem-pwa-blog--old.iml" filepath="$PROJECT_DIR$/aem-pwa-blog/aem-pwa-blog--old.iml" />
       <module fileurl="file://$PROJECT_DIR$/aem-pwa-blog/core/aem-pwa-blog.core.iml" filepath="$PROJECT_DIR$/aem-pwa-blog/core/aem-pwa-blog.core.iml" />
       <module fileurl="file://$PROJECT_DIR$/aem-pwa-blog/ui.apps/aem-pwa-blog.ui.apps.iml" filepath="$PROJECT_DIR$/aem-pwa-blog/ui.apps/aem-pwa-blog.ui.apps.iml" />
       <module fileurl="file://$PROJECT_DIR$/aem-pwa-blog/ui.content/aem-pwa-blog.ui.content.iml" filepath="$PROJECT_DIR$/aem-pwa-blog/ui.content/aem-pwa-blog.ui.content.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aem-pwa-blog--bp/core.wcm.components.examples.iml" filepath="$PROJECT_DIR$/aem-pwa-blog--bp/core.wcm.components.examples.iml" />
     </modules>
   </component>
 </project>
