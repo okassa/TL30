@@ -3,7 +3,7 @@
 
     <!-- MOBILE DISPLAY -->
     <button class="navbar-toggler navbar-toggler-left shadow-none" type="button" data-toggle="collapse" data-target="#navbarsItems" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="fas fa-bars aem-pwa-blog__navTogglerIcon"></span>
+        <span class="fa fa-bars aem-pwa-blog__navTogglerIcon"></span>
     </button>
     <a id="mobile-menu" class="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="/content/aem-pwa-blog/home.html">
         <img src="/etc/clientlibs/aem-pwa-blog/logos/summit-logo.png" class="aem-pwa-blog__summitLogo">
@@ -18,12 +18,12 @@
         <div class="collapse navbar-collapse" id="navbarsItems" >
             <ul class="navbar-nav ml-auto " data-sly-use.pages="com.adobe.summit.emea.core.models.NavigationModel" data-sly-list="${pages.menuPages}">
 
-                    <li class="nav-item">
-                        <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item.jcr:title}" href="${item.path}.html">
-                            <span><i class="${item.icon}" aria-hidden="true"></i> </span>
-                            <span>${item.jcr:title}</span></a>
-                        <div class="aem-pwa-blog__separatorVertical"></div>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item['jcr:content/jcr:title']}" href="${item.path}.html">
+                        <span><i class="${item['jcr:content/icon']}" aria-hidden="true"></i> </span>
+                        <span>${item['jcr:content/jcr:title']}</span></a>
+                    <div class="aem-pwa-blog__separatorVertical"></div>
+                </li>
 
             </ul>
         </div>

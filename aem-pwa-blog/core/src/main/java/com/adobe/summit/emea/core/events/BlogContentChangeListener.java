@@ -69,8 +69,8 @@ public class BlogContentChangeListener implements EventListener {
     @Reference
     private Scheduler scheduler;
 
-    @Reference
-    NotificationService notificationService;
+   // @Reference
+   // NotificationService notificationService;
 
     @Override
     public void onEvent(final EventIterator events) {
@@ -130,7 +130,7 @@ public class BlogContentChangeListener implements EventListener {
         public void run() {
             LOGGER.debug("[run] Start processing ---  The path is '{}'", path);
 
-            notificationService.sendMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested","to-summit");;
+            //notificationService.sendMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested","to-summit");;
 
             LOGGER.debug("[run] End processing ---  The path is '{}'", path);
         }

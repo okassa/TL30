@@ -16,7 +16,10 @@
 package com.adobe.summit.emea.core.models;
 
 import com.adobe.granite.ui.components.ds.ValueMapResource;
+import com.day.cq.commons.jcr.JcrConstants;
 import org.apache.commons.collections4.IteratorUtils;
+import org.apache.jackrabbit.spi.commons.name.NameConstants;
+import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -35,9 +38,8 @@ import org.apache.sling.settings.SlingSettingsService;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Model(
         adaptables = { SlingHttpServletRequest.class}
@@ -57,14 +59,21 @@ public class NavigationModel {
         // Add sub nodes
         Resource resource = request.getResource();
         ResourceResolver resourceResolver = request.getResourceResolver();
-       String resourceParentPath = ResourceUtil.getParent(resource.getPath(),2);
-        menuPages = IteratorUtils.toList(resourceResolver.resolve(resourceParentPath).listChildren());
+       String resourceParentPath = ResourceUtil.getParent(resource.getPath(),3);
+        menuPages = IteratorUtils.toList(resourceResolver.resolve(resourceParentPath).listChildren())
+                .stream().filter(n -> n.getResourceType().equals("cq:Page"))
+                .collect(Collectors.toList());Collectors.toList();
         // Add virtual resource for HEnable notification
         Map<String,Object> hm = new HashMap<>();
         hm.put("jcr:title","Enable notifications");
         hm.put("icon","fa fa-bell");
         ValueMap vm = new ValueMapDecorator(hm);
-        Resource enableNotificationResource = new ValueMapResource(resourceResolver,"/content/aem-pwa-blog/enable-notifications","aem-pwa-blog/components/page",vm);
+
+        Resource enableNotifJcrContent = new ValueMapResource(resourceResolver,"/content/aem-pwa-blog/enable-notifications/jcr:content","aem-pwa-blog/components/page",vm);
+
+        Collection<Resource> children = Collections.singletonList(enableNotifJcrContent);
+
+        Resource enableNotificationResource = new ValueMapResource(resourceResolver,"/content/aem-pwa-blog/enable-notifications","cq:Page",new ValueMapDecorator(Collections.emptyMap()),children);
         menuPages.add(enableNotificationResource);
 
     }
