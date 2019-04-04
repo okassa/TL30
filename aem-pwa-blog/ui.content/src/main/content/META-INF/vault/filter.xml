@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
-    <filter root="/conf/aem-pwa-blog" mode="merge"/>
-    <filter root="/content/aem-pwa-blog" mode="merge"/>
-    <filter root="/content/dam/aem-pwa-blog" mode="merge"/>
+    <filter root="/conf/aem-pwa-blog"/>
+    <filter root="/content/aem-pwa-blog" />
+    <filter root="/content/dam/aem-pwa-blog" />
 </workspaceFilter>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2019-01-22T13:17:02.163+01:00"
+        cq:lastModifiedBy="admin"
+        cq:template="/conf/aem-pwa-blog/settings/wcm/templates/content-page"
+        jcr:description="Display a rich text paragraph"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Home"
+        icon="fa fa-home"
+        sling:resourceType="aem-pwa-blog/components/structure/page">
+
+                <tiles jcr:primaryType="nt:unstructured" jcr:title="Recent articles" sling:resourceType="aem-pwa-blog/components/content/tiles">
+                    <teaser jcr:primaryType="nt:unstructured" actionsEnabled="true" descriptionFromPage="false"
+                            fileReference="/content/dam/aem-pwa-blog/smile.jpeg"
+                            jcr:created="2018-12-07T13:36:44.171+01:00" jcr:createdBy="admin" jcr:description="Happiness is the key "
+                            jcr:lastModified="2018-12-07T13:42:40.613+01:00" jcr:lastModifiedBy="admin"
+                            jcr:title="Smile" sling:resourceType="aem-pwa-blog/components/content/teaser"
+                            textIsRich="true" titleFromPage="false">
+                        <actions jcr:primaryType="nt:unstructured">
+                            <item0 jcr:primaryType="nt:unstructured" link="/content/aem-pwa-blog/post.smile.html" text="More informations"/>
+                        </actions>
+                    </teaser>
+                    <teaser_1234534 jcr:primaryType="nt:unstructured" actionsEnabled="true" descriptionFromPage="false"
+                            fileReference="/content/dam/aem-pwa-blog/volcano.jpeg"
+                            jcr:created="2018-12-07T13:36:44.171+01:00" jcr:createdBy="admin" jcr:description="It is burning "
+                            jcr:lastModified="2018-12-07T13:42:40.613+01:00" jcr:lastModifiedBy="admin"
+                            jcr:title="Volcano" sling:resourceType="aem-pwa-blog/components/content/teaser"
+                            textIsRich="true" titleFromPage="false">
+                        <actions jcr:primaryType="nt:unstructured">
+                            <item0 jcr:primaryType="nt:unstructured" link="/content/aem-pwa-blog/post.volcano.html" text="More informations"/>
+                        </actions>
+                    </teaser_1234534>
+                    <teaser_5789734 jcr:primaryType="nt:unstructured" actionsEnabled="true" descriptionFromPage="false"
+                            fileReference="/content/dam/aem-pwa-blog/storm.jpeg"
+                            jcr:created="2018-12-07T13:36:44.171+01:00" jcr:createdBy="admin" jcr:description="Storm is not over "
+                            jcr:lastModified="2018-12-07T13:42:40.613+01:00" jcr:lastModifiedBy="admin"
+                            jcr:title="Storm" sling:resourceType="aem-pwa-blog/components/content/teaser"
+                            textIsRich="true" titleFromPage="false">
+                        <actions jcr:primaryType="nt:unstructured">
+                            <item0 jcr:primaryType="nt:unstructured" link="/content/aem-pwa-blog/post.storm.html" text="More informations"/>
+                        </actions>
+                    </teaser_5789734>
+                    <teaser_12145650987 jcr:primaryType="nt:unstructured" actionsEnabled="true" descriptionFromPage="false"
+                            fileReference="/content/dam/aem-pwa-blog/forest.jpeg"
+                            jcr:created="2018-12-07T13:36:44.171+01:00" jcr:createdBy="admin" jcr:description="Trees are good for nature "
+                            jcr:lastModified="2018-12-07T13:42:40.613+01:00" jcr:lastModifiedBy="admin"
+                            jcr:title="Forest" sling:resourceType="aem-pwa-blog/components/content/teaser"
+                            textIsRich="true" titleFromPage="false">
+                        <actions jcr:primaryType="nt:unstructured">
+                            <item0 jcr:primaryType="nt:unstructured" link="/content/aem-pwa-blog/post.forest.html" text="More informations"/>
+                        </actions>
+                    </teaser_12145650987>
+                </tiles>
+
+        <image jcr:primaryType="nt:unstructured">
+            <file/>
+        </image>
+    </jcr:content>
+</jcr:root>

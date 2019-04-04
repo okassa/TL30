@@ -11,7 +11,6 @@ self.addEventListener('install', function(event) {
                     '/',
                     '/content/aem-pwa-blog/en.html',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/vendor.js',
-                    '/etc.clientlibs/aem-pwa-blog/clientlibs/vendor-sw.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/base.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/vendor.css',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/base.css',

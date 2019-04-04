@@ -35,17 +35,18 @@
     </wcm>
     <aem-pwa-blog jcr:primaryType="nt:unstructured">
         <components jcr:primaryType="nt:unstructured">
-            <form jcr:primaryType="nt:unstructured">
-                <container jcr:primaryType="nt:unstructured">
-                    <form-container
+            <page jcr:primaryType="nt:unstructured">
+                <policy_212634895490169
+                        jcr:lastModified="{Date}2019-02-14T14:27:11.516+01:00"
+                        jcr:lastModifiedBy="admin"
                         jcr:primaryType="nt:unstructured"
-                        jcr:title="aem-pwa-blog Form"
+                        jcr:title="Core Components Examples - Page"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[/apps/aem-pwa-blog/components/form/button,/apps/aem-pwa-blog/components/form/hidden,/apps/aem-pwa-blog/components/form/options,/apps/aem-pwa-blog/components/form/text]">
-                        <jcr:content jcr:primaryType="nt:unstructured"/>
-                    </form-container>
-                </container>
-            </form>
+                        appResourcesClientlib="cmp-examples.site"
+                        clientlibs="aem-pwa-blog.base">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_212634895490169>
+            </page>
         </components>
     </aem-pwa-blog>
 </jcr:root>
