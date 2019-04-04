@@ -11,6 +11,20 @@ body {
     font-weight: 200;
 }
 
+/**
+Handle image responsiveness for mobile
+*/
+.t-cmp-clean .cmp-image__image {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.t-cmp-clean .cmp-teaser {
+    margin: 0.5rem !important;
+}
+
+
+
 /* Mobile*/
 @media (min-width: 0px) and (max-width: 767.98px) {
     body {
@@ -36,6 +50,17 @@ body {
 
     .aem-pwa-blog__profilePicture{
         margin-top: 2rem;
+    }
+
+
+    .aem-pwa-blog__canvas {
+        height:100px;
+        width: 200px;
+    }
+
+    #desktop-menu {
+        cursor: not-allowed;
+        text-decoration: none;
     }
 
 }
@@ -94,4 +119,24 @@ body {
     border-top: 0.05em solid grey;
     border-bottom: 0.05em solid grey;
   	padding-top: 0.6em;
+}
+
+.aem-pwa-blog__canvas {
+    height:200px;
+    width: 300px;
+}
+
+#mobile-menu {
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+#footer{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 18px;
 }

@@ -49,8 +49,7 @@ import java.util.stream.Stream;
            property={
                    Constants.SERVICE_DESCRIPTION + "=Simple Demo Servlet",
                    "sling.servlet.methods=" + HttpConstants.METHOD_GET,
-                   "sling.servlet.resourceTypes="+ "aem-pwa-blog/components/structure/page",
-                   "sling.servlet.selectors=" + "manifest",
+                   "sling.servlet.paths="+ "/bin/aem-pwa-blog/manifest",
                    "sling.servlet.extensions=" + "json"
            })
 @Designate(ocd = ManifestServlet.Configuration.class)
