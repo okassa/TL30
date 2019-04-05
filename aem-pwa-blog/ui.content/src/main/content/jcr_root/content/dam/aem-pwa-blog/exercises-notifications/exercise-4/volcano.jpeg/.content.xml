@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/" xmlns:prismusagerights="http://prismstandard.org/namespaces/prismusagerights/2.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:mixinTypes="[mix:referenceable]"
+    jcr:primaryType="dam:Asset"
+    jcr:uuid="69459237-d8ef-4b1e-b97f-67770cd57194">
+    <jcr:content
+        dam:assetState="processed"
+        jcr:lastModified="{Date}2019-04-02T15:35:12.529+02:00"
+        jcr:lastModifiedBy="admin"
+        jcr:primaryType="dam:AssetContent">
+        <metadata
+            dam:Bitsperpixel="{Long}24"
+            dam:extracted="{Date}2019-04-02T15:35:12.094+02:00"
+            dam:Fileformat="JPEG"
+            dam:MIMEtype="image/jpeg"
+            dam:Numberofimages="{Long}1"
+            dam:Numberoftextualcomments="{Long}0"
+            dam:Physicalheightindpi="{Long}50"
+            dam:Physicalheightininches="{Decimal}10.0"
+            dam:Physicalwidthindpi="{Long}50"
+            dam:Physicalwidthininches="{Decimal}20.0"
+            dam:Progressive="no"
+            dam:sha1="6637d81c1e34c553306278f8d2d2fa9fcf8481af"
+            dam:size="{Long}219136"
+            dc:format="image/jpeg"
+            dc:rights="©Catmando - stock.adobe.com"
+            jcr:mixinTypes="[cq:Taggable]"
+            jcr:primaryType="nt:unstructured"
+            photoshop:Credit="Catmando - stock.adobe.com"
+            prismusagerights:creditLine="[Catmando - stock.adobe.com]"
+            prismusagerights:creditLine_xmpArrayType="rdf:Bag"
+            tiff:ImageLength="{Long}500"
+            tiff:ImageWidth="{Long}1000"
+            tiff:ResolutionUnit="{Long}2"
+            tiff:XResolution="50/1"
+            tiff:YCbCrPositioning="{Long}1"
+            tiff:YResolution="50/1"
+            xmp:CreateDate="{Date}2011-08-26T00:00:00.000+02:00"
+            xmp:CreatorTool="Adobe Stock Platform"
+            xmp:MetadataDate="{Date}2019-04-01T12:00:38.000+02:00"
+            xmp:ModifyDate="{Date}2011-08-26T00:00:00.000+02:00"
+            xmpMM:DocumentID="34900375"
+            xmpMM:InstanceID="Adobe Stock 34900375"
+            xmpRights:Marked="{Boolean}true"/>
+        <related jcr:primaryType="nt:unstructured"/>
+    </jcr:content>
+</jcr:root>

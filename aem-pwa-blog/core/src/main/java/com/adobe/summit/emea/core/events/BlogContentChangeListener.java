@@ -2,6 +2,7 @@ package com.adobe.summit.emea.core.events;
 
 import com.adobe.summit.emea.core.services.NotificationService;
 import org.apache.commons.collections4.IteratorUtils;
+import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.observation.ExternalResourceChangeListener;
@@ -12,6 +13,8 @@ import org.apache.sling.commons.scheduler.Scheduler;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,30 +36,18 @@ import static org.apache.sling.api.resource.ResourceResolverFactory.SUBSERVICE;
 /**
  * <h1>BlogContentChangeListener</h1>
  *
- * <p>
- * This listener will be executed only on publish and relay runmodes.
- * It will do the following tasks :
- * <ul>
- * <li>Reverse replicate the replication tracer node beneath /var/replication-tracer</li>
- * </ul>
- * </p>
  *
- * <p>
- * <b>exemple :</b><br>
- * No example, it will be trigered when an event occured.
- * </p>
- *
- * @author Gregory Stievenard  &lt;stievena@adobe.com&gt;
+ * @author Olympe Kassa
  */
-@Component(
+
+@Component(service = EventHandler.class,
         immediate = true,
-        service = EventListener.class,
         property = {
                 Constants.SERVICE_DESCRIPTION + "=" + "Adobe Summit EMEA 2019 - TL30 Event listener used for newly created nodes",
-                Constants.SERVICE_VENDOR + "=Adobe Summit EMEA"
-        }
-)
-public class BlogContentChangeListener implements EventListener {
+                Constants.SERVICE_VENDOR + "=Adobe Summit EMEA",
+                EventConstants.EVENT_TOPIC + "=org/apache/sling/api/resource/Resource/*"
+        })
+public class BlogContentChangeListener implements EventHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BlogContentChangeListener.class);
 
@@ -69,34 +60,27 @@ public class BlogContentChangeListener implements EventListener {
     @Reference
     private Scheduler scheduler;
 
-   // @Reference
-   // NotificationService notificationService;
+    @Reference
+    NotificationService notificationService;
 
-    @Override
-    public void onEvent(final EventIterator events) {
-
-      List<Event> eventList =  IteratorUtils.toList(events);
-        LOGGER.trace("[onChange] >>>>>> Processing changes ....");
+    public void handleEvent(final org.osgi.service.event.Event event) {
+        LOGGER.debug("Resource event: {} at: {}", event.getTopic(), event.getProperty(SlingConstants.PROPERTY_PATH));
+        LOGGER.debug("[onChange] >>>>>> Processing changes ....");
 
         ScheduleOptions options = scheduler.NOW();
         options.canRunConcurrently(false);
 
         Predicate<String> isPathAllowed = path -> {
-          long c =  pathList.stream()
+            long c =  pathList.stream()
                     .filter(p -> path.startsWith(p))
                     .count();
             return (c > 0) ? true : false;
         };
 
-        eventList.stream()
-                .map(c -> {
-                    try {
-                        return c.getPath();
-                    } catch (RepositoryException e) {
-                        return "";
-                    }
-                })
-                .filter(s -> !s.isEmpty())
+
+        Collections.singletonList(event).stream()
+                .map(e -> String.valueOf(e.getProperty(SlingConstants.PROPERTY_PATH)))
+                .filter(s -> s != null &&  !s.isEmpty())
                 .filter(isPathAllowed)
                 .forEach(p -> {
                     LOGGER.trace("[onChange] ---  Processing changes for path '{}'", p);
@@ -108,7 +92,6 @@ public class BlogContentChangeListener implements EventListener {
                 });
         LOGGER.trace("[onChange] <<<<<< Processing changes....DONE");
     }
-
 
     private class ImmediateJob implements Runnable {
         private final String path;
@@ -129,8 +112,15 @@ public class BlogContentChangeListener implements EventListener {
          */
         public void run() {
             LOGGER.debug("[run] Start processing ---  The path is '{}'", path);
+            // Get the tags from the asset or the page
+            String[] topics = {};
 
-            //notificationService.sendMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested","to-summit");;
+            try {
+                notificationService.sendCommonMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested","to-summit",topics);
+            } catch (IOException e) {
+               LOGGER.error("An error occured when executing the job for path {}",path);
+            }
+            ;
 
             LOGGER.debug("[run] End processing ---  The path is '{}'", path);
         }

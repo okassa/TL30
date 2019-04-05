@@ -51,6 +51,8 @@
                     <instructions>
                         <!-- Import any version of javax.inject, to allow
                             running on multiple versions of AEM -->
+                        <Embed-Dependency>google-*</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
                         <Import-Package>javax.inject;version=0.0.0,*</Import-Package>
                         <Sling-Model-Packages>
                             com.adobe.summit.emea.core
@@ -154,6 +156,16 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client</artifactId>
+            <version>1.22.0</version>
         </dependency>
     </dependencies>
 </project>

@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface NotificationService {
 
-    String sendMessage(String title, String body, String topic);
+    void sendCommonMessage(String title,String body,String key,String[] topics) throws IOException;
 }
