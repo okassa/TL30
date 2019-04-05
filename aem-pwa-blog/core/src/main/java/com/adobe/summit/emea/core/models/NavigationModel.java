@@ -46,7 +46,6 @@ import java.util.stream.Collectors;
 )
 public class NavigationModel {
 
-    public static final String RESOURCE_TYPE = "aem-pwa-blog/components/content/navigation";
 
     @Self
     private SlingHttpServletRequest request;
