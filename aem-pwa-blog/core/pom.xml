@@ -167,5 +167,11 @@
             <artifactId>google-oauth-client</artifactId>
             <version>1.22.0</version>
         </dependency>
+        <dependency>
+            <artifactId>com.adobe.granite.security.ui</artifactId>
+            <version>1.0.56</version>
+            <groupId>com.adobe.granite</groupId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

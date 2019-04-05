@@ -1,5 +1,6 @@
 package com.adobe.summit.emea.core.models;
 
+import com.adobe.granite.security.user.ui.UserProfileModel;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.jcr.Session;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,47 +28,20 @@ public class ProfileModel {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfileModel.class);
 
-    private class UserProfile {
-
-        public UserProfile(String firstName, String lastName, String email, List<String> hobbies) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-            this.hobbies = hobbies;
-        }
-
-        String firstName ;
-
-        String lastName ;
-
-        String email ;
-
-        List<String> hobbies;
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public List<String> getHobbies() {
-            return hobbies;
-        }
-    }
-
-
     @Self
     private SlingHttpServletRequest request;
 
     private boolean authenticated;
 
-    private  UserProfile userProfile;
+    String firstName = "" ;
+
+    String lastName = "" ;
+
+    String email = "" ;
+
+    List<String> hobbies = Collections.emptyList();
+
+
 
     @PostConstruct
     protected void init() {
@@ -75,35 +50,37 @@ public class ProfileModel {
             authenticated = false;
         }else{
             authenticated = true;
-            userProfile =  getUserProfile(request.getResourceResolver(), currentUser);
+            getUserProfile(request.getResourceResolver(), currentUser);
         }
 
     }
 
 
 
-    private UserProfile getUserProfile(ResourceResolver resolver, String userId) {
+    private void getUserProfile(ResourceResolver resolver, String userId) {
         String userNameFormatted = userId;
         try {
+
+
             UserManager userManager = resolver.adaptTo(UserManager.class);
 
             User user = (User) userManager.getAuthorizable(userId);
             if (null != user) {
-                String lastName = user
+                 lastName = user
                         .getProperty("./profile/familyName") != null ? user
                         .getProperty("./profile/familyName")[0]
-                        .getString() : null;
-                String firstName = user
+                        .getString() : "";
+                 firstName = user
                         .getProperty("./profile/givenName") != null ? user
                         .getProperty("./profile/givenName")[0]
-                        .getString() : null;
+                        .getString() : "";
 
-                String email = user
+                 email = user
                         .getProperty("./profile/email") != null ? user
                         .getProperty("./profile/email")[0]
-                        .getString() : null;
+                        .getString() : "";
 
-                List<String> hobbies = user
+                 hobbies = user
                         .getProperty("./profile/hobbies") != null ? Stream.of(user
                         .getProperty("./profile/hobbies")).map(v -> {
                     try{
@@ -111,7 +88,7 @@ public class ProfileModel {
                     }catch (Exception e){
                         return null;
                     }
-                }).filter(f -> f != null).collect(Collectors.toList()) : null;
+                }).filter(f -> f != null).collect(Collectors.toList()) : Collections.emptyList();
 
                 String userName = user.getPrincipal().getName();
                 if (StringUtils.isNotBlank(lastName)) {
@@ -127,13 +104,13 @@ public class ProfileModel {
                         && StringUtils.isNotBlank(userName)) {
                     userNameFormatted = userName;
                 }
-                return new UserProfile(firstName,lastName,email,hobbies);
+
             }
 
         } catch (Exception ex) {
             LOGGER.error("Error while getting user name", ex);
         }
-        return null;
+
     }
 
     private String getCurrentUserId(SlingHttpServletRequest request) {
@@ -149,7 +126,20 @@ public class ProfileModel {
         return authenticated;
     }
 
-    public UserProfile getUserProfile() {
-        return userProfile;
+    public String getFirstName() {
+        return firstName;
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public List<String> getHobbies() {
+        return hobbies;
+    }
+
 }

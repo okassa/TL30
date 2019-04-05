@@ -16,4 +16,3 @@
 #base=css
 bootstrap.css
 fontawesome.css
-solid.css

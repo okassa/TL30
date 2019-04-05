@@ -3,7 +3,7 @@
 
         <!-- Display the form for creating a profile-->
         <form data-sly-use.profileModel="com.adobe.summit.emea.core.models.ProfileModel">
-            <div class="form-group row">
+            <div  data-sly-test="${!profileModel.isAuthenticated}" class="form-group row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-3 mx-auto aem-pwa-blog__profilePicture" >
                     <video id="player" autoplay="" style="display: block;"></video>
@@ -16,13 +16,17 @@
                 </div>
                 <div class="col-sm-3"></div>
             </div>
+            <div data-sly-test="${profileModel.isAuthenticated}" class="form-group row">
+                <!-- User Picture to display -->
+                <div class="col-sm-3"></div>
+            </div>
             <hr>
             <div class="form-group row">
                 <div class="col-sm-3"></div>
                 <label for="firstName" class="col-sm-2 col-form-label">First name</label>
                 <div class="col-sm-4">
                     <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="firstName" placeholder="First name" required>
-                    <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="firstName" value="${profileModel.userProfile.firstName}" required>
+                    <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="firstName" value="${profileModel.firstName}" required>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
@@ -31,7 +35,7 @@
                 <label for="lastName" class="col-sm-2 col-form-label">Last name</label>
                 <div class="col-sm-4">
                     <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="lastName" placeholder="Last name" required>
-                    <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="lastName" value="${profileModel.userProfile.lastName}" required>
+                    <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="lastName" value="${profileModel.lastName}" required>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
@@ -40,7 +44,7 @@
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-4">
                     <input data-sly-test="${!profileModel.isAuthenticated}" type="email" class="form-control" id="email" placeholder="Email" required>
-                    <input data-sly-test="${profileModel.isAuthenticated}" type="email" class="form-control" id="email" value="${profileModel.userProfile.email}" required>
+                    <input data-sly-test="${profileModel.isAuthenticated}" type="email" class="form-control" id="email" value="${profileModel.email}" required>
                 </div>
                 <div class="col-sm-3"></div>
             </div>
