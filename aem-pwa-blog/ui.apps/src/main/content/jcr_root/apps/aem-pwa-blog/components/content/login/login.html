@@ -1,23 +1,43 @@
-<div class="container">
-	<div class="window">
-		<div class="overlay">
-		<div class="content">
-			<form class="form-signin" action="login.html/j_security_check" method="post">
-				<div class="welcome">Login</div>
-				<div class="input-fields">
-					<label for="j_username"><i class="fa fa-user" aria-hidden="true"></i></label>
-					<input type="text" id="inputEmail" name="j_username" placeholder="Email" class="input-line full-width"></input>
-					<label for="j_password"><i class="fa fa-lock" aria-hidden="true"></i></label>
-					<input type="password" id="inputPassword" name="j_password" placeholder="Password" class="input-line full-width" required></input>
-				</div>
-				<br/>
-				<br/>
-				<div>
-					<button type="submit" class="ghost-round full-width">Sign in</button>
-				</div>
-				<p class="login__signup"> Don't have an account? &nbsp;<a href="/content/aem-pwa-blog/en/create-profile.html">Sign up</a></p>
-			</form>
-		</div>
+<form action="login.html/j_security_check" method="post" class="overlay">
+
+	<hr>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label for="j_username" class="col-sm-2 col-form-label">Login</label>
+        <div class="col-sm-4">
+        	<i class="fa fa-user" aria-hidden="true"></i>
+            <input type="text" class="form-control" id="login" name="j_username" placeholder="login" required>
         </div>
-	</div>
-</div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="form-group row">
+       	<div class="col-sm-3"></div>
+       	<label for="j_password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-4">
+        	<i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" class="form-control" id="password" name="j_password" placeholder="Password" required>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-2">
+			<button class="btn btn-secondary col-sm-12 col-form-label" type="reset">Cancel</button>
+        </div>
+       	<div class="col-sm-2"></div>
+        <div class="col-sm-2">
+			<button class="btn btn-primary col-sm-12 col-form-label" type="submit">Submit</button>
+        </div>
+       	<div class="col-sm-3"></div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 col-form-label">
+        	Don't have an account?   
+            <button type="button" class="btn btn-link" onclick="window.location='/content/aem-pwa-blog/profile.html';">Sign up</button>
+        </div>
+       	<div class="col-sm-3"></div>
+    </div>
+
+</form>

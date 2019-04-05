@@ -1,4 +1,4 @@
-
+<sly data-sly-use.profileModel="com.adobe.summit.emea.core.models.ProfileModel"></sly>
 <nav  class="navbar navbar-toggleable-xs navbar-toggleable-sm navbar-inverse fixed-top aem-pwa-blog__navigation ">
 
     <!-- MOBILE DISPLAY -->
@@ -19,10 +19,18 @@
             <ul class="navbar-nav ml-auto " data-sly-use.pages="com.adobe.summit.emea.core.models.NavigationModel" data-sly-list="${pages.menuPages}">
 
                 <li class="nav-item">
-                    <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item['jcr:content/jcr:title']}" href="${item.path}.html">
-                        <span><i class="${item['jcr:content/icon']}" aria-hidden="true"></i> </span>
-                        <span>${item['jcr:content/jcr:title']}</span></a>
-                    <div class="aem-pwa-blog__separatorVertical"></div>
+                    <sly data-sly-test="${!profileModel.isAuthenticated && item['jcr:content/jcr:title'] != 'Profile'}">
+                        <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item['jcr:content/jcr:title']}" href="${item.path}.html">
+                            <span><i class="${item['jcr:content/icon']}" aria-hidden="true"></i>   </span>
+                            <span>${item['jcr:content/jcr:title']}</span>
+                        </a>
+                    </sly>
+                    <sly data-sly-test="${profileModel.isAuthenticated && item['jcr:content/jcr:title'] != 'Login'}">
+                        <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item['jcr:content/jcr:title']}" href="${item.path}.html">
+                            <span><i class="${item['jcr:content/icon']}" aria-hidden="true"></i>   </span>
+                            <span>${item['jcr:content/jcr:title']}</span>
+                        </a>
+                    </sly>
                 </li>
 
             </ul>

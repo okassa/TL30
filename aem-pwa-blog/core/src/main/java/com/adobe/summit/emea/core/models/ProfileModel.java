@@ -1,6 +1,6 @@
 package com.adobe.summit.emea.core.models;
 
-import com.adobe.granite.security.user.ui.UserProfileModel;
+//import com.adobe.granite.security.user.ui.UserProfileModel;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;

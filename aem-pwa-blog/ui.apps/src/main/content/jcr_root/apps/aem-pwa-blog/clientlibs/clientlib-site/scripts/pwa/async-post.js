@@ -90,7 +90,7 @@ if(tiles){
 }
 
 
-if (form){
+/*if (form){
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -128,4 +128,4 @@ if (form){
             sendData();
         }
     })
-}
+}*/
