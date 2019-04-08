@@ -1,5 +1,19 @@
+importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js')
+
 var CACHE_STATIC_NAME = 'static-v4';
 var CACHE_DYNAMIC_NAME = 'dynamic-v2';
+
+var config = {
+    apiKey: "AIzaSyDSJsppoDjFCppABijYv5IXiEADtbdp_tM",
+    authDomain: "aem-pwa-blog.firebaseapp.com",
+    databaseURL: "https://aem-pwa-blog.firebaseio.com",
+    projectId: "aem-pwa-blog",
+    storageBucket: "aem-pwa-blog.appspot.com",
+    messagingSenderId: "294077202000"
+};
+firebase.initializeApp(config);
+
+var messaging = firebase.messaging();
 
 self.addEventListener('install', function(event) {
     console.log('[TL30-PWA] >>>>> Installing Service Worker ...', event);
@@ -13,6 +27,7 @@ self.addEventListener('install', function(event) {
                     '/content/aem-pwa-blog/profile.html',
                     '/content/aem-pwa-blog/login.html',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor.js',
+                    '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-base.js',
                     '/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.woff2?v=4.7.0',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-base.css',
@@ -72,4 +87,60 @@ self.addEventListener('fetch', function(event) {
                 console.log('[TL30-PWA][fetch] <<<<< The HTTP request has been handled by the Service Worker properly ....');
             })
     );
+});
+
+self.addEventListener('push', function(event) {
+    console.log('[Service Worker] Push Received.');
+    console.log('[Service Worker] Push had this data:'+ event.data.text());
+
+    const title = 'Push Codelab';
+    const options = {
+        body: 'Yay it works.',
+        icon: 'images/icon.png',
+        badge: 'images/badge.png'
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', function(event) {
+    console.log('[Service Worker] Notification click Received.');
+
+    event.notification.close();
+
+    event.waitUntil(
+        clients.openWindow('https://developers.google.com/web/')
+    );
+});
+
+self.addEventListener('pushsubscriptionchange', function(event) {
+    console.log('[Service Worker]: \'pushsubscriptionchange\' event fired.');
+    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+    event.waitUntil(
+        self.registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: applicationServerKey
+        })
+            .then(function(newSubscription) {
+                // TODO: Send to application server
+                console.log('[Service Worker] New subscription: ', newSubscription);
+            })
+    );
+});
+
+/*
+ Retrieve an instance of Firebase Messaging so that it can handle background messages.
+ */
+messaging.setBackgroundMessageHandler(function (payload) {
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    const notification = JSON.parse(payload.data.notification);
+    // Customize notification here
+    const notificationTitle = notification.title;
+    const notificationOptions = {
+        body: notification.body,
+        icon: notification.icon
+    };
+
+    return self.registration.showNotification(notificationTitle,
+        notificationOptions);
 });

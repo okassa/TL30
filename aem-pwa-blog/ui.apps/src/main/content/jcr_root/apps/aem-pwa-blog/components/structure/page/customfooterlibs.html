@@ -13,6 +13,16 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */-->
+<div id="token" style="color:lightblue"></div>
+<div id="message" style="color:lightblue"></div>
+<div id="notification" style="color:green"></div>
+<div id="error" style="color:red"></div>
+<script>
+    messageElement = document.getElementById("message")
+    tokenElement = document.getElementById("token")
+    notificationElement = document.getElementById("notification")
+    errorElement = document.getElementById("error")
+</script>
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html">
     <sly data-sly-call="${clientlib.js @ categories='aem-pwa-blog.base'}"/>
 </sly>

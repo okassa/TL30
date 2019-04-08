@@ -13,19 +13,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ###############################################################################
-
-#base=scripts
-
-vendor/promise.js
-vendor/fetch.js
-vendor/idb.js
-
-tools/utility.js
-
-pwa/profile.js
-pwa/async-post.js
-pwa/post.js
-
-
-main.js
-pwa/push-notifications.js

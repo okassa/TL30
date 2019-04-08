@@ -66,6 +66,8 @@ public class NotificationServiceImpl implements NotificationService {
     private static final String MESSAGING_SCOPE = "https://www.googleapis.com/auth/firebase.messaging";
     private static final String[] SCOPES = { MESSAGING_SCOPE };
 
+    public static final String MESSAGE_KEY = "message";
+
     private static Gson gson = new Gson();
 
     private static HashMap<String,Object> map = new HashMap<>();
@@ -141,18 +143,18 @@ public class NotificationServiceImpl implements NotificationService {
         connection.setDoOutput(true);
         DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
         outputStream.writeBytes(fcmMessage.toString());
+        LOGGER.debug("Message to send : {}",fcmMessage);
         outputStream.flush();
         outputStream.close();
 
         int responseCode = connection.getResponseCode();
         if (responseCode == 200) {
             String response = inputstreamToString(connection.getInputStream());
-            System.out.println("Message sent to Firebase for delivery, response:");
-            System.out.println(response);
+            LOGGER.debug("Message sent to Firebase for delivery, response: {}",response);
         } else {
-            System.out.println("Unable to send message to Firebase:");
+
             String response = inputstreamToString(connection.getErrorStream());
-            System.out.println(response);
+            LOGGER.error("Unable to send message to Firebase: {}",response);
         }
     }
 
@@ -165,7 +167,7 @@ public class NotificationServiceImpl implements NotificationService {
      */
     private static void sendOverrideMessage(String title,String body,String key,String[] topics) throws IOException {
         JsonObject overrideMessage = buildOverrideMessage(title,body,key,topics);
-        System.out.println("FCM request body for override message:");
+        LOGGER.debug("FCM request body for override message:");
         prettyPrint(overrideMessage);
         sendMessage(overrideMessage);
     }
@@ -243,16 +245,19 @@ public class NotificationServiceImpl implements NotificationService {
      * @return JSON of notification message.
      */
     private static JsonObject buildNotificationMessage(String title,String body,String key,String[] topics) {
+
         JsonObject jNotification = new JsonObject();
         jNotification.addProperty("title", title);
         jNotification.addProperty("body", body);
 
         JsonObject jMessage = new JsonObject();
         jMessage.add("notification", jNotification);
-        int i ;
+        //jMessage.addProperty("topic", "news");
+        jMessage.addProperty("token", "ctU79wh2XvI:APA91bEDv80XiiTbAnKNVAt1plTlyhwUNInbKCONJNF5ZdYcY3-GhfCnEq8q5HlXN9GVNVivfFeDqaPWZf8hjPA38X2KSS9lHUhkSfV1hpWGLfejOK3Xqc0T4XuldJICuSX9XvhaPudh");
+        jMessage.addProperty("name", "push-notification-1");
+
         JsonObject jFcm = new JsonObject();
-        jFcm.add(key, jMessage);
-        jMessage.addProperty("topic", gson.toJson(topics));
+        jFcm.add(MESSAGE_KEY, jMessage);
 
         return jFcm;
     }
@@ -280,7 +285,7 @@ public class NotificationServiceImpl implements NotificationService {
      */
     private static void prettyPrint(JsonObject jsonObject) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson.toJson(jsonObject) + "\n");
+        LOGGER.debug(gson.toJson(jsonObject) + "\n");
     }
 
     /**
@@ -292,7 +297,7 @@ public class NotificationServiceImpl implements NotificationService {
     public void sendCommonMessage(String title, String body, String key, String[] topics) throws IOException {
 
         JsonObject notificationMessage = buildNotificationMessage(title,body,key,topics);
-        System.out.println("FCM request body for message using common notification object:");
+        LOGGER.debug("FCM request body for message using common notification object: {}",notificationMessage);
         prettyPrint(notificationMessage);
         sendMessage(notificationMessage);
     }

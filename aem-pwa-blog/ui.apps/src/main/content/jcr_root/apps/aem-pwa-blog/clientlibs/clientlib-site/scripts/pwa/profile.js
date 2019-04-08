@@ -3,7 +3,7 @@ var canvasElement = document.querySelector('#canvas');
 var captureButton = document.querySelector('#capture-btn');
 var imagePicker = document.querySelector('#image-picker');
 var imagePickerArea = document.querySelector('#pick-image');
-var createProfileButton = document.querySelector('.aem-pwa-blog__navLink--profile');
+var createProfileButton = document.querySelector('.aem-pwa-blog__navLink--Profile');
 var picture;
 
 function initializeMedia() {

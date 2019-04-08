@@ -21,10 +21,7 @@ import org.apache.commons.collections4.IteratorUtils;
 import org.apache.jackrabbit.spi.commons.name.NameConstants;
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceUtil;
-import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.api.resource.*;
 import org.apache.sling.api.wrappers.ValueMapDecorator;
 import org.apache.sling.jcr.resource.api.JcrResourceConstants;
 import org.apache.sling.models.annotations.Default;
@@ -62,18 +59,6 @@ public class NavigationModel {
         menuPages = IteratorUtils.toList(resourceResolver.resolve(resourceParentPath).listChildren())
                 .stream().filter(n -> n.getResourceType().equals("cq:Page"))
                 .collect(Collectors.toList());Collectors.toList();
-        // Add virtual resource for HEnable notification
-        Map<String,Object> hm = new HashMap<>();
-        hm.put("jcr:title","Enable notifications");
-        hm.put("icon","fa fa-bell");
-        ValueMap vm = new ValueMapDecorator(hm);
-
-        Resource enableNotifJcrContent = new ValueMapResource(resourceResolver,"/content/aem-pwa-blog/enable-notifications/jcr:content","aem-pwa-blog/components/page",vm);
-
-        Collection<Resource> children = Collections.singletonList(enableNotifJcrContent);
-
-        Resource enableNotificationResource = new ValueMapResource(resourceResolver,"/content/aem-pwa-blog/enable-notifications","cq:Page",new ValueMapDecorator(Collections.emptyMap()),children);
-        menuPages.add(enableNotificationResource);
 
     }
 

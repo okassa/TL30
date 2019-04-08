@@ -26,6 +26,7 @@ import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
@@ -78,6 +79,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
         manifest.put("gcm_sender_id",config.gcmSenderId());
         manifest.put("gcm_user_visible_only",config.gcmUserVisibleOnly());
         manifest.put("background_color",config.backgroundColor());
+        manifest.put("serviceworker",gson.fromJson(config.serviceworker(),HashMap.class));
     }
 
     @ObjectClassDefinition(name="OSGi Annotation Demo Servlet")
@@ -109,7 +111,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
                 name = "gcmSenderId",
                 description = "gcmSenderId"
         )
-        String gcmSenderId() default "294077202000";
+        String gcmSenderId() default "103953800507";
 
         //"gcm_user_visible_only": true
         @AttributeDefinition(
@@ -198,7 +200,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
                 name = "serviceworker",
                 description = "serviceworker"
         )
-        String serviceworker() default "{\"src\": \"/etc.clientlibs/aem-pwa-blog/clientlibs/sw.js\",\"scope\": \"/content/aem-pwa-blog/\",\"update_via_cache\": \"none\"}";
+        String serviceworker() default "{\"src\": \"/content/aem-pwa-blog/sw.js\",\"scope\": \"/content/aem-pwa-blog/home.html\",\"update_via_cache\": \"none\"}";
 
     }
 

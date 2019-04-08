@@ -121,7 +121,8 @@ Handle image responsiveness for mobile
   	padding-top: 0.6em;
 }
 
-.aem-pwa-blog__canvas {
+
+.aem-pwa-blog__post {
     height:200px;
     width: 300px;
 }
@@ -139,4 +140,12 @@ Handle image responsiveness for mobile
     background-color: #000000;
     color: #ffffff;
     font-size: 18px;
+}
+
+.is-invisible {
+    opacity: 0;
+}
+
+.subscription-details {
+    transition: opacity 1s;
 }

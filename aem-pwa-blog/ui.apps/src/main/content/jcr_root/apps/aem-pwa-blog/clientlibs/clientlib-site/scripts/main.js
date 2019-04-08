@@ -14,7 +14,26 @@
  *  limitations under the License.
  */
 
+'use strict';
+
+const applicationServerPublicKey = "AIzaSyA0j4KSuf4B_xhw0zjTnNki3tT2yzbgg50";
+const pushButton = document.querySelector('.js-push-btn');
+
+var config = {
+    apiKey: "AIzaSyDSJsppoDjFCppABijYv5IXiEADtbdp_tM",
+    authDomain: "aem-pwa-blog.firebaseapp.com",
+    databaseURL: "https://aem-pwa-blog.firebaseio.com",
+    projectId: "aem-pwa-blog",
+    storageBucket: "aem-pwa-blog.appspot.com",
+    messagingSenderId: "294077202000"
+};
+firebase.initializeApp(config);
+
+var messaging = firebase.messaging();
+
 var deferredPrompt;
+var isSubscribed = false;
+var swRegistration = null;
 
 /**
  * Step zero : Make sure we have promise available to be used
@@ -24,6 +43,62 @@ if (!window.Promise) {
     window.Promise = Promise;
 }
 
+/**
+ * -----------------------------------------------------------------------
+ * --
+ * --                   Functions
+ * --
+ * -----------------------------------------------------------------------
+ */
+
+messaging.onMessage(function (payload) {
+    console.log("Message received. ", JSON.stringify(payload));
+    notificationElement.innerHTML = notificationElement.innerHTML + " " + payload.data.notification;
+});
+messaging.onTokenRefresh(function () {
+    messaging.getToken()
+        .then(function (refreshedToken) {
+            console.log('Token refreshed.');
+            tokenElement.innerHTML = "Token is " + refreshedToken;
+        }).catch(function (err) {
+        errorElement.innerHTML = "Error: " + err;
+        console.log('Unable to retrieve refreshed token ', err);
+    });
+});
+
+function initializeUI() {
+
+    messaging.useServiceWorker(swRegistration);
+
+    pushButton.addEventListener('click', function() {
+        messaging
+            .requestPermission()
+            .then(function () {
+                messageElement.innerHTML = "Got notification permission";
+                console.log("Got notification permission");
+                return messaging.getToken();
+            })
+            .then(function (token) {
+                // print the token on the HTML page
+                tokenElement.innerHTML = "Token is " + token;
+                console.log("Token", token);
+            })
+            .catch(function (err) {
+                errorElement.innerHTML = "Error: " + err;
+                console.log("Didn't get notification permission", err);
+            });
+    });
+
+}
+
+
+/**
+ * -----------------------------------------------------------------------
+ * --
+ * --                   Main
+ * --
+ * -----------------------------------------------------------------------
+ */
 
 /**
  * Step one: run a function on load (or whenever is appropriate for you)
@@ -32,12 +107,15 @@ if (!window.Promise) {
  * happen when we receive a push notification.
  *
  */
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+    console.log('[TL30-PWA] >>>>> Service Worker and Push is supported');
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/content/aem-pwa-blog/sw.js',{ scope: '/content/aem-pwa-blog/en' })
             .then(function(registration) {
             // Registration was successful
             console.log('[TL30-PWA] >>>>> ServiceWorker registration successful with scope: ', registration.scope);
+                swRegistration = registration;
+                initializeUI();
         }, function(err) {
             // registration failed :(
             console.log('[TL30-PWA] >>>>> ServiceWorker registration failed: ', err);
@@ -46,7 +124,7 @@ if ('serviceWorker' in navigator) {
 
     });
 }else {
-    console.warn('Service workers are not supported in this browser.');
+    console.warn('Service workers and Push messaging are not supported.');
 }
 
 /**

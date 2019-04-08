@@ -72,7 +72,8 @@ buildNumber.properties
 .vlt
 
 ### IntelliJ ###
-.idea/
+.idea/*.xml
+.idea/libraries/*.xml
 *.iml
 
 .DS_Store
