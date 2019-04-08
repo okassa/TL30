@@ -30,7 +30,7 @@ public class ProfileModel {
     @Self
     private SlingHttpServletRequest request;
 
-    private boolean authenticated;
+    protected boolean authenticated;
 
     String firstName = "" ;
 
@@ -112,7 +112,7 @@ public class ProfileModel {
 
     }
 
-    private String getCurrentUserId(SlingHttpServletRequest request) {
+    protected String getCurrentUserId(SlingHttpServletRequest request) {
         ResourceResolver resolver = request.getResourceResolver();
         Session session = resolver.adaptTo(Session.class);
         String userId = session.getUserID();

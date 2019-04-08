@@ -23,8 +23,9 @@ import java.util.stream.Collectors;
         property={
                 Constants.SERVICE_DESCRIPTION + "= UserProfileServlet Servlet",
                 "sling.servlet.methods=" + HttpConstants.METHOD_POST,
-                "sling.servlet.resourceTypes="+ "aem-pwa-blog/components/structure/page",
-                "sling.servlet.selectors=" + "{create,update}",
+                "sling.servlet.resourceTypes="+ "aem-pwa-blog/components/structure/profile-page",
+                "sling.servlet.selectors=" + "create",
+                "sling.servlet.selectors=" + "update",
                 "sling.servlet.extensions=" + "html"
         })
 @Designate(ocd = ManifestServlet.Configuration.class)
@@ -43,6 +44,7 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
             // Create a user at /home/users/aem-pwa-blog/xxxx
             ResourceResolver resourceResolver = req.adaptTo(ResourceResolver.class);
             UserManager userManager = resourceResolver.adaptTo(UserManager.class);
+
 
 
 
