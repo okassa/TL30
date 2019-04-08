@@ -161,7 +161,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
                  name = "startUrl",
                  description = "startUrl"
          )
-         String startUrl() default "/content/aem-pwa-blog/en.html";
+         String startUrl() default "/content/aem-pwa-blog/home.html";
 
          //"display": "fullscreen",
          @AttributeDefinition(
