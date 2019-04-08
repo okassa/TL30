@@ -56,13 +56,15 @@ messaging.onMessage(function (payload) {
 messaging.onTokenRefresh(function () {
     messaging.getToken()
         .then(function (refreshedToken) {
-            console.log('Token refreshed : '+refreshedToken);
+            console.log('[TL30-PWA][messaging] Token refreshed : '+refreshedToken);
         }).catch(function (err) {
-        console.log('Unable to retrieve refreshed token ', err);
+        console.log('[TL30-PWA][messaging] Unable to retrieve refreshed token ', err);
     });
 });
 
 function initializeUI() {
+
+    var registrationToken;
 
     messaging.useServiceWorker(swRegistration);
 
@@ -70,15 +72,31 @@ function initializeUI() {
         messaging
             .requestPermission()
             .then(function () {
-                console.log("Got notification permission");
+                console.log("[TL30-PWA][messaging] Got notification permission");
+                // Send the token to the server to check it with validate_only
                 return messaging.getToken();
             })
             .then(function (token) {
                 // print the token on the HTML page
-                console.log("Token", token);
+                console.log("[TL30-PWA][messaging] Token", token);
+                // Retrieve user preferences from a dataLayer
+                var topic = "sport";
+                //Suscribe to user topics
+                fetch('https://iid.googleapis.com/iid/v1/' + token + '/rel/topics/' + topic, {
+                    'method': 'POST',
+                    'headers': {
+                        'Authorization': 'key=' + config.apiKey,
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function(response) {
+                    console.log("[TL30-PWA][messaging] Subscription to "+topic+" has responded with :"+response);
+                }).catch(function(error) {
+                    console.error("[TL30-PWA][messaging] Subscription to the topic "+topic+" failed" +error);
+                })
+
             })
             .catch(function (err) {
-                console.log("Didn't get notification permission", err);
+                console.log("[TL30-PWA][messaging] Didn't get notification permission", err);
             });
     });
 

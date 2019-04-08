@@ -21,6 +21,7 @@ vendor/fetch.js
 vendor/idb.js
 
 tools/utility.js
+tools/updateIcon.js
 
 pwa/profile.js
 pwa/async-post.js
