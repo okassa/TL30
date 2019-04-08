@@ -10,192 +10,50 @@
 
 ```json
 {
-  "title": "JSON schema for Web Application manifest files",
-  "$schema": "http://json-schema.org/draft-04/schema#",
-
-  "type": "object",
-
-  "properties": {
-    "background_color": {
-      "description": "The background_color member describes the expected background color of the web application.",
-      "type": "string"
+  "gcm_sender_id": "294077202000",
+  "orientation": "portrait",
+  "theme_color": "#003c7f",
+  "display": "fullscreen",
+  "start_url": "/content/aem-pwa-blog/en.html",
+  "description": "PWA-TL30 is a progressive web application powerded by Adobe Experience Manager",
+  "dir": "ltr",
+  "icons": [
+    {
+      "sizes": "64x64",
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon.png"
     },
-    "categories": {
-      "description": "Describes the expected application categories to which the web application belongs.",
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    {
+      "sizes": "48x48",
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-48x48.png"
     },
-    "description": {
-      "description": "Description of the purpose of the web application",
-      "type": "string"
+    {
+      "sizes": "96x96",
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-96x96.png"
     },
-    "dir": {
-      "description": "The base direction of the manifest.",
-      "enum": [ "ltr", "rtl", "auto" ],
-      "default": "auto"
+    {
+      "sizes": "144x144",
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-144x144.png"
     },
-    "display": {
-      "description": "The item represents the developer's preferred display mode for the web application.",
-      "enum": [ "fullscreen", "standalone", "minimal-ui", "browser" ],
-      "default": "browser"
+    {
+      "sizes": "192x192",
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-192x192.png"
     },
-    "iarc_rating_id": {
-      "description": "Represents an ID value of the IARC rating of the web application. It is intended to be used to determine which ages the web application is appropriate for.",
-      "type": "string"
-    },
-    "icons": {
-      "description": "The icons member is an array of icon objects that can serve as iconic representations of the web application in various contexts.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/image"
-      }
-    },
-    "lang": {
-      "description": "The primary language for the values of the manifest.",
-      "type": "string"
-    },
-    "name": {
-      "description": "The name of the web application.",
-      "type": "string"
-    },
-    "orientation": {
-      "description": "The orientation member is a string that serves as the default orientation for all  top-level browsing contexts of the web application.",
-      "enum": [ "any", "natural", "landscape", "portrait", "portrait-primary", "portrait-secondary", "landscape-primary", "landscape-secondary" ]
-    },
-    "prefer_related_applications": {
-      "description": "Boolean value that is used as a hint for the user agent to say that related applications should be preferred over the web application.",
-      "type": "boolean"
-    },
-    "related_applications": {
-      "description": "Array of application accessible to the underlying application platform that has a relationship with the web application.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/related_application"
-      }
-    },
-    "scope": {
-      "description": "A string that represents the navigation scope of this web application's application context.",
-      "type": "string"
-    },
-    "screenshots": {
-      "description": "The screenshots member is an array of image objects represent the web application in common usage scenarios.",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/image"
-      }
-    },
-    "serviceworker": {
-      "description": "The service worker of the web application.",
-      "type": "object",
-      "properties": {
-        "src": {
-          "description": "URL representing a service worker.",
-          "type": "string"
-        },
-        "scope": {
-          "description": "The service worker's associated scope URL.",
-          "type": "string"
-        },
-        "type": {
-          "description": "The service worker's worker type.",
-          "type": "string"
-        },
-        "use_cache": {
-          "description": "Determines whether the user agent cache should be used when fetching the service worker.",
-          "type": "boolean"
-        }
-      }
-    },
-    "short_name": {
-      "description": "A string that represents a short version of the name of the web application.",
-      "type": "string"
-    },
-    "start_url": {
-      "description": "Represents the URL that the developer would prefer the user agent load when the user launches the web application.",
-      "type": "string"
-    },
-    "theme_color": {
-      "description": "The theme_color member serves as the default theme color for an application context.",
-      "type": "string"
+    {
+      "sizes": "256x256",
+      "src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-256x256.png"
     }
+  ],
+  "serviceworker": {
+    "update_via_cache": "none",
+    "src": "/content/aem-pwa-blog/sw.js",
+    "scope": "/content/aem-pwa-blog/home.html"
   },
-
-  "definitions": {
-    "image": {
-      "type": "object",
-      "properties": {
-        "sizes": {
-          "description": "The sizes member is a string consisting of an unordered set of unique space-separated tokens which are ASCII case-insensitive that represents the dimensions of an image for visual media.",
-          "oneOf": [
-            {
-              "type": "string",
-              "pattern": "^[0-9 x]+$"
-            },
-            {
-              "enum": [ "any" ]
-            }
-          ]
-        },
-        "src": {
-          "description": "The src member of an image is a URL from which a user agent can fetch the icon's data.",
-          "type": "string"
-        },
-        "type": {
-          "description": "The type member of an image is a hint as to the media type of the image.",
-          "type": "string",
-          "pattern": "^[\\sa-z0-9\\-+;\\.=\\/]+$"
-        },
-        "purpose": {
-          "type": "string"
-        },
-        "platform": {
-          "$ref": "#/definitions/platform"
-        }
-      }
-    },
-    "related_application": {
-      "type": "object",
-      "properties": {
-        "platform": {
-          "$ref": "#/definitions/platform"
-        },
-        "url": {
-          "description": "The URL where the application can be found.",
-          "type": "string",
-          "format": "uri"
-        },
-        "id": {
-          "description": "Information additional to the URL or instead of the URL, depending on the platform.",
-          "type": "string"
-        },
-        "min_version": {
-          "description": "Information about the minimum version of an application related to this web app.",
-          "type": "string"
-        },
-        "fingerprints": {
-          "description": "An array of fingerprint objects used for verifying the application.",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-    "platform": {
-      "description": "The platform it is associated to.",
-      "enum": [ "play", "itunes", "windows" ]
-    }
-  }
+  "background_color": "#003c7f",
+  "scope": "/content/aem-pwa-blog/",
+  "name": "PWA-TL30",
+  "gcm_user_visible_only": true,
+  "short_name": "PWA-TL30",
+  "lang": "en"
 }
 
 ```

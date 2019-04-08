@@ -1,79 +1,79 @@
-<!-- Create Profile -->
+<form data-sly-use.profileModel="com.adobe.summit.emea.core.models.ProfileModel">
+    <div  data-sly-test="${!profileModel.isAuthenticated}" class="form-group row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 mx-auto aem-pwa-blog__profilePicture" >
+            <video id="player" autoplay="" style="display: block;"></video>
+            <canvas id="canvas" width="320px" height="240px"></canvas>
+            <button type="button" class="btn btn-info btn-lg"  id="capture-btn">Capture</button>
+            <div id="pick-image">
+                <h6>Pick an Image instead</h6>
+                <input type="file" accept="image/*" id="image-picker">
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+
+        <div data-sly-test="${profileModel.isAuthenticated}" class="form-group row">
+			<!-- User Picture to display -->
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label for="firstName" class="col-sm-2 col-form-label">First name</label>
+        <div class="col-sm-4">
+            <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="firstName" placeholder="First name" required>
+            <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="firstName" value="${profileModel.firstName}" required>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label for="lastName" class="col-sm-2 col-form-label">Last name</label>
+        <div class="col-sm-4">
+            <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="lastName" placeholder="Last name" required>
+            <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="lastName" value="${profileModel.lastName}" required>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-4">
+            <input data-sly-test="${!profileModel.isAuthenticated}" type="email" class="form-control" id="email" placeholder="Email" required>
+            <input data-sly-test="${profileModel.isAuthenticated}" type="email" class="form-control" id="email" value="${profileModel.email}" required>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div data-sly-test="${!profileModel.isAuthenticated}" class="form-group row">
+        <div class="col-sm-3"></div>
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-4">
+            <input  type="password" class="form-control" id="password" placeholder="Password" required>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label for="hobbies" class="col-sm-2 col-form-label">Hobbies</label>
+        <div class="col-sm-4">
+            <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="hobbies" placeholder="Hobbies" required>
+            <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="hobbies" placeholder="Hobbies" required>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <button class="btn btn-secondary col-sm-2 col-form-label" type="reset">Cancel</button>
+        <div class="col-sm-2"></div>
+        <button class="btn btn-primary col-sm-2 col-form-label" type="submit">Submit</button>
+        <div class="col-sm-3"></div>
+    </div>
+</form>
 
 
-        <!-- Display the form for creating a profile-->
-        <form data-sly-use.profileModel="com.adobe.summit.emea.core.models.ProfileModel">
-            <div  data-sly-test="${!profileModel.isAuthenticated}" class="form-group row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-3 mx-auto aem-pwa-blog__profilePicture" >
-                    <video id="player" autoplay="" style="display: block;"></video>
-                    <canvas id="canvas" width="320px" height="240px"></canvas>
-                    <button type="button" class="btn btn-info btn-lg"  id="capture-btn">Capture</button>
-                    <div id="pick-image">
-                        <h6>Pick an Image instead</h6>
-                        <input type="file" accept="image/*" id="image-picker">
-                    </div>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div data-sly-test="${profileModel.isAuthenticated}" class="form-group row">
-                <!-- User Picture to display -->
-                <div class="col-sm-3"></div>
-            </div>
-            <hr>
-            <div class="form-group row">
-                <div class="col-sm-3"></div>
-                <label for="firstName" class="col-sm-2 col-form-label">First name</label>
-                <div class="col-sm-4">
-                    <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="firstName" placeholder="First name" required>
-                    <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="firstName" value="${profileModel.firstName}" required>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-3"></div>
-                <label for="lastName" class="col-sm-2 col-form-label">Last name</label>
-                <div class="col-sm-4">
-                    <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="lastName" placeholder="Last name" required>
-                    <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="lastName" value="${profileModel.lastName}" required>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-3"></div>
-                <label for="email" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-4">
-                    <input data-sly-test="${!profileModel.isAuthenticated}" type="email" class="form-control" id="email" placeholder="Email" required>
-                    <input data-sly-test="${profileModel.isAuthenticated}" type="email" class="form-control" id="email" value="${profileModel.email}" required>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div data-sly-test="${!profileModel.isAuthenticated}" class="form-group row">
-                <div class="col-sm-3"></div>
-                <label for="password" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-4">
-                    <input  type="password" class="form-control" id="password" placeholder="Password" required>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-3"></div>
-                <label for="hobbies" class="col-sm-2 col-form-label">Hobbies</label>
-                <div class="col-sm-4">
-                    <input data-sly-test="${!profileModel.isAuthenticated}" type="text" class="form-control" id="hobbies" placeholder="Hobbies" required>
-                    <input data-sly-test="${profileModel.isAuthenticated}" type="text" class="form-control" id="hobbies" placeholder="Hobbies" required>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-            <hr>
-            <div class="form-group row">
-                <div class="col-sm-3"></div>
-                <button class="btn btn-secondary col-sm-2 col-form-label" type="reset">Cancel</button>
-                <div class="col-sm-2"></div>
-                <button class="btn btn-primary col-sm-2 col-form-label" type="submit">Submit</button>
-                <div class="col-sm-3"></div>
-            </div>
-        </form>
 
 
-</section>
+
+
