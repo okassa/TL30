@@ -4,13 +4,16 @@
    ========================================================================== */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+
 body {
     padding-top: 2rem;
-    font-family: 'adobe-clean', sans-serif;
+    font-family: "adobe-clean", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
+    line-height: 1.428571429;
     font-weight: 200;
+    color: #333333;
+    background-color: #fff;
 }
-
 /**
 Handle image responsiveness for mobile
 */
@@ -61,6 +64,15 @@ Handle image responsiveness for mobile
     #desktop-menu {
         cursor: not-allowed;
         text-decoration: none;
+    }
+
+    .aem-pwa-blog__navLinkContainer {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .aem-pwa-blog__navLinkIcon {
+        margin-right: 1rem;
     }
 
 }
@@ -148,4 +160,13 @@ Handle image responsiveness for mobile
 
 .subscription-details {
     transition: opacity 1s;
+}
+
+.aem-pwa-blog__Notifications span {
+    color: #ffffff !important;
+}
+
+.navbar-toggler:focus, .navbar-toggler:active {
+    outline: none;
+    box-shadow: none;
 }

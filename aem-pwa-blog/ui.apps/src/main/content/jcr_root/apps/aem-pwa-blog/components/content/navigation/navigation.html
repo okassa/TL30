@@ -10,7 +10,7 @@
     </a>
 
     <!-- DESKTOP DISPLAY -->
-    <section class="container">
+    <section class="container aem-pwa-blog__navLinkContainer">
         <a id="desktop-menu" class="navbar-brand  d-none d-sm-none d-md-block d-lg-block" href="/content/aem-pwa-blog/home.html">
             <img src="/etc/clientlibs/aem-pwa-blog/logos/summit-logo-m.png" class="aem-pwa-blog__summitLogo">
         </a>
@@ -20,13 +20,12 @@
                 <sly  data-sly-use.pages="com.adobe.summit.emea.core.models.NavigationModel" data-sly-list="${pages.menuPages}">
                     <li class="nav-item">
                         <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item['jcr:content/jcr:title']}" href="${item.path}.html">
-                            <span><i class="${item['jcr:content/icon']}" aria-hidden="true"></i> </span>
+                            <span><i class="${item['jcr:content/icon']} aem-pwa-blog__navLinkIcon" aria-hidden="true"></i> </span>
                             <span>${item['jcr:content/jcr:title']}</span></a>
-                        <div class="aem-pwa-blog__separatorVertical"></div>
                     </li>
                 </sly>
                 <li class="nav-item">
-                    <a class="btn btn-primary js-push-btn" aria-pressed="false">
+                    <a class="btn btn-primary aem-pwa-blog__Notifications js-push-btn" aria-pressed="false">
                         <span><i class="fa fa-bell" aria-hidden="true"></i> </span>
                         <span>Enable notifications</span></a>
                     </a>
