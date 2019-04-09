@@ -93,11 +93,11 @@ self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
-    const title = 'Push Codelab';
+    const title = 'Adobe Experience Manager <3 PWA';
     const options = {
-        body: 'Yay it works.',
-        icon: 'images/icon.png',
-        badge: 'images/badge.png'
+        body: event.data.text(),
+        icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
+        badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png'
     };
 
     event.waitUntil(self.registration.showNotification(title, options));

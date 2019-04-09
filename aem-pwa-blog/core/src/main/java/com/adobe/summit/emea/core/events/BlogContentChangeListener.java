@@ -12,6 +12,7 @@ import org.apache.sling.commons.scheduler.ScheduleOptions;
 import org.apache.sling.commons.scheduler.Scheduler;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
@@ -42,6 +43,7 @@ import static org.apache.sling.api.resource.ResourceResolverFactory.SUBSERVICE;
 
 @Component(service = EventHandler.class,
         immediate = true,
+        configurationPolicy = ConfigurationPolicy.REQUIRE,
         property = {
                 Constants.SERVICE_DESCRIPTION + "=" + "Adobe Summit EMEA 2019 - TL30 Event listener used for newly created nodes",
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA",
@@ -73,6 +75,13 @@ public class BlogContentChangeListener implements EventHandler {
         Predicate<String> isPathAllowed = path -> {
             long c =  pathList.stream()
                     .filter(p -> path.startsWith(p))
+                    .count();
+            return (c > 0) ? true : false;
+        };
+
+        Predicate<String> isResourceTypeAllowed = path -> {
+            long c =  pathList.stream()
+                    .filter(p -> path.endsWith(p))
                     .count();
             return (c > 0) ? true : false;
         };
@@ -116,8 +125,8 @@ public class BlogContentChangeListener implements EventHandler {
             String[] topics = {};
 
             try {
-                notificationService.sendCommonMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested");
-            } catch (IOException e) {
+               // notificationService.sendCommonMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested");
+            } catch (Exception e) {
                LOGGER.error("An error occured when executing the job for path {}",path);
             }
             ;

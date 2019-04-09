@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface NotificationService {
 
-    void sendCommonMessage(String title,String body) throws IOException;
+    void sendCommonMessage(String title,String body,String token) throws IOException;
 
     void sendSubscriptionMessage(String token,List<String> hobbies) throws IOException;
 

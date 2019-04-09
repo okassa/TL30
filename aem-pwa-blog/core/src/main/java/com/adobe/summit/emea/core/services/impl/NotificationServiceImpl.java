@@ -60,7 +60,6 @@ import java.util.Scanner;
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM"
         }
 )
-@Designate(ocd = NotificationServiceImpl.Configuration.class)
 public class NotificationServiceImpl implements NotificationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServiceImpl.class);
@@ -73,6 +72,8 @@ public class NotificationServiceImpl implements NotificationService {
     private static final String[] SCOPES = { MESSAGING_SCOPE };
 
     public static final String MESSAGE_KEY = "message";
+
+    private static final String apiKey = "AIzaSyDSJsppoDjFCppABijYv5IXiEADtbdp_tM";
 
     private static Gson gson = new Gson();
 
@@ -95,21 +96,10 @@ public class NotificationServiceImpl implements NotificationService {
         map.put("client_x509_cert_url", "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-3a6rf%40aem-pwa-blog.iam.gserviceaccount.com");
     }
 
-    @ObjectClassDefinition(name="OSGi Annotation Demo Servlet")
-    public @interface Configuration {
-
-        @AttributeDefinition(
-                name = "Service Worker JS file path",
-                description = "Location of the sw.js file"
-        )
-        String deviceRegistrationToken() default "<TO-BE-UPDATED>";
-
-    }
-
     @Activate
     @Modified
-    public void activate(Configuration configuration){
-        this.deviceRegistrationToken = configuration.deviceRegistrationToken();
+    public void activate(){
+
         try {
             String initialString = gson.toJson(map);
             InputStream serviceAccount = new ByteArrayInputStream(initialString.getBytes());
@@ -146,7 +136,9 @@ public class NotificationServiceImpl implements NotificationService {
         // [START use_access_token]
         URL url = new URL(apiUrl);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestProperty("Authorization", "Bearer " + getAccessToken());
+        httpURLConnection.setReadTimeout(10000);
+        httpURLConnection.setConnectTimeout(15000);
+        httpURLConnection.setRequestMethod("POST");
         httpURLConnection.setRequestProperty("Content-Type", "application/json; UTF-8");
         return httpURLConnection;
         // [END use_access_token]
@@ -162,11 +154,14 @@ public class NotificationServiceImpl implements NotificationService {
         HttpURLConnection connection = getConnection(url);
         connection.setDoOutput(true);
         if (fcmMessage != null){
+            connection.setRequestProperty("Authorization", "Bearer " + getAccessToken());
             DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.writeBytes(fcmMessage.toString());
             LOGGER.debug("Message to send : {}",fcmMessage);
             outputStream.flush();
             outputStream.close();
+        }else{
+            connection.setRequestProperty("Authorization", "key= " + apiKey);
         }
 
         int responseCode = connection.getResponseCode();
@@ -180,29 +175,6 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
-
-    /**
-     * Build the body of an FCM request. This body defines the common notification object
-     * as well as platform specific customizations using the android and apns objects.
-     *
-     * @return JSON representation of the FCM request body.
-     */
-    private static JsonObject buildOverrideMessage(String title, String body) {
-        JsonObject jNotificationMessage = buildNotificationMessage(title,body);
-
-        JsonObject messagePayload = jNotificationMessage.get(MESSAGE_KEY).getAsJsonObject();
-        messagePayload.add("android", buildAndroidOverridePayload());
-
-        JsonObject apnsPayload = new JsonObject();
-        apnsPayload.add("headers", buildApnsHeadersOverridePayload());
-        apnsPayload.add("payload", buildApsOverridePayload());
-
-        messagePayload.add("apns", apnsPayload);
-
-        jNotificationMessage.add(MESSAGE_KEY, messagePayload);
-
-        return jNotificationMessage;
-    }
 
     /**
      * Build the android payload that will customize how a message is received on Android.
@@ -253,7 +225,7 @@ public class NotificationServiceImpl implements NotificationService {
      *
      * @return JSON of notification message.
      */
-    private static JsonObject buildNotificationMessage(String title,String body) {
+    private static JsonObject buildNotificationMessage(String title,String body,String token) {
 
         JsonObject jNotification = new JsonObject();
         jNotification.addProperty("title", title);
@@ -265,7 +237,7 @@ public class NotificationServiceImpl implements NotificationService {
         // For the exercise we will use a single Token
         // That should be confire by the user using a
         // sling:OsgiConfig node
-        jMessage.addProperty("token", deviceRegistrationToken);
+        jMessage.addProperty("token", token);
         jMessage.addProperty("name", "push-notification-1");
 
         JsonObject jFcm = new JsonObject();
@@ -306,9 +278,9 @@ public class NotificationServiceImpl implements NotificationService {
      * @throws IOException
      */
     @Override
-    public void sendCommonMessage(String title, String body) throws IOException {
+    public void sendCommonMessage(String title, String body,String token) throws IOException {
 
-        JsonObject notificationMessage = buildNotificationMessage(title,body);
+        JsonObject notificationMessage = buildNotificationMessage(title,body,token);
         LOGGER.debug("FCM request body for message using common notification object: {}",notificationMessage);
         prettyPrint(notificationMessage);
         sendMessage(notificationMessage,BASE_URL + FCM_SEND_ENDPOINT);

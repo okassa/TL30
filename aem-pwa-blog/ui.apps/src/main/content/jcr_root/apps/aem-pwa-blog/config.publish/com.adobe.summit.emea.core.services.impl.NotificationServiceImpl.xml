@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="sling:OsgiConfig"
+          deviceRegistrationToken="ctU79wh2XvI:APA91bEDv80XiiTbAnKNVAt1plTlyhwUNInbKCONJNF5ZdYcY3-GhfCnEq8q5HlXN9GVNVivfFeDqaPWZf8hjPA38X2KSS9lHUhkSfV1hpWGLfejOK3Xqc0T4XuldJICuSX9XvhaPudh"
+/>

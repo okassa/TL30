@@ -16,8 +16,6 @@
 
 'use strict';
 
-const pushButton = document.querySelector('.js-push-btn');
-
 var config = {
     apiKey: "AIzaSyDSJsppoDjFCppABijYv5IXiEADtbdp_tM",
     authDomain: "aem-pwa-blog.firebaseapp.com",
@@ -31,7 +29,6 @@ firebase.initializeApp(config);
 var messaging = firebase.messaging();
 
 var deferredPrompt;
-var isSubscribed = false;
 var swRegistration = null;
 
 /**
@@ -64,9 +61,9 @@ messaging.onTokenRefresh(function () {
 
 function initializeUI() {
 
-    var registrationToken;
-
     messaging.useServiceWorker(swRegistration);
+
+    var pushButton = document.querySelector('.js-push-btn');
 
     pushButton.addEventListener('click', function() {
         messaging
@@ -82,11 +79,12 @@ function initializeUI() {
                 // Retrieve user preferences from a dataLayer
                 var topic = "sport";
                 //Suscribe to user topics
-                fetch('/bin/aem-pwa-blog/notifications', {
+                fetch('/bin/aem-pwa-blog/notifications.json', {
                     'method': 'POST',
-                    'body': {
-                        'token': token
-                    }
+                    'headers': {
+                        'Content-Type': 'application/json'
+                    },
+                    'body': JSON.stringify({'token': token})
                 }).then(function(response) {
                     console.log("[TL30-PWA][messaging] Subscription to "+topic+" has responded with :"+response);
                 }).catch(function(error) {
