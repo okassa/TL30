@@ -6,6 +6,8 @@ var imagePickerArea = document.querySelector('#pick-image');
 var createProfileButton = document.querySelector('.aem-pwa-blog__navLink--Profile');
 var picture;
 
+var submitProfileFormButton = document.querySelector('#submit');
+
 function initializeMedia() {
     if (!('mediaDevices' in navigator)) {
         navigator.mediaDevices = {};
@@ -57,4 +59,25 @@ if (imagePicker){
 
 if(createProfileButton) {
   createProfileButton.addEventListener('click', initializeMedia);
+}
+
+
+if(submitProfileFormButton) {
+    submitProfileFormButton.addEventListener('click', function(event) {
+        var path= $("#form").attr("path");
+        var firstName= $('#firstName').val();
+        var lastName= $('#lastName').val();
+        var email= $('#email').val();
+        var password= $('#password').val();
+        var hobbies= $('#hobbies').val();
+
+        $.ajax({
+            type: 'POST', 
+            url: path,
+            data: 'firstName='+ firstName+'&lastName='+ lastName+'&email='+ email+'&password='+ password+'&hobbies='+ hobbies,
+            success: function(msg){
+                alert(msg); //display the data returned by the servlet
+            }
+        });
+    });
 }
