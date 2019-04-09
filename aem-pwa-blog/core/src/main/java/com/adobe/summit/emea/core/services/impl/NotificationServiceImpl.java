@@ -5,6 +5,7 @@ package com.adobe.summit.emea.core.services.impl;
  */
 
 import com.adobe.summit.emea.core.services.NotificationService;
+import com.adobe.summit.emea.core.servlets.ManifestServlet;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +14,9 @@ import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.Designate;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -55,6 +60,7 @@ import java.util.Scanner;
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM"
         }
 )
+@Designate(ocd = NotificationServiceImpl.Configuration.class)
 public class NotificationServiceImpl implements NotificationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServiceImpl.class);
@@ -74,6 +80,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     private static GoogleCredential googleCredential ;
 
+    private static String deviceRegistrationToken;
+
     static {
         map.put("type", "service_account");
         map.put("project_id", "aem-pwa-blog");
@@ -87,9 +95,21 @@ public class NotificationServiceImpl implements NotificationService {
         map.put("client_x509_cert_url", "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-3a6rf%40aem-pwa-blog.iam.gserviceaccount.com");
     }
 
+    @ObjectClassDefinition(name="OSGi Annotation Demo Servlet")
+    public @interface Configuration {
+
+        @AttributeDefinition(
+                name = "Service Worker JS file path",
+                description = "Location of the sw.js file"
+        )
+        String deviceRegistrationToken() default "<TO-BE-UPDATED>";
+
+    }
+
     @Activate
     @Modified
-    public void activate(){
+    public void activate(Configuration configuration){
+        this.deviceRegistrationToken = configuration.deviceRegistrationToken();
         try {
             String initialString = gson.toJson(map);
             InputStream serviceAccount = new ByteArrayInputStream(initialString.getBytes());
@@ -122,9 +142,9 @@ public class NotificationServiceImpl implements NotificationService {
      * @return Base HttpURLConnection.
      * @throws IOException
      */
-    private static HttpURLConnection getConnection() throws IOException {
+    private static HttpURLConnection getConnection(String apiUrl) throws IOException {
         // [START use_access_token]
-        URL url = new URL(BASE_URL + FCM_SEND_ENDPOINT);
+        URL url = new URL(apiUrl);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestProperty("Authorization", "Bearer " + getAccessToken());
         httpURLConnection.setRequestProperty("Content-Type", "application/json; UTF-8");
@@ -138,14 +158,16 @@ public class NotificationServiceImpl implements NotificationService {
      * @param fcmMessage Body of the HTTP request.
      * @throws IOException
      */
-    private static void sendMessage(JsonObject fcmMessage) throws IOException {
-        HttpURLConnection connection = getConnection();
+    private static void sendMessage(JsonObject fcmMessage,String url) throws IOException {
+        HttpURLConnection connection = getConnection(url);
         connection.setDoOutput(true);
-        DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-        outputStream.writeBytes(fcmMessage.toString());
-        LOGGER.debug("Message to send : {}",fcmMessage);
-        outputStream.flush();
-        outputStream.close();
+        if (fcmMessage != null){
+            DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+            outputStream.writeBytes(fcmMessage.toString());
+            LOGGER.debug("Message to send : {}",fcmMessage);
+            outputStream.flush();
+            outputStream.close();
+        }
 
         int responseCode = connection.getResponseCode();
         if (responseCode == 200) {
@@ -158,19 +180,6 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
-    /**
-     * Send a message that uses the common FCM fields to send a notification message to all
-     * platforms. Also platform specific overrides are used to customize how the message is
-     * received on Android and iOS.
-     *
-     * @throws IOException
-     */
-    private static void sendOverrideMessage(String title,String body,String key,String[] topics) throws IOException {
-        JsonObject overrideMessage = buildOverrideMessage(title,body,key,topics);
-        LOGGER.debug("FCM request body for override message:");
-        prettyPrint(overrideMessage);
-        sendMessage(overrideMessage);
-    }
 
     /**
      * Build the body of an FCM request. This body defines the common notification object
@@ -178,10 +187,10 @@ public class NotificationServiceImpl implements NotificationService {
      *
      * @return JSON representation of the FCM request body.
      */
-    private static JsonObject buildOverrideMessage(String title, String body, String key, String[] topics) {
-        JsonObject jNotificationMessage = buildNotificationMessage(title,body,key,topics);
+    private static JsonObject buildOverrideMessage(String title, String body) {
+        JsonObject jNotificationMessage = buildNotificationMessage(title,body);
 
-        JsonObject messagePayload = jNotificationMessage.get(key).getAsJsonObject();
+        JsonObject messagePayload = jNotificationMessage.get(MESSAGE_KEY).getAsJsonObject();
         messagePayload.add("android", buildAndroidOverridePayload());
 
         JsonObject apnsPayload = new JsonObject();
@@ -190,7 +199,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         messagePayload.add("apns", apnsPayload);
 
-        jNotificationMessage.add(key, messagePayload);
+        jNotificationMessage.add(MESSAGE_KEY, messagePayload);
 
         return jNotificationMessage;
     }
@@ -244,7 +253,7 @@ public class NotificationServiceImpl implements NotificationService {
      *
      * @return JSON of notification message.
      */
-    private static JsonObject buildNotificationMessage(String title,String body,String key,String[] topics) {
+    private static JsonObject buildNotificationMessage(String title,String body) {
 
         JsonObject jNotification = new JsonObject();
         jNotification.addProperty("title", title);
@@ -253,7 +262,10 @@ public class NotificationServiceImpl implements NotificationService {
         JsonObject jMessage = new JsonObject();
         jMessage.add("notification", jNotification);
         //jMessage.addProperty("topic", "news");
-        jMessage.addProperty("token", "ctU79wh2XvI:APA91bEDv80XiiTbAnKNVAt1plTlyhwUNInbKCONJNF5ZdYcY3-GhfCnEq8q5HlXN9GVNVivfFeDqaPWZf8hjPA38X2KSS9lHUhkSfV1hpWGLfejOK3Xqc0T4XuldJICuSX9XvhaPudh");
+        // For the exercise we will use a single Token
+        // That should be confire by the user using a
+        // sling:OsgiConfig node
+        jMessage.addProperty("token", deviceRegistrationToken);
         jMessage.addProperty("name", "push-notification-1");
 
         JsonObject jFcm = new JsonObject();
@@ -294,11 +306,27 @@ public class NotificationServiceImpl implements NotificationService {
      * @throws IOException
      */
     @Override
-    public void sendCommonMessage(String title, String body, String key, String[] topics) throws IOException {
+    public void sendCommonMessage(String title, String body) throws IOException {
 
-        JsonObject notificationMessage = buildNotificationMessage(title,body,key,topics);
+        JsonObject notificationMessage = buildNotificationMessage(title,body);
         LOGGER.debug("FCM request body for message using common notification object: {}",notificationMessage);
         prettyPrint(notificationMessage);
-        sendMessage(notificationMessage);
+        sendMessage(notificationMessage,BASE_URL + FCM_SEND_ENDPOINT);
+    }
+
+    @Override
+    public void sendSubscriptionMessage(String token, List<String> topics) throws IOException {
+        topics.stream().forEach(t -> {
+            try {
+                sendMessage(null,String.format("https://iid.googleapis.com/iid/v1/%s/rel/topics/%s",token,t));
+            } catch (IOException e) {
+                LOGGER.error("An error occured when sending the subscription to firebase.");
+            }
+        });
+    }
+
+    @Override
+    public void sendUnsubscriptionMessage(String title, String body, String[] topics) throws IOException {
+        // @TODO : Implement it if needed
     }
 }

@@ -116,7 +116,7 @@ public class BlogContentChangeListener implements EventHandler {
             String[] topics = {};
 
             try {
-                notificationService.sendCommonMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested","to-summit",topics);
+                notificationService.sendCommonMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested");
             } catch (IOException e) {
                LOGGER.error("An error occured when executing the job for path {}",path);
             }

@@ -1,5 +1,6 @@
 package com.adobe.summit.emea.core.models;
 
+import com.adobe.summit.emea.core.utils.AuthenticationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;
@@ -14,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.jcr.Session;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,71 +56,18 @@ public class ProfileModel {
 
     }
 
-
-
     private void getUserProfile(ResourceResolver resolver, String userId) {
-        String userNameFormatted = userId;
-        try {
 
-
-            UserManager userManager = resolver.adaptTo(UserManager.class);
-
-            User user = (User) userManager.getAuthorizable(userId);
-            if (null != user) {
-                 lastName = user
-                        .getProperty("./profile/familyName") != null ? user
-                        .getProperty("./profile/familyName")[0]
-                        .getString() : "";
-                 firstName = user
-                        .getProperty("./profile/givenName") != null ? user
-                        .getProperty("./profile/givenName")[0]
-                        .getString() : "";
-
-                 email = user
-                        .getProperty("./profile/email") != null ? user
-                        .getProperty("./profile/email")[0]
-                        .getString() : "";
-
-                 hobbies = user
-                        .getProperty("./profile/hobbies") != null ? Stream.of(user
-                        .getProperty("./profile/hobbies")).map(v -> {
-                    try{
-                       return v.getString();
-                    }catch (Exception e){
-                        return null;
-                    }
-                }).filter(f -> f != null).collect(Collectors.toList()) : Collections.emptyList();
-
-                String userName = user.getPrincipal().getName();
-                if (StringUtils.isNotBlank(lastName)) {
-                    userNameFormatted = lastName;
-                    if (StringUtils.isNotBlank(firstName)) {
-                        userNameFormatted += ", ";
-                    }
-                }
-                if (StringUtils.isNotBlank(firstName)) {
-                    userNameFormatted += firstName;
-                }
-                if (StringUtils.isBlank(userNameFormatted)
-                        && StringUtils.isNotBlank(userName)) {
-                    userNameFormatted = userName;
-                }
-
-            }
-
-        } catch (Exception ex) {
-            LOGGER.error("Error while getting user name", ex);
-        }
+        Map<String,Object> userInfos = AuthenticationUtils.getUserProfile(resolver,userId);
+        firstName = String.valueOf(userInfos.get("firstName"));
+        lastName = String.valueOf(userInfos.get("lastName"));
+        email = String.valueOf(userInfos.get("email"));
+        hobbies = (List<String>) userInfos.get("hobbies");
 
     }
 
     protected String getCurrentUserId(SlingHttpServletRequest request) {
-        ResourceResolver resolver = request.getResourceResolver();
-        Session session = resolver.adaptTo(Session.class);
-        String userId = session.getUserID();
-
-        return userId;
-
+        return AuthenticationUtils.getCurrentUserId(request);
     }
 
     public boolean isAuthenticated() {

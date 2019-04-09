@@ -82,18 +82,16 @@ function initializeUI() {
                 // Retrieve user preferences from a dataLayer
                 var topic = "sport";
                 //Suscribe to user topics
-                fetch('https://iid.googleapis.com/iid/v1/' + token + '/rel/topics/' + topic, {
+                fetch('/bin/aem-pwa-blog/notifications', {
                     'method': 'POST',
-                    'headers': {
-                        'Authorization': 'key=' + config.apiKey,
-                        'Content-Type': 'application/json'
+                    'body': {
+                        'token': token
                     }
                 }).then(function(response) {
                     console.log("[TL30-PWA][messaging] Subscription to "+topic+" has responded with :"+response);
                 }).catch(function(error) {
                     console.error("[TL30-PWA][messaging] Subscription to the topic "+topic+" failed" +error);
                 })
-
             })
             .catch(function (err) {
                 console.log("[TL30-PWA][messaging] Didn't get notification permission", err);

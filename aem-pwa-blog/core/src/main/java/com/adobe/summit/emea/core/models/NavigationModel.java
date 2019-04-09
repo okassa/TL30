@@ -81,13 +81,6 @@ public class NavigationModel extends ProfileModel {
                     }
                 });
 
-                /**
-                .filter(n -> n.getResourceType().equals("cq:Page"))
-                //.filter(s -> (s.getName().equals("login") && authenticated) || (s.getName().equals("profile") && !authenticated))
-                .collect(Collectors.toList());Collectors.toList();
-
-                 **/
-
     }
 
     public List<Resource> getMenuPages() {
