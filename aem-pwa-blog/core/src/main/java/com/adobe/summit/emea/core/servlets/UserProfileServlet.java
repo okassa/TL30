@@ -100,12 +100,9 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
 		        	LOGGER.info("---> User already exist..");
 		        	resp.getWriter().write("Email already exist, you can connect now with your email and password !!!");
 		        }
-		        
-		        
 				
 			} catch (LoginException | RepositoryException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.info("---> Error {} ", e);
 				resp.getWriter().write("Error during registration process, please try later or contact administrator !!!");
 			}            
         } else if (selectors.length != 0 && "update".equals(selectors[0])){
