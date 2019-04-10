@@ -89,6 +89,9 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
+/*
+ Retrieve an instance of Firebase Messaging so that it can handle background messages.
+ */
 self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log('[Service Worker] Push had this data:'+ event.data.text());
@@ -113,34 +116,5 @@ self.addEventListener('notificationclick', function(event) {
     );
 });
 
-self.addEventListener('pushsubscriptionchange', function(event) {
-    console.log('[Service Worker]: \'pushsubscriptionchange\' event fired.');
-    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
-    event.waitUntil(
-        self.registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: applicationServerKey
-        })
-            .then(function(newSubscription) {
-                // TODO: Send to application server
-                console.log('[Service Worker] New subscription: ', newSubscription);
-            })
-    );
-});
 
-/*
- Retrieve an instance of Firebase Messaging so that it can handle background messages.
- */
-messaging.setBackgroundMessageHandler(function (payload) {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    const notification = JSON.parse(payload.data.notification);
-    // Customize notification here
-    const notificationTitle = notification.title;
-    const notificationOptions = {
-        body: notification.body,
-        icon: notification.icon
-    };
 
-    return self.registration.showNotification(notificationTitle,
-        notificationOptions);
-});
