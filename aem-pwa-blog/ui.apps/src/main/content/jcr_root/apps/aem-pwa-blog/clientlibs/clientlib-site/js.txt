@@ -19,6 +19,7 @@
 vendor/promise.js
 vendor/fetch.js
 vendor/idb.js
+vendor/material.min.js
 
 tools/utility.js
 tools/updateIcon.js
