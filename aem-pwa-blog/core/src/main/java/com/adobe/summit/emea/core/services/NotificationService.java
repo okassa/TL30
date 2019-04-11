@@ -15,5 +15,5 @@ public interface NotificationService {
 
     void sendSubscriptionMessage(String token,List<String> hobbies) throws IOException;
 
-    void sendUnsubscriptionMessage(String title,String body,String[] topics) throws IOException;
+    void sendTopicMessage(String title,String body,String topic) throws IOException;
 }

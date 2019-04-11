@@ -301,7 +301,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void sendUnsubscriptionMessage(String title, String body, String[] topics) throws IOException {
+    public void sendTopicMessage(String title, String body, String topic) throws IOException {
         // @TODO : Implement it if needed
     }
 }

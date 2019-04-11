@@ -5,7 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +25,7 @@ import java.util.stream.Stream;
 public final class AuthenticationUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationUtils.class);
+
 
     public static final String getCurrentUserId(SlingHttpServletRequest request) {
         ResourceResolver resolver = request.getResourceResolver();

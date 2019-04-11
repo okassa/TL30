@@ -14,9 +14,17 @@ var config = {
 firebase.initializeApp(config);
 
 var messaging = firebase.messaging();
-
+/**
+ * The install event is fired only once
+ */
 self.addEventListener('install', function(event) {
+    // don't wait if there is a newer version of the service worker.
+    self.skipWaiting();
+
     console.log('[TL30-PWA] >>>>> Installing Service Worker ...', event);
+    /**
+     * The event.waitUntil function in the push event tells the service worker not to close until the event is finished.
+     */
     event.waitUntil(
         caches.open(CACHE_STATIC_NAME)
             .then(function(cache) {
@@ -97,6 +105,20 @@ self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
     const title = 'Adobe Experience Manager <3 PWA';
+
+    /**
+     *
+     var options = {
+        "body":   "Time is up!",
+        "icon":   "/images/manifest/icon-96x96.png",
+        "badge":  "/images/notification/badge-96x96.png",
+        "vibrate": [500,100,500,100,500,100,500],
+        "tag": 'renotify',
+        "renotify": true
+      };
+     *
+     *
+     * **/
     const options = {
         body: event.data.text(),
         icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',

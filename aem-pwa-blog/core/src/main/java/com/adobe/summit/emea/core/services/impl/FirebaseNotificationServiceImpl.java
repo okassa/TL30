@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -120,17 +121,40 @@ public class FirebaseNotificationServiceImpl implements NotificationService {
             LOGGER.error("Message sent : {}",res);
 
         } catch (Exception e) {
-            LOGGER.error("Error when activating the service",e);
+            LOGGER.error("Error when sending a message to this token :"+token,e);
         }
     }
 
     @Override
-    public void sendSubscriptionMessage(String token, List<String> hobbies) throws IOException {
-
+    public void sendSubscriptionMessage(String token, List<String> hobbies)  {
+            hobbies.stream().forEach(topic -> {
+                try {
+                    TopicManagementResponse response = messaging.subscribeToTopic(Collections.singletonList(token), topic);
+                    int count  = response.getSuccessCount();
+                    LOGGER.error("Topic subscription sent : {}",count);
+                } catch (Exception e) {
+                    LOGGER.error("Error when suscribing to this topic :"+topic,e);
+                }
+            });
     }
 
     @Override
-    public void sendUnsubscriptionMessage(String title, String body, String[] topics) throws IOException {
-        // @TODO : Implement it if needed
+    public void sendTopicMessage(String title, String body, String topic) throws IOException {
+        try {
+
+            Message message = Message.builder()
+                    .setNotification(new Notification(title, body))
+                    .setTopic(topic)
+                    .setWebpushConfig(WebpushConfig.builder()
+                            .setNotification(new WebpushNotification(title, body))
+                            .build())
+                    .build();
+            String res = messaging.send(message);;
+
+            LOGGER.error("Message sent : {}",res);
+
+        } catch (Exception e) {
+            LOGGER.error("Error when sending a message to this topic :"+topic,e);
+        }
     }
 }

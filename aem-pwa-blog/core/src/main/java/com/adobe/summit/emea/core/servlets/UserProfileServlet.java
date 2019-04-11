@@ -2,6 +2,7 @@ package com.adobe.summit.emea.core.servlets;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,15 +65,12 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
 
         if (selectors.length != 0 && "create".equals(selectors[0])) {
             // Create a user at /home/users/aem-pwa-blog/xxxx
-            ResourceResolver resolver = null;
+            ResourceResolver  resolver = null;
             Session session = null;
 			try {
-				Map<String, Object> serviceParams = new HashMap<String, Object>();
-	            serviceParams.put(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess");
+                resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"));
+                session = resolver.adaptTo(Session.class);
 
-				resolver = resolverFactory.getServiceResourceResolver(serviceParams);
-				session = resolver.adaptTo(Session.class);
-				
 	            UserManager userManager = resolver.adaptTo(UserManager.class);
 				
 				// Create UserManager Object
@@ -106,7 +104,16 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
 			} catch (LoginException | RepositoryException e) {
 				LOGGER.info("---> Error {} ", e);
 				resp.getWriter().write("Error during registration process, please try later or contact administrator !!!");
-			}            
+			} finally {
+                // Always close what you've opened - > Open Close Principle
+                if (resolver != null){
+                    resolver.close();
+                }
+
+                if (session != null){
+                    session.logout();
+                }
+            }
         } else if (selectors.length != 0 && "update".equals(selectors[0])){
             //@TODO : Nice to have but not mandatory for the lab
         }

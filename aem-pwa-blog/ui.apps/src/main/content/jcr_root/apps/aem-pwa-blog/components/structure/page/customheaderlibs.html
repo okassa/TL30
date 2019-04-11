@@ -17,9 +17,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<!--
+======================================================
+
+Exercise 001 : Add the path of the manifest.json file
+
+======================================================
+-->
 <link rel="manifest" href="/bin/aem-pwa-blog/manifest.json">
 <link rel="icon" href="/etc/clientlibs/aem-pwa-blog/icons/favicon.ico">
 
 <title>${resource.jcr:title}</title>
-<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.css @ categories='aem-pwa-blog.base'}"/>
+<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='aem-pwa-blog.base'}"/>

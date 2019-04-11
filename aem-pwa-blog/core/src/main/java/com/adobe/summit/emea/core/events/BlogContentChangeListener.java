@@ -1,8 +1,11 @@
 package com.adobe.summit.emea.core.events;
 
 import com.adobe.summit.emea.core.services.NotificationService;
+import com.day.cq.dam.api.DamConstants;
 import org.apache.commons.collections4.IteratorUtils;
+import org.apache.jackrabbit.spi.commons.name.NameConstants;
 import org.apache.sling.api.SlingConstants;
+import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.observation.ExternalResourceChangeListener;
@@ -10,6 +13,7 @@ import org.apache.sling.api.resource.observation.ResourceChange;
 import org.apache.sling.api.resource.observation.ResourceChangeListener;
 import org.apache.sling.commons.scheduler.ScheduleOptions;
 import org.apache.sling.commons.scheduler.Scheduler;
+import org.apache.sling.jcr.resource.api.JcrResourceConstants;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
@@ -28,9 +32,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static com.day.cq.dam.api.DamConstants.NT_DAM_ASSET;
+import static com.day.cq.wcm.api.NameConstants.NT_PAGE;
 import static org.apache.sling.api.resource.ResourceResolverFactory.SUBSERVICE;
 
 
@@ -66,41 +73,55 @@ public class BlogContentChangeListener implements EventHandler {
     @Reference
     NotificationService notificationService;
 
+    @Reference
+    ResourceResolverFactory resolverFactory;
+
     public void handleEvent(final org.osgi.service.event.Event event) {
         LOGGER.debug("Resource event: {} at: {}", event.getTopic(), event.getProperty(SlingConstants.PROPERTY_PATH));
         LOGGER.debug("[onChange] >>>>>> Processing changes ....");
 
-        ScheduleOptions options = scheduler.NOW();
-        options.canRunConcurrently(false);
+        try {
+            ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"));
 
-        Predicate<String> isPathAllowed = path -> {
-            long c =  pathList.stream()
-                    .filter(p -> path.startsWith(p))
-                    .count();
-            return (c > 0) ? true : false;
-        };
+            ScheduleOptions options = scheduler.NOW();
+            options.canRunConcurrently(false);
 
-        Predicate<String> isResourceTypeAllowed = path -> {
-            long c =  pathList.stream()
-                    .filter(p -> path.endsWith(p))
-                    .count();
-            return (c > 0) ? true : false;
-        };
+            Predicate<String> isPathAllowed = path -> {
+                long c =  pathList.stream()
+                        .filter(p -> path.startsWith(p))
+                        .count();
+                return (c > 0) ? true : false;
+            };
+
+            Predicate<String> isResourceTypeAllowed = path ->
+                   Optional.of(path)
+                        .map(p -> resolver.getResource(p))
+                        .filter(r -> r.getResourceType().equals(NT_DAM_ASSET)).isPresent()
+                    ||
+                    Optional.of(path)
+                        .map(p -> resolver.getResource(p))
+                        .filter(r -> r.getResourceType().equals(NT_PAGE)).isPresent();
+
+            Optional.of(event)
+                    .map(e -> String.valueOf(e.getProperty(SlingConstants.PROPERTY_PATH)))
+                    .filter(s -> s != null &&  !s.isEmpty())
+                    .filter(isPathAllowed)
+                    .filter(isResourceTypeAllowed)
+                    .ifPresent(p -> {
+                        LOGGER.trace("[onChange] ---  Processing changes for path '{}'", p);
+                        String jobName = JOB_NAME_PREFIX + p;
+                        options.name(jobName);
+                        ImmediateJob job = new ImmediateJob(p);
+                        LOGGER.debug("[onChange] ---  Adding job '{}' for path '{}'", jobName, p);
+                        scheduler.schedule(job, options);
+                    });
+            LOGGER.trace("[onChange] <<<<<< Processing changes....DONE");
+
+        } catch (LoginException e) {
+            LOGGER.error("An error occured when opening the resource resolver {}",e);
+        }
 
 
-        Collections.singletonList(event).stream()
-                .map(e -> String.valueOf(e.getProperty(SlingConstants.PROPERTY_PATH)))
-                .filter(s -> s != null &&  !s.isEmpty())
-                .filter(isPathAllowed)
-                .forEach(p -> {
-                    LOGGER.trace("[onChange] ---  Processing changes for path '{}'", p);
-                    String jobName = JOB_NAME_PREFIX + p;
-                    options.name(jobName);
-                    ImmediateJob job = new ImmediateJob(p);
-                    LOGGER.debug("[onChange] ---  Adding job '{}' for path '{}'", jobName, p);
-                    scheduler.schedule(job, options);
-                });
-        LOGGER.trace("[onChange] <<<<<< Processing changes....DONE");
     }
 
     private class ImmediateJob implements Runnable {
@@ -123,10 +144,9 @@ public class BlogContentChangeListener implements EventHandler {
         public void run() {
             LOGGER.debug("[run] Start processing ---  The path is '{}'", path);
             // Get the tags from the asset or the page
-            String[] topics = {};
 
             try {
-               // notificationService.sendCommonMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested");
+               // notificationService.sendTopicMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested");
             } catch (Exception e) {
                LOGGER.error("An error occured when executing the job for path {}",path);
             }
