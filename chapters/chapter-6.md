@@ -1,10 +1,10 @@
 ![AEM Adobe](../chapters/images/Lab-Header.png)  
 
-## 5. Access device camera
+## 6. Access device camera 
 
 ### Purpose
 
-- A service worker can XXXX .
+- Test our PWA on a mobile device .
 
 ### Hands on tasks
 
@@ -12,9 +12,11 @@
   - open up this file 
 `XXXXX` and add the following code to the service worker:
 
+- Background data sync
+
 ### Go further
 
-- [0] https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers 
+- [0] 
 
 
-Go to the next chapter : [Send push notifications to users](chapter-6.md)
+Go to the next chapter : [README](../README.md)

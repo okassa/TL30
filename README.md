@@ -1,4 +1,4 @@
-![AEM Adobe](chapters/images/Lab-Header.png)  
+![AEM Adobe](chapters/images/logo/Lab-Header.png)  
 ## Technical Lab 30 : Building a Progressive Web Application with AEM
 
 **Lab overview** 
@@ -13,7 +13,7 @@ This question has been answered by Google Engineering Teams: Build Progressive W
 engaging and reliable experiences for customers on mobile. Having a PWA is not just a mean to achieve a great digital 
 transformation, it's one of the key factor for customer retention and brand intimacy.
   
- ![AEM Adobe PWA](chapters/images/pwa-icon.jpg)
+ ![AEM Adobe PWA](chapters/images/others/pwa-icon.jpg)
  
 **Scope**
  
@@ -31,22 +31,19 @@ This technical lab aims to create a web application (HTML, CSS, JavaScript) with
 
 #### What you'll need
 
-- Chrome 52 or above
+- Chrome 70 or above
 - An AEM 6.5 publish instance 
 - An Android emulator for mobile testing
 - Basic knowledge of HTML, CSS, JavaScript, and Chrome DevTools
 - Good understanding of AEM technical platform 
 - The sample code, see Get setup
- 
-#### Resources to download
-
-[TL30 Progressive Web Application AEM package](/tools/starter.zip)
 
 #### Chapters
 
 - Chapter 0 - [Get setup](chapters/chapter-0.md)
-- Chapter 1 - [Setting up your Progressive Web Apllication](chapters/chapter-1.md)
-- Chapter 2 - [Update your manifest.json file](chapters/chapter-2.md)
-- Chapter 3 - [Access the emulator camera](chapters/chapter-3.md)
-- Chapter 4 - [Send push notifications to users](chapters/chapter-4.md)
-- Chapter 5 - [[Bonus] Bulk notifications ](chapters/chapter-5.md)
+- Chapter 1 - [Progressive Web Apllication in a nutshell](chapters/chapter-1.md)
+- Chapter 2 - [Add the web app manifest](chapters/chapter-2.md)
+- Chapter 3 - [Add a service worker](chapters/chapter-3.md)
+- Chapter 4 - [Cache the app shell](chapters/chapter-4.md)
+- Chapter 5 - [Send push notifications](chapters/chapter-5.md)
+- Chapter 6 - [Access device camera ](chapters/chapter-6.md)
