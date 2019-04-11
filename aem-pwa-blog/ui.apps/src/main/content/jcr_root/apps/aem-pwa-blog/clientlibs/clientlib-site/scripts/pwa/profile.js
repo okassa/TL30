@@ -72,12 +72,24 @@ if(submitProfileFormButton) {
         var hobbies= $('#hobbies').val();
 
         $.ajax({
-            type: 'POST', 
-            url: path,
+			url: path,
+            type: 'POST',
             data: 'firstName='+ firstName+'&lastName='+ lastName+'&email='+ email+'&password='+ password+'&hobbies='+ hobbies,
             success: function(msg){
-                alert(msg); //display the data returned by the servlet
-            }
-        });
+                alert(msg.msg); //display the data returned by the servlet
+            },
+            error: function(msg){
+                alert(msg.msg); //display the data returned by the servlet
+            }, 
+        })
+        .done(function(msg) {
+			alert( "success"+msg.msg );
+		})
+		.fail(function(msg) {
+			alert( "error"+msg.msg );
+		})
+		.always(function(msg) {
+			alert( "complete"+msg.msg );
+		});
     });
 }

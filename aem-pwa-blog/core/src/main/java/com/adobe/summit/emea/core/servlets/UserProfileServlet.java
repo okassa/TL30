@@ -94,16 +94,17 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
 		            user.setProperty("./profile/hobbies", hobbiesValue);
 		            
 		            session.save();
+		            
 		            LOGGER.info("---> {} User successfully created and added into group.", user.getID());
-		            resp.getWriter().write("Account created, you can connect now with your email and password !!!");
+		            resp.getWriter().write("{'msg': 'Account created, you can connect now with your email and password' }");
 		        } else {
 		        	LOGGER.info("---> User already exist..");
-		        	resp.getWriter().write("Email already exist, you can connect now with your email and password !!!");
+		        	resp.getWriter().write("{'msg': 'Email already exist, you can connect now with your email and password !!!' }");
 		        }
 				
 			} catch (LoginException | RepositoryException e) {
 				LOGGER.info("---> Error {} ", e);
-				resp.getWriter().write("Error during registration process, please try later or contact administrator !!!");
+				resp.getWriter().write("{'msg': 'Error during registration process, please try later or contact administrator !!!' }");
 			}            
         } else if (selectors.length != 0 && "update".equals(selectors[0])){
 
