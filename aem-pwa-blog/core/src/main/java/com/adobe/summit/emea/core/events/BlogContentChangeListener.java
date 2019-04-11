@@ -45,8 +45,9 @@ import static org.apache.sling.api.resource.ResourceResolverFactory.SUBSERVICE;
         immediate = true,
         configurationPolicy = ConfigurationPolicy.REQUIRE,
         property = {
-                Constants.SERVICE_DESCRIPTION + "=" + "Adobe Summit EMEA 2019 - TL30 Event listener used for newly created nodes",
-                Constants.SERVICE_VENDOR + "=Adobe Summit EMEA",
+                Constants.SERVICE_DESCRIPTION + "=BlogContent Change Listener - This service will notify a set of users who have suscribe to notifications when an page tagged with one of their hobby " +
+                        "has been added to the website",
+                Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
                 EventConstants.EVENT_TOPIC + "=org/apache/sling/api/resource/Resource/*"
         })
 public class BlogContentChangeListener implements EventHandler {

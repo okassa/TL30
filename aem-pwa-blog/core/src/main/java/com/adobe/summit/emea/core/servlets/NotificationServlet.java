@@ -20,10 +20,7 @@ import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.framework.Constants;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Modified;
-import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.*;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
@@ -47,8 +44,10 @@ import java.util.stream.Collectors;
  * Created by kassa on 08/04/2019.
  */
 @Component(service=Servlet.class,
+        configurationPolicy = ConfigurationPolicy.REQUIRE,
         property={
-                Constants.SERVICE_DESCRIPTION + "=Simple Demo Servlet",
+                Constants.SERVICE_DESCRIPTION + "=Notification Servlet - This servlet is the link between the browser and the cloud messaging provider",
+                Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
                 "sling.servlet.methods=" + HttpConstants.METHOD_GET,
                 "sling.servlet.paths="+ "/bin/aem-pwa-blog/notifications",
                 "sling.servlet.extensions=" + "json"

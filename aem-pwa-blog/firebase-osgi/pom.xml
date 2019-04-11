@@ -51,8 +51,9 @@
                     <instructions>
                         <!-- Import any version of javax.inject, to allow
                             running on multiple versions of AEM -->
-                        <Bundle-Name>Firebase OSGi</Bundle-Name>
-                        <Embed-Dependency>guava,bcprov-jdk15on,threetenbp,google-collections,stax2-api,jackson-dataformat-xml,grpc-google-cloud-firestore-v1beta1,lz4,jeromq,jctools-core,jboss-marshalling,
+                        <Bundle-Name>Adobe Summit EMEA 2019 - TL30 : Firebase Admin SDK OSGi dependencies</Bundle-Name>
+                        <Bundle-Category>Adobe Summit EMEA 2019</Bundle-Category>
+                        <Embed-Dependency>jboss-jsse-api_8.0_spec,guava,bcprov-jdk15on,threetenbp,google-collections,stax2-api,jackson-dataformat-xml,grpc-google-cloud-firestore-v1beta1,lz4,jeromq,jctools-core,jboss-marshalling,
                             lzma-sdk-4j,log4j-core,barchart-udt-bundle,aalto-*,opencensus-*,commons-collections4,grpc-context,opencensus-api,firebase-admin,
                             geronimo-annotation_1.3_spec,httpclient,google-*,api-common,netty-*,lzma-sdk-4j,jboss-modules,jansi,log4j-api
                         </Embed-Dependency>
@@ -94,6 +95,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.jboss.spec.javax.net.ssl</groupId>
+            <artifactId>jboss-jsse-api_8.0_spec</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
