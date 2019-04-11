@@ -2,7 +2,7 @@
 ## Technical Lab 30 : Building a Progressive Web Application with AEM
 
 **Lab overview** 
-<p>
+
  
 Marketing and Technical teams have faced many challenges since a decade to build compelling mobile experiences: technical adoption 
 of platforms specific languages (Objective-C for iOS, Java for Android), poor user experience for mobile applications built onto 
@@ -13,7 +13,7 @@ This question has been answered by Google Engineering Teams: Build Progressive W
 engaging and reliable experiences for customers on mobile. Having a PWA is not just a mean to achieve a great digital 
 transformation, it's one of the key factor for customer retention and brand intimacy.
   
- ![AEM Adobe PWA](chapters/images/hero-pwa-discovery.jpg)
+ ![AEM Adobe PWA](chapters/images/pwa-icon.jpg)
  
 **Scope**
  
@@ -21,15 +21,22 @@ In this training you will learn how to get started with Progressive Web Applicat
 good starting point for extending an existing website or building a new one as a progressive web application.
 This technical lab aims to create a web application (HTML, CSS, JavaScript) within AEM with PWA capabilities
  
-_Key takeaways :_
+#### What you'll learn
 
-- Access smartphone capabilities such as its camera
+- Access to native device features (camera)
 - Use service workers (JavaScript) for offline mode
-- Send push notifications to users
-- Test your localhost web app on a Virtual Device (Android)
-- Adding your app to your device home screen
+- Leveraging Caching API efficiently
+- Send web push notifications to users
+- Test your PWA on a Virtual Device (Android)
 
-</p>
+#### What you'll need
+
+- Chrome 52 or above
+- An AEM 6.5 publish instance 
+- An Android emulator for mobile testing
+- Basic knowledge of HTML, CSS, JavaScript, and Chrome DevTools
+- Good understanding of AEM technical platform 
+- The sample code, see Get setup
  
 #### Resources to download
 
@@ -37,7 +44,7 @@ _Key takeaways :_
 
 #### Chapters
 
-- Chapter 0 - [Before you start](chapters/chapter-0.md)
+- Chapter 0 - [Get setup](chapters/chapter-0.md)
 - Chapter 1 - [Setting up your Progressive Web Apllication](chapters/chapter-1.md)
 - Chapter 2 - [Update your manifest.json file](chapters/chapter-2.md)
 - Chapter 3 - [Access the emulator camera](chapters/chapter-3.md)

@@ -1,9 +1,21 @@
 ![AEM Adobe](../chapters/images/Lab-Header.png)  
-## 1. Setting up your Progressive Web Apllication
+## 1. Progressive Web Application in a nutshell
 
-### Install the PWA
+### What is a Progressive Web App?
 
-- Open Chrome browser in your Nexus 5 (Emulator )
+
+### What is a Web App Manifest ?
+
+
+### What is a Service Worker ?
+
+
+### What is precaching for a PWA ?
+
+
+### How do we check our PWA readiness ?
+
+- Open Chrome browser in your Desktop 
 
 - A modal window will open up with a message asking you to install the app on the screen
 
