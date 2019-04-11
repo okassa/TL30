@@ -48,7 +48,8 @@ import java.util.stream.Stream;
  */
 @Component(service=Servlet.class,
            property={
-                   Constants.SERVICE_DESCRIPTION + "=Simple Demo Servlet",
+                   Constants.SERVICE_DESCRIPTION + "=Manifest Servlet - This servlet will expose all informations used to make the browser understand that the website is a PWA",
+                   Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
                    "sling.servlet.methods=" + HttpConstants.METHOD_GET,
                    "sling.servlet.paths="+ "/bin/aem-pwa-blog/manifest",
                    "sling.servlet.extensions=" + "json"

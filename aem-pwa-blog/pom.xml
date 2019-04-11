@@ -28,6 +28,7 @@
         <module>core</module>
         <module>ui.apps</module>
         <module>ui.content</module>
+        <module>firebase-osgi</module>
     </modules>
 
     <properties>

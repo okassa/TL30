@@ -49,11 +49,17 @@
                 <configuration>
                     <exportScr>true</exportScr>
                     <instructions>
+                        <Bundle-Name>Adobe Summit EMEA 2019 - TL30 : PWA blog - Core </Bundle-Name>
+                        <Bundle-Category>Adobe Summit EMEA 2019</Bundle-Category>
                         <!-- Import any version of javax.inject, to allow
                             running on multiple versions of AEM -->
-                        <Embed-Dependency>google-*</Embed-Dependency>
+                        <Embed-Dependency>google-collections,guava,firebase-admin,error_prone_annotations</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
-                        <Import-Package>javax.inject;version=0.0.0,*</Import-Package>
+                        <Import-Package>
+                            sun.misc;resolution:=optional,
+                            com.google.api.gax.*;resolution:=optional,
+                            com.google.api.client.json.gson.*;resolution:=optional,
+                            javax.inject;version=0.0.0,com.google.common.base.*;version=20.0.0,*</Import-Package>
                         <Sling-Model-Packages>
                             com.adobe.summit.emea.core
                         </Sling-Model-Packages>
@@ -61,7 +67,9 @@
                         <_metatypeannotations>*</_metatypeannotations>
                         <!-- Allow the processing of SCR annotations via
                             a bnd plugin -->
+                        <!--
                         <_plugin>org.apache.felix.scrplugin.bnd.SCRDescriptorBndPlugin;destdir=${project.build.outputDirectory}</_plugin>
+                        -->
                     </instructions>
                 </configuration>
                 <dependencies>
@@ -77,6 +85,17 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_annotations</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+        </dependency>
         <!-- OSGi Dependencies -->
         <dependency>
             <groupId>org.osgi</groupId>
@@ -166,6 +185,23 @@
             <groupId>com.google.oauth-client</groupId>
             <artifactId>google-oauth-client</artifactId>
             <version>1.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>6.8.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.summit.emea</groupId>
+            <artifactId>aem-pwa-blog.firebase-osgi</artifactId>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

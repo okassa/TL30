@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
@@ -50,9 +51,10 @@ import java.util.Scanner;
  *
  * @author Olympe Kassa &lt;kassa@adobe.com&gt;
  *
- */
+
 @Component(
         service = NotificationService.class,
+        configurationPolicy = ConfigurationPolicy.REQUIRE,
         immediate = true,
         property = {
                 Constants.SERVICE_DESCRIPTION + "=" + " This service is based on the firebase messaging sample file (https://github.com/firebase/quickstart-java/blob/master/messaging/src/main/java/com/google/firebase/quickstart/Messaging.java). It uses " +
@@ -60,6 +62,7 @@ import java.util.Scanner;
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM"
         }
 )
+ */
 public class NotificationServiceImpl implements NotificationService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServiceImpl.class);

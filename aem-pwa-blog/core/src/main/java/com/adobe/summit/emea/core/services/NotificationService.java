@@ -6,6 +6,9 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This service will send notifications to Firebase using the Firebase Admin Java SDK.
+ */
 public interface NotificationService {
 
     void sendCommonMessage(String title,String body,String token) throws IOException;

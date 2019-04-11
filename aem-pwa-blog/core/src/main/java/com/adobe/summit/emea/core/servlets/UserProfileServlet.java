@@ -35,7 +35,8 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 @Component(service=Servlet.class,
         property={
-                Constants.SERVICE_DESCRIPTION + "= UserProfileServlet Servlet",
+                Constants.SERVICE_DESCRIPTION + "=UserProfile Servlet - This servlet will help to register users and to update their profile when logged in",
+                Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
                 "sling.servlet.methods=" + HttpConstants.METHOD_POST,
                 "sling.servlet.resourceTypes="+ "aem-pwa-blog/components/structure/profile-page",
                 "sling.servlet.selectors=" + "create",
@@ -92,7 +93,8 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
 		            
 		            Value hobbiesValue = valueFactory.createValue(hobbies, PropertyType.STRING);
 		            user.setProperty("./profile/hobbies", hobbiesValue);
-		            
+                    // Always refresh session to avoid OakState001 exceptions
+		            session.refresh(true);
 		            session.save();
 		            
 		            LOGGER.info("---> {} User successfully created and added into group.", user.getID());
@@ -107,7 +109,7 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
 				resp.getWriter().write("{'msg': 'Error during registration process, please try later or contact administrator !!!' }");
 			}            
         } else if (selectors.length != 0 && "update".equals(selectors[0])){
-
+            //@TODO : Nice to have but not mandatory for the lab
         }
 
         
