@@ -1,77 +1,109 @@
-/*
- *  Copyright 2018 Adobe Systems Incorporated
+/*!
+ *  Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * @description :
+ *                  This file contains the code for displaying the cross when clicking
+ *                  onto the nav toggle button
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * @file : /apps/aem-pwa-blog/clientlibs/clientlib-base/js/updateIcon.js
  *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-'use strict';
-
-/**
- * Step zero : Make sure we have promise available to be used
- * service workers need extensively Promises.
- */
-if (!window.Promise) {
-    window.Promise = Promise;
-}
-
-
-/**
- * -----------------------------------------------------------------------
- * --
- * --                   Main
- * --
- * -----------------------------------------------------------------------
- */
-
-/**
- * Step one: run a function on load (or whenever is appropriate for you)
- * Function run on load sets up the service worker if it is supported in the
- * browser. Requires a serviceworker in a `sw.js`. This file contains what will
- * happen when we receive a push notification.
+ *
+ *
+ * @project Adobe Summit EMEA - TL30
+ * @date 2019-05-15
+ * @author Olympe KASSA, Adobe <kassa@adobe.com>
+ * @licensor Adobe
+ * @site none
  *
  */
-if ('serviceWorker' in navigator && 'PushManager' in window) {
-    console.log('[TL30-PWA] >>>>> Service Worker and Push is supported');
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/content/aem-pwa-blog/sw.js',{ scope: '/content/aem-pwa-blog/en' })
-            .then(function(registration) {
-            // Registration was successful
-            console.log('[TL30-PWA] >>>>> ServiceWorker registration successful with scope: ', registration.scope);
-                // Execrice 07
-                pushNotificationInitializeUI(registration);
-        }, function(err) {
-            // registration failed :(
-            console.log('[TL30-PWA] >>>>> ServiceWorker registration failed: ', err);
-        })
-            // Intializing the notifications
+;
+(function (window, navigator, document) {
+    'use strict';
 
-    });
-}else {
-    console.warn('Service workers and Push messaging are not supported.');
-}
+    // Init AdobeSummit namespace if not available.
 
-/**
- * Step two: When the beforeinstallprompt event has fired,
- * save a reference to the event,and update your user interface
- * to indicate that the user can add your app to their home screen.
- *
- */
-window.addEventListener('beforeinstallprompt', function(event) {
-    console.log('[TL30-PWA] >>>>> beforeinstallprompt has been  fired !');
-    event.preventDefault();
-    deferredPrompt = event;
-    return false;
-});
+    window.AdobeSummit.Device = {
+        deferredPrompt:false,
+        startDeviceInstall : function () {
+            if (this.deferredPrompt) {
+                this.deferredPrompt.prompt();
+
+                this.deferredPrompt.userChoice.then(function (choiceResult) {
+                    console.log(choiceResult.outcome);
+
+                    if (choiceResult.outcome === 'dismissed') {
+                        console.log('User cancelled installation');
+                    } else {
+                        console.log('User added to home screen');
+                    }
+                });
+
+                this.deferredPrompt = null;
+            }
+        },
+    }
+
+    window.AdobeSummit.Exercise02 =  {
+
+        /**
+         *
+         *
+         *
+         */
+        isBrowserPWACompliant : function () {
+            if ('serviceWorker' in navigator && 'PushManager' in window) {
+                console.log('[TL30-PWA] >>>>> Service Worker and Push is supported');
+                return true;
+            }else{
+                console.warn('Service workers and Push messaging are not supported.');
+                return false;
+            }
+        },
+        init:function () {
+            if(this.isBrowserPWACompliant()){
+                /**
+                 * Step one: run a function on load (or whenever is appropriate for you)
+                 * Function run on load sets up the service worker if it is supported in the
+                 * browser. Requires a serviceworker in a `sw.js`. This file contains what will
+                 * happen when we receive a push notification.
+                 *
+                 */
+                $(window).load(function() {
+                    /**
+                     *
+                     * Register the service worker.
+                     */
+                    navigator.serviceWorker.register(AdobeSummit.Constants.SW_PATH,{ scope: AdobeSummit.Constants.SW_SCOPE })
+                        .then(function(registration) {
+                            // Registration was successful
+                            console.log('[TL30-PWA] >>>>> ServiceWorker registration successful with scope: ', registration.scope);
+                            // Execrice 07
+                            AdobeSummit.Exercise06.initializeUI(registration);
+                        }, function(err) {
+                            // registration failed :(
+                            console.log('[TL30-PWA] >>>>> ServiceWorker registration failed: ', err);
+                        })
+                    // Intializing the notifications
+
+                });
+                /**
+                 * Step two: When the beforeinstallprompt event has fired,
+                 * save a reference to the event,and update your user interface
+                 * to indicate that the user can add your app to their home screen.
+                 *
+                 */
+                $(window).on('beforeinstallprompt',function(event) {
+                    console.log('[TL30-PWA] >>>>> beforeinstallprompt has been  fired !');
+                    event.preventDefault();
+                    AdobeSummit.Device.deferredPrompt = event;
+                    return false;
+                });
+            }
+        }
+
+    }
+}(window, navigator, document));
+
 
 
 

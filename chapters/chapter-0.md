@@ -45,3 +45,7 @@ Go to the [CRX Package Manager](http://localhost:4503/crx/packmgr/index.jsp) and
 - Enable port forwarding by clicking on Add Rule button then 4503 : localhost:4503
 
 Go to the next chapter : [Progressive Web Application in a nutshell](chapter-1.md)
+
+### Hands on activities
+
+- As you know AEM uses a cookie based authentica
