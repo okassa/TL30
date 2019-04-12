@@ -95,10 +95,10 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
 		            session.refresh(true);
 		            session.save();
 		            LOGGER.info("---> {} User successfully created and added into group.", user.getID());
-		            resp.getWriter().write("Account created, you can connect now with your email and password !!!");
+		            resp.getWriter().write("Account created, you can log in now with your email and password !!!");
 		        } else {
 		        	LOGGER.info("---> User already exist..");
-		        	resp.getWriter().write("Email already exist, you can connect now with your email and password !!!");
+		        	resp.getWriter().write("Email already exists, you can log in now with your email and password !!!");
 		        }
 				
 			} catch (LoginException | RepositoryException e) {

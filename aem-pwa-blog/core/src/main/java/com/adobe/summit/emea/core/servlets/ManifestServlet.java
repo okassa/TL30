@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 /**
  * Servlet that writes some sample content into the response. It is mounted for
  * all resources of a specific Sling resource type. The
@@ -63,6 +64,7 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
 
     private HashMap<String,Object> manifest = new HashMap<>();
 
+
     @Activate
     @Modified
     protected void Activate(Configuration config) {
@@ -71,7 +73,15 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
         manifest.put("name",config.name());
         manifest.put("description",config.description());
         manifest.put("short_name",config.shortName());
-        manifest.put("icons", Stream.of(config.icons()).map(s -> gson.fromJson(s, HashMap.class)).collect(Collectors.toList()));
+        /*
+        icons='[{"src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon.png","sizes": "64x64"} , 
+          {"src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-48x48.png","sizes": "48x48"} ,
+           {"src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-96x96.png","sizes": "96x96"} , 
+          {"src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-144x144.png","sizes": "144x144"},
+            {"src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-192x192.png","sizes": "192x192"} ,
+           {"src": "/etc/clientlibs/aem-pwa-blog/icons/summit-icon-256x256.png","sizes": "256x256"}]'
+         */
+        manifest.put("icons", config.icons());
         manifest.put("scope",config.scope());
         manifest.put("start_url",config.startUrl());
         manifest.put("display",config.display());
@@ -82,6 +92,8 @@ public class ManifestServlet extends SlingSafeMethodsServlet {
         manifest.put("background_color",config.backgroundColor());
         manifest.put("serviceworker",gson.fromJson(config.serviceworker(),HashMap.class));
     }
+
+
 
     @ObjectClassDefinition(name="OSGi Annotation Demo Servlet")
     public @interface Configuration {
