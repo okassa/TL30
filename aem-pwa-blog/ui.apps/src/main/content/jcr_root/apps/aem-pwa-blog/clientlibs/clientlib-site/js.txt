@@ -24,10 +24,8 @@ vendor/material.min.js
 tools/utility.js
 tools/updateIcon.js
 
+main.js
+pwa/push-notifications.js
 pwa/profile.js
 pwa/async-post.js
 pwa/post.js
-
-
-main.js
-pwa/push-notifications.js

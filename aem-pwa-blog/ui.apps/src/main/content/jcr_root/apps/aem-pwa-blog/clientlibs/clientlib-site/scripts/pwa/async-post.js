@@ -89,43 +89,44 @@ if(tiles){
     }
 }
 
-
-/*if (form){
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        if (titleInput.value.trim() === '' || locationInput.value.trim() === '') {
-            alert('Please enter valid data!');
-            return;
-        }
-
-        closeCreatePostModal();
-
-        if ('serviceWorker' in navigator && 'SyncManager' in window) {
-            navigator.serviceWorker.ready
-                .then(function (sw) {
-                    var post = {
-                        id: new Date().toISOString(),
-                        title: titleInput.value,
-                        location: locationInput.value,
-                        picture: picture,
-                        rawLocation: fetchedLocation
-                    };
-                    writeData('sync-posts', post)
-                        .then(function () {
-                            return sw.sync.register('sync-new-posts');
-                        })
-                        .then(function () {
-                            var snackbarContainer = document.querySelector('#confirmation-toast');
-                            var data = {message: 'Your Post was saved for syncing!'};
-                            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        });
-                });
-        } else {
-            sendData();
-        }
-    })
-}*/
+if(titleInput && locationInput) {
+    if (form){
+	    form.addEventListener('submit', function (event) {
+	        event.preventDefault();
+	
+	        if (titleInput.value.trim() === '' || locationInput.value.trim() === '') {
+	            alert('Please enter valid data!');
+	            return;
+	        }
+	
+	        closeCreatePostModal();
+	
+	        if ('serviceWorker' in navigator && 'SyncManager' in window) {
+	            navigator.serviceWorker.ready
+	                .then(function (sw) {
+	                    var post = {
+	                        id: new Date().toISOString(),
+	                        title: titleInput.value,
+	                        location: locationInput.value,
+	                        picture: picture,
+	                        rawLocation: fetchedLocation
+	                    };
+	                    writeData('sync-posts', post)
+	                        .then(function () {
+	                            return sw.sync.register('sync-new-posts');
+	                        })
+	                        .then(function () {
+	                            var snackbarContainer = document.querySelector('#confirmation-toast');
+	                            var data = {message: 'Your Post was saved for syncing!'};
+	                            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+	                        })
+	                        .catch(function (err) {
+	                            console.log(err);
+	                        });
+	                });
+	        } else {
+	            sendData();
+	        }
+	    })
+	}
+}
