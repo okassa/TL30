@@ -73,13 +73,13 @@ if(submitProfileFormButton) {
 
         $.post(path, {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password, 'hobbies': hobbies})
         .done(function(msg) {
-			alert( "success"+msg );
+			alert( "success"+msg.responseText );
 		})
 		.fail(function(msg) {
-			alert( "error"+msg );
+			alert( "error"+msg.responseText );
 		})
 		.always(function(msg) {
-			alert( "complete"+msg );
+			alert( "complete"+msg.responseText );
 		});
     });
 }

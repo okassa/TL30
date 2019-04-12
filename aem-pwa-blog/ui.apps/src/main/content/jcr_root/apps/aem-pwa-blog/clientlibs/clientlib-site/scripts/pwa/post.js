@@ -32,13 +32,13 @@ if(postButton) {
 
         $.post(path, { 'title': title, 'location': location, 'file': file})
         .done(function(msg) {
-            alert( "success"+msg );
+            alert( "success"+msg.responseText );
         })
         .fail(function(msg) {
-            alert( "error"+msg );
+            alert( "error"+msg.responseText );
         })
         .always(function(msg) {
-            alert( "complete"+msg );
+            alert( "complete"+msg.responseText );
         });
     });
 }
@@ -288,7 +288,8 @@ function sendData() {
     })
 }
 
-form.addEventListener('submit', function (event) {
+if(titleInput && locationInput) {
+    form.addEventListener('submit', function (event) {
   event.preventDefault();
 
   if (titleInput.value.trim() === '' || locationInput.value.trim() === '') {
@@ -325,3 +326,4 @@ form.addEventListener('submit', function (event) {
     sendData();
   }
 });
+}
