@@ -1,8 +1,28 @@
-<div class="aem-pwa-blog__tiles" >
+<div class="aem-pwa-blog__tiles comp-tiles  tiles" data-async-url="${resource.path}.model.json" >
 
-    <!-- Example row of columns -->
+    <!-- Example row of columns
     <div class="row" data-sly-list="${resource.children}">
         <div data-sly-resource="${  item.path }"></div>
     </div>
+     -->
 
+    <div class="row" data-sly-list="${resource.children}">
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xl-4">
+            <article class="comp-tile tile hover-effect">
+                <a class="tile-inner" href="${item.path}.html">
+                    <div class="bg-white clearfix">
+                        <div class="image bg-dark-grey">
+                            <div class="bg-image bg-responsive-image"  style="background-image: url(${item.fileReference @ context='uri'})" ></div>
+                        </div>
+                        <div class="copy ">
+                            <span class="icon icon-chevron"></span>
+                            <h3 class="title">${item.jcr:title}</h3>
+                            <p class="description">${item.jcr:description}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    </div>
 </div>

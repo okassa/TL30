@@ -129,7 +129,7 @@ window.AdobeSummit.Exercise07 =  {
         }
 
         if(createProfileButton) {
-            createProfileButton.addEventListener('click', this.initializeMedia());
+            createProfileButton.addEventListener('click', window.AdobeSummit.initializeMedia());
         }
 
 

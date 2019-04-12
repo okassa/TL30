@@ -14,3 +14,4 @@
 # limitations under the License.
 ###############################################################################
 js/updateIcon.js
+js/tiles.js

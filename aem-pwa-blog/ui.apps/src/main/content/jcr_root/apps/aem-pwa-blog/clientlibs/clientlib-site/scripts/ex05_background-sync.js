@@ -92,7 +92,7 @@
                             for (var key in data) {
                                 dataArray.push(data[key]);
                             }
-                            updateUI(dataArray);
+                          //  updateUI(dataArray);
                         });
 
                     if ('indexedDB' in window) {
