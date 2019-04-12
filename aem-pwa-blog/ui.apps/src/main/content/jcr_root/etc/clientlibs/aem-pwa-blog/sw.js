@@ -1,3 +1,4 @@
+importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js')
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js')
 
 var CACHE_STATIC_NAME = 'static-v4';
@@ -70,6 +71,12 @@ self.addEventListener('activate', function(event) {
     return self.clients.claim();
 });
 
+/*
+
+ ================================================== Exercise 04 : (2) Caching app shell  ========================================================
+
+ */
+
 self.addEventListener('fetch', function(event) {
     event.respondWith(
         caches.match(event.request)
@@ -96,15 +103,60 @@ self.addEventListener('fetch', function(event) {
             })
     );
 });
-
 /*
- Retrieve an instance of Firebase Messaging so that it can handle background messages.
+
+ ================================================== Exercise 05 : Background syncing  ========================================================
+
+ */
+self.addEventListener('sync', function(event) {
+    console.log('[TL30-PWA][sync] Background syncing', event);
+    if (event.tag === 'sync-new-posts') {
+        console.log('[TL30-PWA][sync]  Syncing new Posts');
+        event.waitUntil(
+            readAllData('sync-posts')
+                .then(function(data) {
+                    for (var dt in data) {
+                        var postData = new FormData();
+                        postData.append('id', dt.id);
+                        postData.append('title', dt.title);
+                        postData.append('file', dt.picture, dt.id + '.png');
+
+                        fetch('/bin/aem_pwa_blog/storePostData', {
+                            method: 'POST',
+                            body: postData
+                        })
+                            .then(function(res) {
+                                console.log('[TL30-PWA][sync] Sent data', res);
+                                if (res.ok) {
+                                    res.json()
+                                        .then(function(resData) {
+                                            deleteItemFromData('sync-posts', resData.id);
+                                        });
+                                }
+                            })
+                            .catch(function(err) {
+                                console.log('[TL30-PWA][sync] Error while sending data', err);
+                            });
+                    }
+
+                })
+        );
+    }
+});
+/*
+
+================================================== Exercise 06 : Web Push notifications ========================================================
+
  */
 self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
-    const title = 'Adobe Experience Manager <3 PWA';
+    var data = {title: 'Adobe Experience Manager <3 PWA', content: 'A notification has been retrieved new happened!', openUrl: '/'};
+
+    if (event.data) {
+        data.content = JSON.parse(event.data.text());
+    }
 
     /**
      *
@@ -120,23 +172,53 @@ self.addEventListener('push', function(event) {
      *
      * **/
     const options = {
-        body: event.data.text(),
+        body: data,
         icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
-        badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png'
+        badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
+        data: {
+            url: data.openUrl
+        }
     };
 
     event.waitUntil(self.registration.showNotification(title, options));
 });
 
+
 self.addEventListener('notificationclick', function(event) {
-    console.log('[Service Worker] Notification click Received.');
+    var notification = event.notification;
+    var action = event.action;
 
-    event.notification.close();
+    console.log(notification);
 
-    event.waitUntil(
-        clients.openWindow('https://developers.google.com/web/')
-    );
+    if (action === 'confirm') {
+        console.log('Confirm was chosen');
+        notification.close();
+    } else {
+        console.log(action);
+        event.waitUntil(
+            clients.matchAll()
+                .then(function(clis) {
+                    var client = clis.find(function(c) {
+                        return c.visibilityState === 'visible';
+                    });
+
+                    if (client !== undefined) {
+                        client.navigate(notification.data.url);
+                        client.focus();
+                    } else {
+                        clients.openWindow(notification.data.url);
+                    }
+                    notification.close();
+                })
+        );
+    }
 });
+
+self.addEventListener('notificationclose', function(event) {
+    console.log('Notification was closed', event);
+});
+
+
 
 
 

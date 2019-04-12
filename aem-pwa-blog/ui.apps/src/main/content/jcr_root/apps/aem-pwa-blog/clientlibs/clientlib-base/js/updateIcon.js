@@ -26,6 +26,17 @@
        }
     });
 
+    /**
+    $('form[name="createProfile"]').submit(function(){
+        $.post($(this).attr('action'), $(this).serialize(), function(res){
+            console.log(res);
+            $("#subscription-message").textContent = res;
+        });
+        return false; // prevent default action
+    });
+     **/
 
 
 })();
+
+

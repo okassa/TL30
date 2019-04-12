@@ -45,5 +45,6 @@ This technical lab aims to create a web application (HTML, CSS, JavaScript) with
 - Chapter 2 - [Add the web app manifest](chapters/chapter-2.md)
 - Chapter 3 - [Add a service worker](chapters/chapter-3.md)
 - Chapter 4 - [Cache the app shell](chapters/chapter-4.md)
-- Chapter 5 - [Send push notifications](chapters/chapter-5.md)
-- Chapter 6 - [Access device camera ](chapters/chapter-6.md)
+- Chapter 5 - [Background Synchronization](chapters/chapter-5.md)
+- Chapter 6 - [Send push notifications](chapters/chapter-6.md)
+- Chapter 7 - [Access device camera ](chapters/chapter-7.md)
