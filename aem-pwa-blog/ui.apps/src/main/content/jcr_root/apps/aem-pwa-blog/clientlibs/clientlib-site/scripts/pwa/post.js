@@ -16,11 +16,34 @@ var locationBtn = document.querySelector('#location-btn');
 var locationLoader = document.querySelector('#location-loader');
 var tiles = document.querySelector('.aem-pwa-blog__tiles');
 var fetchedLocation = {lat: 0, lng: 0};
+var postButton = document.querySelector('#post-btn');
 
 if(createPostArea) {
     createPostArea.style.display = 'none';
 }
 
+if(postButton) {
+    postButton.addEventListener('click', function(event) {
+    
+        var path = $("#formPost").attr("path");
+        var title= titleInput.value;
+        var location= locationInput.value;
+        var file= picture + '.png';
+
+        $.post(path, { 'title': title, 'location': location, 'file': file})
+        .done(function(msg) {
+            alert( "success"+msg );
+        })
+        .fail(function(msg) {
+            alert( "error"+msg );
+        })
+        .always(function(msg) {
+            alert( "complete"+msg );
+        });
+    });
+}
+
+if(locationBtn) {
 locationBtn.addEventListener('click', function (event) {
   if (!('geolocation' in navigator)) {
     return;
@@ -47,6 +70,8 @@ locationBtn.addEventListener('click', function (event) {
     fetchedLocation = {lat: 0, lng: 0};
   }, {timeout: 7000});
 });
+}
+
 
 function initializeLocation() {
   if (!('geolocation' in navigator)) {
@@ -83,21 +108,26 @@ function initializeMedia() {
     });
 }
 
-captureButton.addEventListener('click', function (event) {
+if(captureButton) {
+    captureButton.addEventListener('click', function (event) {
   canvasElement.style.display = 'block';
   videoPlayer.style.display = 'none';
   captureButton.style.display = 'none';
-  var context = canvasElement.getContext('2d');
-  context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
+  //var context = canvasElement.getContext('2d');
+  //context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
   videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
     track.stop();
   });
   picture = dataURItoBlob(canvasElement.toDataURL());
 });
+}
 
-imagePicker.addEventListener('change', function (event) {
-  picture = event.target.files[0];
-});
+if(imagePicker) {
+    imagePicker.addEventListener('change', function (event) {
+      picture = event.target.files[0];
+    });
+}
+
 
 function openCreatePostModal() {
     createPostArea.style.display = 'block';
@@ -146,9 +176,13 @@ function closeCreatePostModal() {
   viewPostArea.style.display = 'block';
 }
 
-shareImageButton.addEventListener('click', openCreatePostModal);
+if(shareImageButton) {
+    shareImageButton.addEventListener('click', openCreatePostModal);
+}
 
-closeCreatePostModalButton.addEventListener('click', closeCreatePostModal);
+if(closeCreatePostModalButton) {
+    closeCreatePostModalButton.addEventListener('click', closeCreatePostModal);
+}
 
 // Currently not in use, allows to save assets in cache on demand otherwise
 function onSaveButtonClicked(event) {
@@ -163,9 +197,11 @@ function onSaveButtonClicked(event) {
 }
 
 function clearCards() {
-  while (sharedMomentsArea.hasChildNodes()) {
-    sharedMomentsArea.removeChild(sharedMomentsArea.lastChild);
-  }
+    if(sharedMomentsArea) {
+        while (sharedMomentsArea.hasChildNodes()) {
+            sharedMomentsArea.removeChild(sharedMomentsArea.lastChild);
+        }
+    }
 }
 
 function createCard(data) {
@@ -191,7 +227,9 @@ function createCard(data) {
   // cardSupportingText.appendChild(cardSaveButton);
   cardWrapper.appendChild(cardSupportingText);
   componentHandler.upgradeElement(cardWrapper);
-  sharedMomentsArea.appendChild(cardWrapper);
+  if(sharedMomentsArea) {
+    sharedMomentsArea.appendChild(cardWrapper);
+  }
 }
 
 function updateUI(data) {
@@ -201,7 +239,7 @@ function updateUI(data) {
   }
 }
 
-var url = 'https://pwagram-99adf.firebaseio.com/posts.json';
+var url = 'https://aem-pwa-blog.firebaseio.com/posts.json';
 var networkDataReceived = false;
 
 fetch(url)
@@ -237,8 +275,10 @@ function sendData() {
   postData.append('rawLocationLat', fetchedLocation.lat);
   postData.append('rawLocationLng', fetchedLocation.lng);
   postData.append('file', picture, id + '.png');
+  
+  var path= $("#formPost").attr("path");
 
-  fetch('https://us-central1-pwagram-99adf.cloudfunctions.net/storePostData', {
+  fetch( window.location.protocol+'://'+window.location.hostname+'/'+path , {
     method: 'POST',
     body: postData
   })

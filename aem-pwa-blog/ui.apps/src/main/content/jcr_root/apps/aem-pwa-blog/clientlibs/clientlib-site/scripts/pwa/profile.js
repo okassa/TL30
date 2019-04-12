@@ -64,32 +64,22 @@ if(createProfileButton) {
 
 if(submitProfileFormButton) {
     submitProfileFormButton.addEventListener('click', function(event) {
-        var path= $("#form").attr("path");
+        var path= $("#formProfile").attr("path");
         var firstName= $('#firstName').val();
         var lastName= $('#lastName').val();
         var email= $('#email').val();
         var password= $('#password').val();
         var hobbies= $('#hobbies').val();
 
-        $.ajax({
-			url: path,
-            type: 'POST',
-            data: 'firstName='+ firstName+'&lastName='+ lastName+'&email='+ email+'&password='+ password+'&hobbies='+ hobbies,
-            success: function(msg){
-                alert(msg.msg); //display the data returned by the servlet
-            },
-            error: function(msg){
-                alert(msg.msg); //display the data returned by the servlet
-            }, 
-        })
+        $.post(path, {'firstName': firstName, 'lastName': lastName, 'email': email, 'password': password, 'hobbies': hobbies})
         .done(function(msg) {
-			alert( "success"+msg.msg );
+			alert( "success"+msg );
 		})
 		.fail(function(msg) {
-			alert( "error"+msg.msg );
+			alert( "error"+msg );
 		})
 		.always(function(msg) {
-			alert( "complete"+msg.msg );
+			alert( "complete"+msg );
 		});
     });
 }
