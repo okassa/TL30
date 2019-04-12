@@ -18,6 +18,27 @@
  */
 ;
 (function (window, navigator, document) {
+
+    var shareImageButton = document.querySelector('#share-image-button');
+    var createPostArea = document.querySelector('#create-post');
+    var viewPostArea = document.querySelector('#view-post');
+    var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn');
+    var sharedMomentsArea = document.querySelector('#shared-moments');
+    var form = document.querySelector('form');
+    var titleInput = document.querySelector('#title');
+    var locationInput = document.querySelector('#location');
+    var videoPlayer = document.querySelector('#player');
+    var canvasElement = document.querySelector('#canvas');
+    var captureButton = document.querySelector('#capture-btn');
+    var imagePicker = document.querySelector('#image-picker');
+    var imagePickerArea = document.querySelector('#pick-image');
+    var picture;
+    var locationBtn = document.querySelector('#location-btn');
+    var locationLoader = document.querySelector('#location-loader');
+    var tiles = document.querySelector('.aem-pwa-blog__tiles');
+    var fetchedLocation = {lat: 0, lng: 0};
+    var postButton = document.querySelector('#post-btn');
+
 // Init AdobeSummit namespace if not available.
 var AdobeSummit = window.AdobeSummit || {
         /**
@@ -29,11 +50,45 @@ var AdobeSummit = window.AdobeSummit || {
             SW_PATH:"/content/aem-pwa-blog/sw.js",
             SW_SCOPE:"/content/aem-pwa-blog/en"
         },
+        initializeLocation : function(locationBtn) {
+            if (!('geolocation' in navigator) && locationBtn) {
+                locationBtn.style.display = 'none';
+            }
+        },
+        initializeMedia : function () {
+            if (!('mediaDevices' in navigator)) {
+                navigator.mediaDevices = {};
+            }
 
-        openCreatePostModal : function (createPostArea,canvasElement,viewPostArea) {
+            if (!('getUserMedia' in navigator.mediaDevices)) {
+                navigator.mediaDevices.getUserMedia = function (constraints) {
+                    var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+                    if (!getUserMedia) {
+                        return Promise.reject(new Error('getUserMedia is not implemented!'));
+                    }
+
+                    return new Promise(function (resolve, reject) {
+                        getUserMedia.call(navigator, constraints, resolve, reject);
+                    });
+                }
+            }
+
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(function (stream) {
+                    videoPlayer.srcObject = stream;
+                    videoPlayer.style.display = 'block';
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        },
+        openCreatePostModal : function () {
             createPostArea.style.display = 'block';
             canvasElement.style.display = 'none';
             viewPostArea.style.display = 'none';
+            this.initializeMedia();
+            this.initializeLocation();
 
             setTimeout(function () {
                 createPostArea.style.transform = 'translateY(0)';
@@ -42,8 +97,7 @@ var AdobeSummit = window.AdobeSummit || {
             window.AdobeSummit.Device.startDeviceInstall();
 
         },
-        closeCreatePostModal : function (imagePickerArea,videoPlayer,canvasElement,locationBtn,
-                                         locationLoader,captureButton,createPostArea,viewPostArea) {
+        closeCreatePostModal : function () {
             imagePickerArea.style.display = 'none';
             videoPlayer.style.display = 'none';
             canvasElement.style.display = 'none';
@@ -61,7 +115,7 @@ var AdobeSummit = window.AdobeSummit || {
             createPostArea.style.display = 'none';
             viewPostArea.style.display = 'block';
         },
-        clearCard : function (sharedMomentsArea) {
+        clearCard : function () {
             if (sharedMomentsArea){
                 while (sharedMomentsArea.hasChildNodes()) {
                     sharedMomentsArea.removeChild(sharedMomentsArea.lastChild);
@@ -69,7 +123,7 @@ var AdobeSummit = window.AdobeSummit || {
             }
         },
 
-        createCard : function (data,componentHandler,sharedMomentsArea) {
+        createCard : function () {
             var cardWrapper = document.createElement('div');
             cardWrapper.className = 'shared-moment-card mdl-card mdl-shadow--2dp';
             var cardTitle = document.createElement('div');
@@ -91,19 +145,19 @@ var AdobeSummit = window.AdobeSummit || {
             sharedMomentsArea.appendChild(cardWrapper);
         },
 
-        syncUpdateUI : function(data,componentHandler,sharedMomentsArea) {
+        syncUpdateUI : function() {
             this.clearCard();
             for (var i = 0; i < data.length; i++) {
-                this.createCard(data[i],componentHandler,sharedMomentsArea);
+                this.createCard(data[i]);
             }
         },
-        updateUI : function (componentHandler,sharedMomentsArea) {
-            clearCards(sharedMomentsArea);
+        updateUI : function () {
+            clearCards();
             for (var i = 0; i < data.length; i++) {
-                this.createCard(data[i],componentHandler,sharedMomentsArea);
+                this.createCard(data[i]);
             }
         },
-        sendData: function (titleInput,locationInput,fetchedLocation,picture) {
+        sendData: function () {
             var id = new Date().toISOString();
             var postData = new FormData();
             postData.append('id', id);
