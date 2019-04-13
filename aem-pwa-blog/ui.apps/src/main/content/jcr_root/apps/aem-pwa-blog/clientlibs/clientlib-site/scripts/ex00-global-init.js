@@ -35,7 +35,7 @@
     var picture;
     var locationBtn = document.querySelector('#location-btn');
     var locationLoader = document.querySelector('#location-loader');
-    var tiles = document.querySelector('.aem-pwa-blog__tiles');
+    var tiles = document.querySelector('.aem-pwa-blog__tilesContent');
     var fetchedLocation = {lat: 0, lng: 0};
     var postButton = document.querySelector('#post-btn');
 
@@ -98,11 +98,9 @@ var AdobeSummit = window.AdobeSummit || {
 
         },
         closeCreatePostModal : function () {
-            imagePickerArea.style.display = 'none';
+
             videoPlayer.style.display = 'none';
             canvasElement.style.display = 'none';
-            locationBtn.style.display = 'inline';
-            locationLoader.style.display = 'none';
             captureButton.style.display = 'inline';
             if (videoPlayer.srcObject) {
                 videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
@@ -123,38 +121,69 @@ var AdobeSummit = window.AdobeSummit || {
             }
         },
 
-        createCard : function () {
+        createCard : function (data) {
+
             var cardWrapper = document.createElement('div');
-            cardWrapper.className = 'shared-moment-card mdl-card mdl-shadow--2dp';
-            var cardTitle = document.createElement('div');
-            cardTitle.className = 'mdl-card__title';
-            cardTitle.style.backgroundImage = 'url(' + data.image + ')';
-            cardTitle.style.backgroundSize = 'cover';
-            cardWrapper.appendChild(cardTitle);
-            var cardTitleTextElement = document.createElement('h2');
-            cardTitleTextElement.style.color = 'white';
-            cardTitleTextElement.className = 'mdl-card__title-text';
-            cardTitleTextElement.textContent = data.title;
-            cardTitle.appendChild(cardTitleTextElement);
-            var cardSupportingText = document.createElement('div');
-            cardSupportingText.className = 'mdl-card__supporting-text';
-            cardSupportingText.textContent = data.location;
-            cardSupportingText.style.textAlign = 'center';
-            cardWrapper.appendChild(cardSupportingText);
-            componentHandler.upgradeElement(cardWrapper);
-            sharedMomentsArea.appendChild(cardWrapper);
+            cardWrapper.className = 'col-xl-6 col-lg-6 col-md-6 col-sm-12';
+
+            var article = document.createElement('article');
+            article.className = 'comp-tile tile hover-effect';
+
+            var tileInner = document.createElement('a');
+            tileInner.className = 'tile-inner';
+            tileInner.setAttribute("href","/content/aem-pwa-blog/home.html");
+
+            var clearfix = document.createElement('div');
+            clearfix.className="bg-white clearfix";
+
+            var bgDarkGrey = document.createElement('div');
+            bgDarkGrey.className="image bg-dark-grey";
+
+            var bgImage  = document.createElement('div');
+            bgImage.className="bg-image bg-responsive-image";
+            bgImage.style.backgroundImage = 'url(' + data.fileReference + ')';
+
+            var copy = document.createElement('div');
+            copy.className="copy";
+
+            var title = document.createElement('h3');
+            title.className = "title";
+            title.textContent = data.title;
+
+            var icon = document.createElement('span');
+            icon.className = "fa fa-chevron-right icon icon-chevron";
+
+            var description = document.createElement('p');
+            description.className = "description";
+            description.textContent = data.description;
+
+            copy.appendChild(icon);
+            copy.appendChild(title);
+            copy.appendChild(description);
+
+            clearfix.appendChild(bgDarkGrey);
+            bgDarkGrey.appendChild(bgImage);
+
+            tileInner.appendChild(clearfix);
+            tileInner.appendChild(copy);
+
+            article.appendChild(tileInner);
+            cardWrapper.appendChild(article);
+
+            tiles.appendChild(cardWrapper);
         },
 
-        syncUpdateUI : function() {
+        syncUpdateUI : function(data) {
             this.clearCard();
             for (var i = 0; i < data.length; i++) {
                 this.createCard(data[i]);
             }
         },
-        updateUI : function () {
-            clearCards();
-            for (var i = 0; i < data.length; i++) {
-                this.createCard(data[i]);
+        updateUI : function (data) {
+            if(data){
+                for (var i = 0; i < data.length; i++) {
+                    this.createCard(data[i]);
+                }
             }
         },
         sendData: function () {

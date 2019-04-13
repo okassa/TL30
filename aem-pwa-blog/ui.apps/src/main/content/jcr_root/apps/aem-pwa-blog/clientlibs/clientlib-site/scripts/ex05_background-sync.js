@@ -49,11 +49,7 @@
                 var form = document.querySelector('form');
                 var sharedMomentsArea = document.querySelector('#shared-moments');
 
-                function clearCards() {
-                    while (sharedMomentsArea.hasChildNodes()) {
-                        sharedMomentsArea.removeChild(sharedMomentsArea.lastChild);
-                    }
-                }
+
 
                 function sendData() {
                     var id = new Date().toISOString();
@@ -71,7 +67,7 @@
                     })
                         .then(function (res) {
                             console.log('Sent data', res);
-                            updateUI();
+                            AdobeSummit.updateUI();
                         })
                 }
 
@@ -87,12 +83,12 @@
                         })
                         .then(function (data) {
                             networkDataReceived = true;
-                            console.log('From web', data);
+                            console.log('From web', data.teasers);
                             var dataArray = [];
-                            for (var key in data) {
-                                dataArray.push(data[key]);
+                            for (var key in data.teasers) {
+                                dataArray.push(data.teasers[key]);
                             }
-                          //  updateUI(dataArray);
+                            AdobeSummit.updateUI(dataArray);
                         });
 
                     if ('indexedDB' in window) {
@@ -100,16 +96,12 @@
                             .then(function (data) {
                                 if (!networkDataReceived) {
                                     console.log('From cache', data);
-                                    updateUI(data);
+                                    AdobeSummit.updateUI(data.teasers);
                                 }
                             });
                     }
                 }
 
-
-                if(shareImageButton){
-                    shareImageButton.addEventListener('click', window.AdobeSummit.openCreatePostModal());
-                }
 
                 if(captureButton){
                     captureButton.addEventListener('click', function (event) {
@@ -205,7 +197,7 @@
                                             });
                                     });
                             } else {
-                                this.sendData();
+                                AdobeSummit.sendData();
                             }
                         });
                     }

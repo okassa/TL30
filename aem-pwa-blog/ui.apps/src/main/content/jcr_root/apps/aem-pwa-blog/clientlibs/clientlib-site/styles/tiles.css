@@ -524,6 +524,7 @@
 
 .copy {
     position: relative;
+
 }
 
 .comp-tiles .copy {
@@ -593,4 +594,8 @@
 
 .comp-tiles .image {
     min-height: 211px;
+}
+
+.tile-inner {
+    border: 1px solid #e3e3e3;
 }

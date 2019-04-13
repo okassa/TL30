@@ -169,3 +169,9 @@ Handle image responsiveness for mobile
     outline: none;
     box-shadow: none;
 }
+
+.aem-pwa-blog__mainTile {
+    margin-bottom: 0.1rem;
+    border: 1px solid #e3e3e3;
+    margin-right: 1rem;
+}
