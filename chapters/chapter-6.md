@@ -16,4 +16,4 @@
 - [0] 
 
 
-Go to the next chapter : [Send push notifications to users](chapter-6.md)
+Go to the next chapter : [Access device camera](chapter-7.md)
