@@ -1,4 +1,4 @@
-![AEM Adobe](../chapters/images/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
 
 ## 7. Access device camera 
 

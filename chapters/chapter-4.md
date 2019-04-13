@@ -1,4 +1,4 @@
-![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png) 
 
 ## 4. Cache the app shell
 

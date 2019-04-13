@@ -1,4 +1,4 @@
-![AEM Adobe](../chapters/images/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
 
 ## 3. Add a service worker
 
@@ -63,4 +63,4 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 - https://jakearchibald.github.io/isserviceworkerready/#moar
 
 
-Go to the next chapter : [Send push notifications to users](chapter-4.md)
+Go to the next chapter : [Cache the app shell](chapter-4.md)

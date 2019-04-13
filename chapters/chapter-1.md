@@ -1,4 +1,4 @@
-![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png)   
 ## 1. Progressive Web Application in a nutshell
 
 ### What is a Progressive Web App?
