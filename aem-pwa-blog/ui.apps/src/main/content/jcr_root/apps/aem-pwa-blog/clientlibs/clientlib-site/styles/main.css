@@ -12,7 +12,6 @@ body {
     line-height: 1.428571429;
     font-weight: 200;
     color: #333333;
-    background-color: #fff;
 }
 /**
 Handle image responsiveness for mobile
@@ -84,7 +83,7 @@ Handle image responsiveness for mobile
 }
 
 .aem-pwa-blog__navigation {
-    background-color: #eceeef !important;
+    background-color: #d3d3d3;  !important;
     width: 100%;
 }
 
@@ -169,4 +168,10 @@ Handle image responsiveness for mobile
 .navbar-toggler:focus, .navbar-toggler:active {
     outline: none;
     box-shadow: none;
+}
+
+.aem-pwa-blog__mainTile {
+    margin-bottom: 0.1rem;
+    border: 1px solid #e3e3e3;
+    margin-right: 1rem;
 }

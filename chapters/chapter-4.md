@@ -1,4 +1,4 @@
-![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png) 
 
 ## 4. Cache the app shell
 
@@ -85,4 +85,4 @@ self.addEventListener('fetch', function(event) {
 - [0] To update
 
  
-Go to the next chapter : [Send push notifications ](chapter-5.md)
+Go to the next chapter : [Background Synchronization ](chapter-5.md)

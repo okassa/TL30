@@ -1,10 +1,11 @@
-![AEM Adobe](../chapters/images/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
 
 ## 3. Add a service worker
 
 ### Purpose
 
-- A service worker is a javascript file which loaded asynchronously and can XXXX .
+- A service worker is a script that your browser runs in the background, separate from a web page, opening the door to features 
+that don't need a web page or user interaction. .
 
 ### Hands on tasks
 
@@ -59,6 +60,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 ### Go further
 
 - [0] https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers 
+- https://jakearchibald.github.io/isserviceworkerready/#moar
 
 
-Go to the next chapter : [Send push notifications to users](chapter-4.md)
+Go to the next chapter : [Cache the app shell](chapter-4.md)

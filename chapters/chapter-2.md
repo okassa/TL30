@@ -1,4 +1,4 @@
-![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
+!![AEM Adobe](../chapters/images/logo/Lab-Header.png)    
 
 ## 2. Add the web app manifest
 
@@ -91,4 +91,4 @@ on the user's mobile device or desktop.
 - https://www.w3.org/TR/appmanifest/ 
 - https://github.com/w3c/manifest/
 
-Go to the next chapter : [Access the emulator camera](chapter-3.md)
+Go to the next chapter : [Add a service worker](chapter-3.md)

@@ -19,17 +19,12 @@
 		<div class="row">
             <div class="col-sm-4"></div>
             <button class="btn btn-primary col-sm-4 col-form-label" id="capture-btn">
-                Capture
+				<i class="fa fa-camera-retro fa-2x" aria-hidden="true">Capture</i>
             </button>
             <div class="col-sm-4"></div>
         </div>
         <br>
-		<div class="row" id="pick-image">
-            <div class="col-sm-3"></div>
-                <label class="col-sm-3 col-form-label">Pick an Image instead</label>
-                <input class="col-sm-3 type="file" accept="image/*" id="image-picker">
-            <div class="col-sm-3"></div>
-		</div>
+
 		<br>
 		<form id="formPost" path="${currentPage.path}/jcr:content.create.html" action="" method="">
             <div class="row">
@@ -38,27 +33,17 @@
                     <input class="col-sm-4" type="text" id="title">
 		        <div class="col-sm-3"></div>
 		    </div>
-		    <br>
-		    <div class="row" id="manual-location">
-                <div class="col-sm-3"></div>
-                <label class="col-sm-2 col-form-label" for="location" name="location">Location</label>
-                <input class="col-sm-4" type="text" id="location">
-                <div class="col-sm-3"></div>
-            </div>
-            <br>
-            <div class="row input-section">
-                <div class="col-sm-4"></div>
-				<button class="btn btn-secondary col-sm-4 col-form-label" id="location-btn">
-				    <span id="confirmation-toast">Get Location</span>
-				</button>
-                <div class="mdl-spinner mdl-js-spinner is-active col-sm-2" id="location-loader"></div>
-                <div class="col-sm-4"></div>
-            </div>
+			<div class="row">
+				<div class="col-sm-3"></div>
+				<label class="col-sm-2 col-form-label" for="title" name="tags">Tags</label>
+				<input class="col-sm-4" type="text" id="tags">
+				<div class="col-sm-3"></div>
+			</div>
             <br>
 			<div class="row">
                 <div class="col-sm-4"></div>
                 <button class="btn btn-primary col-sm-4 col-form-label" type="submit" id="post-btn">
-                    Post!
+					<i class="fa fa-paper-plane fa-2x" aria-hidden="true">Post!</i>
                 </button>
                 <div class="col-sm-4"></div>
 			</div>
@@ -66,26 +51,26 @@
 			<div class="row">
                 <div class="col-sm-4"></div>
 				<button class="btn btn-primary col-sm-4  col-form-label" id="close-create-post-modal-btn" type="button">
-				  <i class="fa fa-times" aria-hidden="true">close</i>
+				  <i class="fa fa-times fa-2x" aria-hidden="true">Close</i>
 				</button>
 				<div class="col-sm-4"></div>
 			</div>
 		</form>
 	</section>
-	
+
 	<section id="view-post">
 	    <div class="row">
 	        <div class="col-sm-12 text-center">
 	            <img src="/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png" class="img-fluid" alt="Responsive image">
 	        </div>
 	    </div>
-		     
+
 	    <div class="row">
 	        <div class="col-sm-3"></div>
 	        <h5 class="col-sm-6 text-center">Share your Moments</h5>
 	        <div class="col-sm-3"></div>
-	    </div> 
-	    
+	    </div>
+
 		<div class="row">
 		   <div class="col-sm-2"></div>
 			<div class="col-sm-8" id="shared-moments">
@@ -98,7 +83,7 @@
 			</div>
 			<div class="col-sm-2"></div>
 		</div>
-		
+
 		<div class="row">
 	        <div class="col-sm-5"></div>
 			<button class="btn btn-primary col-sm-2 col-form-label" id="share-image-button">

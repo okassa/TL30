@@ -1,10 +1,10 @@
-![AEM Adobe](../chapters/images/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png) 
 
-## 5. Send push notifications
+## 5. Background Synchronization
 
 ### Purpose
 
-- A service worker can XXXX .
+- A service worker might catch a sync event so that synchronization attempts can continue despite adverse conditions when initially requested .
 
 ### Hands on tasks
 

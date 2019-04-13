@@ -13,19 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ###############################################################################
-
 #base=scripts
 
-vendor/promise.js
-vendor/fetch.js
-vendor/idb.js
-vendor/material.min.js
+#=============================================================================
+#  Please uncomment the line of the script you'd like to use
+#=============================================================================
+ex00-global-init.js
+ex02_register-service-worker.js
+ex05_background-sync.js
+ex06_push-notifications.js
+ex07_access-camera.js
+#Keep this start-all-exercises.js at the bottom
+start-all-exercises.js
 
-tools/utility.js
-tools/updateIcon.js
 
-main.js
-pwa/push-notifications.js
-pwa/profile.js
-pwa/async-post.js
-pwa/post.js
+
