@@ -498,10 +498,11 @@
 
 .bg-white {
     background-color: #fff;
+    border: 1px solid #e3e3e3;
 }
 
 .bg-dark-grey {
-    background-color: #d3d3d3;
+    background-color: #eceeef !important
 }
 
 .image {

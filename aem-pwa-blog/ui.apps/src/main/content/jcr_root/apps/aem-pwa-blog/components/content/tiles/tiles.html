@@ -7,9 +7,9 @@
      -->
 
     <div class="row" data-sly-list="${resource.children}">
-        <div class="col-lg-3 col-md-4 col-sm-12 col-xl-4">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
             <article class="comp-tile tile hover-effect">
-                <a class="tile-inner" href="${item.path}.html">
+                <a class="tile-inner" href="${currentPage.path}.html">
                     <div class="bg-white clearfix">
                         <div class="image bg-dark-grey">
                             <div class="bg-image bg-responsive-image"  style="background-image: url(${item.fileReference @ context='uri'})" ></div>
