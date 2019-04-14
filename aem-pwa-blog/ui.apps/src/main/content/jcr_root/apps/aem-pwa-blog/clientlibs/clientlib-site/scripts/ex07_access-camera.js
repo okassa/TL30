@@ -32,7 +32,7 @@
     var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn');
     var sharedMomentsArea = document.querySelector('#shared-moments');
     var titleInput = document.querySelector('#title');
-    var locationInput = document.querySelector('#location');
+    var tagsInput = document.querySelector('#tags');
     var imagePickerArea = document.querySelector('#pick-image');
     var locationBtn = document.querySelector('#location-btn');
     var locationLoader = document.querySelector('#location-loader');
@@ -51,12 +51,13 @@ window.AdobeSummit.Exercise07 =  {
                 canvasElement.style.display = 'block';
                 videoPlayer.style.display = 'none';
                 captureButton.style.display = 'none';
-                //var context = canvasElement.getContext('2d');
+                var context = canvasElement.getContext('2d');
                 //context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
                 videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
                     track.stop();
                 });
                 picture = dataURItoBlob(canvasElement.toDataURL());
+                //picture = canvasElement.toDataURL('image/png');
             });
         }
 
@@ -69,10 +70,10 @@ window.AdobeSummit.Exercise07 =  {
 
                 var path = $("#formPost").attr("path");
                 var title= titleInput.value;
-                var location= locationInput.value;
-                var file= picture + '.png';
+                var tags= tagsInput.value;
+                var file= picture;
 
-                $.post(path, { 'title': title, 'location': location, 'file': file})
+                /*$.post(path, { 'title': title, 'tags': tags, 'file': file})
                     .done(function(msg) {
                         alert( "success"+msg.responseText );
                     })
@@ -81,7 +82,30 @@ window.AdobeSummit.Exercise07 =  {
                     })
                     .always(function(msg) {
                         alert( "complete"+msg.responseText );
-                    });
+                    });*/
+                    
+                var data = new FormData();
+                data.append('title', titleInput.value);
+                data.append('tags', tagsInput.value);
+                data.append('file', file);
+
+                $.ajax({
+                    type: "POST",
+                    url: path,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    mimeType:"multipart/form-data"
+                })
+                .done(function(msg) {
+                    alert( "success"+msg.responseText );
+                })
+                .fail(function(msg) {
+                    alert( "error"+msg.responseText );
+                })
+                .always(function(msg) {
+                    alert( "complete"+msg.responseText );
+                });
             });
         }
 
@@ -150,20 +174,20 @@ window.AdobeSummit.Exercise07 =  {
                     type: 'POST',
                     data: 'firstName='+ firstName+'&lastName='+ lastName+'&email='+ email+'&password='+ password+'&hobbies='+ hobbies,
                     success: function(msg){
-                        alert(msg.msg); //display the data returned by the servlet
+                        alert(msg.responseText); //display the data returned by the servlet
                     },
                     error: function(msg){
-                        alert(msg.msg); //display the data returned by the servlet
+                        alert(msg.responseText); //display the data returned by the servlet
                     },
                 })
                     .done(function(msg) {
-                        alert( "success"+msg.msg );
+                        alert( "success"+msg.responseText );
                     })
                     .fail(function(msg) {
-                        alert( "error"+msg.msg );
+                        alert( "error"+msg.responseText );
                     })
                     .always(function(msg) {
-                        alert( "complete"+msg.msg );
+                        alert( "complete"+msg.responseText );
                     });
             });
         }
