@@ -121,7 +121,7 @@ self.addEventListener('sync', function(event) {
                         postData.append('title', dt.title);
                         postData.append('file', dt.picture, dt.id + '.png');
 
-                        fetch('/bin/aem_pwa_blog/storePostData', {
+                        fetch('/bin/aem_pwa_blog/share-post.json', {
                             method: 'POST',
                             body: postData
                         })
@@ -152,6 +152,7 @@ self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
+    var title = 'AEM <3 PWA';
     var data = {title: 'Adobe Experience Manager <3 PWA', content: 'A notification has been retrieved new happened!', openUrl: '/'};
 
     if (event.data) {

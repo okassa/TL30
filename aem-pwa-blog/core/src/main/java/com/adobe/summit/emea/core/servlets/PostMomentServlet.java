@@ -30,10 +30,8 @@ import org.slf4j.LoggerFactory;
                 Constants.SERVICE_DESCRIPTION + "=PostMomentServlet Servlet - This servlet will help to create a captured moment",
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
                 "sling.servlet.methods=" + HttpConstants.METHOD_POST,
-                "sling.servlet.resourceTypes="+ "aem-pwa-blog/components/structure/post-page",
-                "sling.servlet.selectors=" + "create",
-                "sling.servlet.selectors=" + "update",
-                "sling.servlet.extensions=" + "html"
+                "sling.servlet.paths="+ "/bin/aem_pwa_blog/share-post",
+                "sling.servlet.extensions=" + "json"
         })
 public class PostMomentServlet extends SlingAllMethodsServlet {
 	
