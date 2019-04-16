@@ -28,17 +28,8 @@
     var submitProfileFormButton = document.querySelector('#submit');
     var shareImageButton = document.querySelector('#share-image-button');
     var createPostArea = document.querySelector('#create-post');
-    var viewPostArea = document.querySelector('#view-post');
     var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn');
-    var sharedMomentsArea = document.querySelector('#shared-moments');
-    var titleInput = document.querySelector('#title');
-    var tagsInput = document.querySelector('#tags');
-    var imagePickerArea = document.querySelector('#pick-image');
-    var locationBtn = document.querySelector('#location-btn');
-    var locationLoader = document.querySelector('#location-loader');
-    var tiles = document.querySelector('.aem-pwa-blog__tiles');
-    var fetchedLocation = {lat: 0, lng: 0};
-    var postButton = document.querySelector('#post-btn');
+
 
 
 

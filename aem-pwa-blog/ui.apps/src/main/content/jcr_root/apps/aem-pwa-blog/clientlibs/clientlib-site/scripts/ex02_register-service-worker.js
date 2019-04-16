@@ -21,6 +21,7 @@
     'use strict';
 
     // Init AdobeSummit namespace if not available.
+    var deferredPrompt;
 
     window.AdobeSummit.Device = {
         deferredPrompt:false,
@@ -99,7 +100,7 @@
                 $(window).on('beforeinstallprompt',function(event) {
                     console.log('[TL30-PWA] >>>>> beforeinstallprompt has been  fired !');
                     event.preventDefault();
-                    AdobeSummit.Device.deferredPrompt = event;
+                     deferredPrompt = event;
                     return false;
                 });
             }

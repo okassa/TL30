@@ -1,7 +1,7 @@
-importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js')
-importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js')
+importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js');
+importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js');
 
-var version = "123456";
+var version = "160419";
 
 var CACHE_STATIC_NAME = 'static-v'+version;
 var CACHE_DYNAMIC_NAME = 'dynamic-v'+version;
@@ -153,9 +153,10 @@ self.addEventListener('sync', function(event) {
                 .then(function(data) {
                     for (var dt in data) {
                         var postData = new FormData();
-                        postData.append('id', dt.id);
-                        postData.append('title', dt.title);
-                        postData.append('file', dt.picture, dt.id + '.png');
+                        postData.append('id', data[dt].id);
+                        postData.append('title', data[dt].title);
+                        postData.append('tags', data[dt].tags);
+                        postData.append('file', data[dt].file);
 
                         fetch('/bin/aem-pwa-blog/share-post.json', {
                             method: 'POST',

@@ -96,7 +96,7 @@ var AdobeSummit = window.AdobeSummit || {
                 createPostArea.style.transform = 'translateY(0)';
             }, 1);
 
-            window.AdobeSummit.Device.startDeviceInstall();
+            //window.AdobeSummit.Device.startDeviceInstall();
 
         },
         closeCreatePostModal : function () {

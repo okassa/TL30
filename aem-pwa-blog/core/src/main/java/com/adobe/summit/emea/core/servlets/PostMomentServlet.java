@@ -4,8 +4,11 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+
+import com.google.gson.Gson;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -24,7 +27,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 @Component(service=Servlet.class,
         property={
-                Constants.SERVICE_DESCRIPTION + "=PostMomentServlet Servlet - This servlet will help to create a captured moment",
+                Constants.SERVICE_DESCRIPTION + "=PostMomentServlet Servlet - This servlet will help to create a captured moment and more...",
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
                 "sling.servlet.methods=" + HttpConstants.METHOD_POST,
                 "sling.servlet.paths="+ "/bin/aem-pwa-blog/share-post",
@@ -35,11 +38,15 @@ public class PostMomentServlet extends SlingAllMethodsServlet {
     @Reference
     private ResourceResolverFactory resolverFactory;
 
+    private Gson gson = new Gson();
+
     public PostMomentServlet() {
     }
 
     protected void doPost(SlingHttpServletRequest req, SlingHttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
+        String id = req.getParameter("id");
+        String tags = req.getParameter("tags");
         String title = req.getParameter("title");
         String file = req.getParameter("file").replace("data:image/png;base64,", "");
         byte[] initialArray = Base64.decode(file.getBytes());
@@ -47,11 +54,16 @@ public class PostMomentServlet extends SlingAllMethodsServlet {
         String fullAssetPath = "/content/dam/aem-pwa-blog/uploads/" + title + "_" + System.currentTimeMillis() + ".jpg";
         AssetManager assetManager = (AssetManager)req.getResourceResolver().adaptTo(AssetManager.class);
         Asset imageAsset = assetManager.createAsset(fullAssetPath, inputStream, "image/jpeg", true);
+
+        HashMap<String,String> res = new HashMap<>();
+        res.put("id",id);
         if(imageAsset != null) {
-            resp.getWriter().write("{\'msg\': \'Post moment successfully created.\' }");
+            res.put("msg","Post moment successfully created.");
+
         } else {
-            resp.getWriter().write("{\'msg\': \'Post moment successfully had an issue.\' }");
+            res.put("msg","Post moment successfully had an issue.");
         }
+        resp.getWriter().write(this.gson.toJson(res));
 
     }
 }
