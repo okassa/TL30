@@ -30,9 +30,6 @@
 
     var messaging = firebase.messaging();
 
-    var deferredPrompt;
-
-
     window.AdobeSummit.Exercise06 =  {
 
         initializeUI : function (swRegistration) {
@@ -84,6 +81,12 @@
              * --
              * -----------------------------------------------------------------------
              */
+
+            navigator.serviceWorker.ready
+                .then(function (sw) {
+                    window.AdobeSummit.Exercise06.initializeUI(sw);
+                });
+
 
             messaging.onMessage(function (payload) {
                 console.log("[TL30-PWA][pushNotification] Message received. ", JSON.stringify(payload));

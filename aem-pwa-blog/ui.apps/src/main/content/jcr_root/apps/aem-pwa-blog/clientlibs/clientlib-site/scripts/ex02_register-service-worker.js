@@ -72,13 +72,17 @@
                     /**
                      *
                      * Register the service worker.
+                     *
+                     *      SW_PATH:"/content/sw.js",
+                     *      SW_SCOPE:"/content/aem-pwa-blog"
+                     *
+                     *      What does service worker scope do ? It will restrict the service worker
+                     *      to be used only with pages beneath /content/aem-pwa-blog
                      */
                     navigator.serviceWorker.register(AdobeSummit.Constants.SW_PATH,{ scope: AdobeSummit.Constants.SW_SCOPE })
                         .then(function(registration) {
                             // Registration was successful
                             console.log('[TL30-PWA] >>>>> ServiceWorker registration successful with scope: ', registration.scope);
-                            // Execrice 07
-                            AdobeSummit.Exercise06.initializeUI(registration);
                         }, function(err) {
                             // registration failed :(
                             console.log('[TL30-PWA] >>>>> ServiceWorker registration failed: ', err);

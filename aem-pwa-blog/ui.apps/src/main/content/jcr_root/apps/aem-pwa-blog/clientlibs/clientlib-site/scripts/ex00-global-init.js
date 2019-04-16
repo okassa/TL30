@@ -195,12 +195,12 @@ var AdobeSummit = window.AdobeSummit || {
             postData.append('title', titleInput.value);
             postData.append('file', canvasElement.toDataURL());
 
-            fetch('/content/aem_pwa_blog/notifications.json', {
+            fetch('/content/aem-pwa-blog/notifications.json', {
                 method: 'POST',
                 body: postData
             })
                 .then(function (res) {
-                    console.log('Sent data', res);
+                    console.log('[TL30-PWA][sendData] Sent data', res);
                     this.updateUI();
                 })
         },

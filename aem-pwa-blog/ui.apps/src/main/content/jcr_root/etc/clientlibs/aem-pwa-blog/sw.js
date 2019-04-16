@@ -17,8 +17,14 @@ var config = {
 firebase.initializeApp(config);
 
 var messaging = firebase.messaging();
-/**
- * The install event is fired only once
+
+/*
+ ================================================== Exercise 02 : (2) Registering service worker  ========================================================
+ =
+ =  When window.AdobeSummit.Exercise02.init() method is called the service worker is registered and an install event is caught by the service
+ =  worker.The install event is fired only once
+ =
+ ================================================================================================================================================
  */
 self.addEventListener('install', function(event) {
     // don't wait if there is a newer version of the service worker.
@@ -31,12 +37,16 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_STATIC_NAME)
             .then(function(cache) {
+                /*
+
+                 ================================================== Exercise 04 : (1) Caching app shell  ========================================================
+                 =
+                 =  We cache only static resources such as Js, CSS, icon, images and fonts
+                 =
+                 ================================================================================================================================================
+                 */
                 console.log('[TL30-PWA][install] >>>>> Precaching App Shell');
                 cache.addAll([
-                    '/content/aem-pwa-blog/home.html',
-                    '/content/aem-pwa-blog/post.html',
-                    '/content/aem-pwa-blog/profile.html',
-                    '/content/aem-pwa-blog/login.html',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor-pwa.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js',
@@ -55,13 +65,27 @@ self.addEventListener('install', function(event) {
             })
     )
 });
-
+/*
+ ================================================== Exercise 02 : (2) Registering service worker  ========================================================
+ =
+ =  After the install event completion, there is an activate event that is sent by the browser to notify the service worker that everything went fine.
+ =
+ =
+ ================================================================================================================================================
+ */
 self.addEventListener('activate', function(event) {
     console.log('[TL30-PWA][activate] >>>>> Activating Service Worker ....', event);
     event.waitUntil(
         caches.keys()
             .then(function(keyList) {
                 return Promise.all(keyList.map(function(key) {
+                    /*
+                     ================================================== Exercise 04 : (3) Caching app shell  ========================================================
+                     =
+                     =  We update the cache when a new version of the sw is being installed
+                     =
+                     ================================================================================================================================================
+                     */
                     if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
                         console.log('[TL30-PWA][activate] >>>>> Removing old cache.', key);
                         return caches.delete(key);
@@ -77,7 +101,10 @@ self.addEventListener('activate', function(event) {
 /*
 
  ================================================== Exercise 04 : (2) Caching app shell  ========================================================
-
+ =
+ =  We cache only dynamic  resources such html pages, json payload fron ajax requests...
+ =
+ ================================================================================================================================================
  */
 
 self.addEventListener('fetch', function(event) {
@@ -99,7 +126,6 @@ self.addEventListener('fetch', function(event) {
                                         cache.put(event.request.url, res.clone());
                                         return res;
                                     }
-
                                 })
                         })
                         .catch(function(err) {
@@ -111,9 +137,12 @@ self.addEventListener('fetch', function(event) {
     );
 });
 /*
-
- ================================================== Exercise 05 : Background syncing  ========================================================
-
+ ================================================== Exercise 05 :  Background sync  ========================================================
+ =
+ =  When window.AdobeSummit.Exercise05.init() we register the sync manager to check network availability, when a sync event occured because
+ = the network is back then all post that have been store within indexdb will be executed.
+ =
+ ================================================================================================================================================
  */
 self.addEventListener('sync', function(event) {
     console.log('[TL30-PWA][sync] Background syncing', event);
@@ -150,10 +179,14 @@ self.addEventListener('sync', function(event) {
         );
     }
 });
+
 /*
-
- ================================================== Exercise 06 : Web Push notifications ========================================================
-
+ ================================================== Exercise 06 :  Background sync  ========================================================
+ =
+ =  When a user has allow his/her device to receive notifications, any notification will be caught by the service worker that will trigger a
+ = notification.
+ =
+ ================================================================================================================================================
  */
 self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');

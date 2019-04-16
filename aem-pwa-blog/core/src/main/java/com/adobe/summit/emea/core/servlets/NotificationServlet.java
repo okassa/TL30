@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
         property={
                 Constants.SERVICE_DESCRIPTION + "=Notification Servlet - This servlet is the link between the browser and the cloud messaging provider",
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
-                "sling.servlet.methods=" + HttpConstants.METHOD_GET,
+                "sling.servlet.methods=" + HttpConstants.METHOD_POST,
                 "sling.servlet.paths="+ "/bin/aem-pwa-blog/notifications",
                 "sling.servlet.extensions=" + "json"
         })
