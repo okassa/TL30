@@ -46,109 +46,89 @@ import org.slf4j.LoggerFactory;
         })
 @Designate(ocd = ManifestServlet.Configuration.class)
 public class UserProfileServlet extends SlingAllMethodsServlet {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserProfileServlet.class);
-	
-	@Reference
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserProfileServlet.class);
+    @Reference
     private ResourceResolverFactory resolverFactory;
-	
-    @Override
+
+    public UserProfileServlet() {
+    }
+
     protected void doPost(SlingHttpServletRequest req, SlingHttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-
         String[] selectors = req.getRequestPathInfo().getSelectors();
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String hobbies = req.getParameter("hobbies");
-
-        if (selectors.length != 0 && "create".equals(selectors[0])) {
-            // Create a user at /home/users/aem-pwa-blog/xxxx
-            ResourceResolver  resolver = null;
+        if(selectors.length != 0 && "create".equals(selectors[0])) {
+            ResourceResolver resolver = null;
             Session session = null;
-			try {
-                resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"));
-                session = resolver.adaptTo(Session.class);
 
-	            UserManager userManager = resolver.adaptTo(UserManager.class);
-				
-				// Create UserManager Object
-		        User user = null;
-		        if (userManager.getAuthorizable(email) == null) {
-		        	
-		            user = userManager.createUser(email, password, new SimplePrincipal(email), "/home/users/aem-pwa-blog");
-
-		            ValueFactory valueFactory = session.getValueFactory();
-		            Value firstNameValue = valueFactory.createValue(firstName, PropertyType.STRING);
-		            user.setProperty("./profile/givenName", firstNameValue);
-
-		            Value lastNameValue = valueFactory.createValue(lastName, PropertyType.STRING);
-		            user.setProperty("./profile/familyName", lastNameValue);
-
-		            Value emailValue = valueFactory.createValue(email, PropertyType.STRING);
-		            user.setProperty("./profile/email", emailValue);
-		            
-		            Value hobbiesValue = valueFactory.createValue(hobbies, PropertyType.STRING);
-		            user.setProperty("./profile/hobbies", hobbiesValue);
-                    // Always refresh session to avoid OakState001 exceptions
-		            session.refresh(true);
-		            session.save();
-		            LOGGER.info("---> {} User successfully created and added into group.", user.getID());
-		            resp.getWriter().write("Account created, you can log in now with your email and password !!!");
-		        } else {
-		        	LOGGER.info("---> User already exist..");
-		        	resp.getWriter().write("Email already exists, you can log in now with your email and password !!!");
-		        }
-				
-			} catch (LoginException | RepositoryException e) {
-				LOGGER.info("---> Error {} ", e);
-				resp.getWriter().write("Error during registration process, please try later or contact administrator !!!");
-			} finally {
-                // Always close what you've opened - > Open Close Principle
-                if (resolver != null){
+            try {
+                resolver = this.resolverFactory.getServiceResourceResolver(Collections.singletonMap("sling.service.subservice", "pwaWriteUserAccess"));
+                session = (Session)resolver.adaptTo(Session.class);
+                UserManager e = (UserManager)resolver.adaptTo(UserManager.class);
+                User user = null;
+                if(e.getAuthorizable(email) == null) {
+                    user = e.createUser(email, password, new UserProfileServlet.SimplePrincipal(email), "/home/users/aem-pwa-blog");
+                    ValueFactory valueFactory = session.getValueFactory();
+                    Value firstNameValue = valueFactory.createValue(firstName, 1);
+                    user.setProperty("./profile/givenName", firstNameValue);
+                    Value lastNameValue = valueFactory.createValue(lastName, 1);
+                    user.setProperty("./profile/familyName", lastNameValue);
+                    Value emailValue = valueFactory.createValue(email, 1);
+                    user.setProperty("./profile/email", emailValue);
+                    Value hobbiesValue = valueFactory.createValue(hobbies, 1);
+                    user.setProperty("./profile/hobbies", hobbiesValue);
+                    session.refresh(true);
+                    session.save();
+                    LOGGER.info("---> {} User successfully created and added into group.", user.getID());
+                    resp.getWriter().write("Account created, you can log in now with your email and password !!!");
+                } else {
+                    LOGGER.info("---> User already exist..");
+                    resp.getWriter().write("Email already exists, you can log in now with your email and password !!!");
+                }
+            } catch (RepositoryException | LoginException var21) {
+                LOGGER.info("---> Error {} ", var21);
+                resp.getWriter().write("Error during registration process, please try later or contact administrator !!!");
+            } finally {
+                if(resolver != null) {
                     resolver.close();
                 }
 
-                if (session != null){
+                if(session != null) {
                     session.logout();
                 }
+
             }
-        } else if (selectors.length != 0 && "update".equals(selectors[0])){
-            //@TODO : Nice to have but not mandatory for the lab
+        } else if(selectors.length != 0 && "update".equals(selectors[0])) {
+            ;
         }
 
-        
     }
-    
-    
-    
-    
+
     private static class SimplePrincipal implements Principal {
         protected final String name;
-    
+
         public SimplePrincipal(String name) {
-            if (name.compareTo("")==0) {
+            if(name.compareTo("") == 0) {
                 throw new IllegalArgumentException("Principal name cannot be blank.");
+            } else {
+                this.name = name;
             }
-            this.name = name;
         }
-    
+
         public String getName() {
-            return name;
+            return this.name;
         }
-    
-        @Override
+
         public int hashCode() {
-            return name.hashCode();
+            return this.name.hashCode();
         }
-    
-        @Override
+
         public boolean equals(Object obj) {
-            if (obj instanceof Principal) {
-                return name.equals(((Principal) obj).getName());
-            }
-            return false;
+            return obj instanceof Principal?this.name.equals(((Principal)obj).getName()):false;
         }
     }
 }

@@ -47,8 +47,8 @@ var AdobeSummit = window.AdobeSummit || {
          *
          */
         Constants : {
-            SW_PATH:"/content/aem-pwa-blog/sw.js",
-            SW_SCOPE:"/content/aem-pwa-blog/en"
+            SW_PATH:"/content/sw.js",
+            SW_SCOPE:"/content/aem-pwa-blog"
         },
         initializeLocation : function(locationBtn) {
             if (!('geolocation' in navigator) && locationBtn) {
@@ -76,8 +76,10 @@ var AdobeSummit = window.AdobeSummit || {
 
             navigator.mediaDevices.getUserMedia({video: true})
                 .then(function (stream) {
-                    videoPlayer.srcObject = stream;
-                    videoPlayer.style.display = 'block';
+                    if (videoPlayer){
+                        videoPlayer.srcObject = stream;
+                        videoPlayer.style.display = 'block';
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -191,12 +193,9 @@ var AdobeSummit = window.AdobeSummit || {
             var postData = new FormData();
             postData.append('id', id);
             postData.append('title', titleInput.value);
-            postData.append('location', locationInput.value);
-            postData.append('rawLocationLat', fetchedLocation.lat);
-            postData.append('rawLocationLng', fetchedLocation.lng);
-            postData.append('file', picture, id + '.png');
+            postData.append('file', canvasElement.toDataURL());
 
-            fetch('/bin/aem_pwa_blog/postData', {
+            fetch('/content/aem_pwa_blog/notifications.json', {
                 method: 'POST',
                 body: postData
             })

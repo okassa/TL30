@@ -51,91 +51,17 @@ window.AdobeSummit.Exercise07 =  {
                 canvasElement.style.display = 'block';
                 videoPlayer.style.display = 'none';
                 captureButton.style.display = 'none';
-                var context = canvasElement.getContext('2d');
+                //var context = canvasElement.getContext('2d');
                 //context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
                 videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
                     track.stop();
                 });
                 picture = dataURItoBlob(canvasElement.toDataURL());
-                //picture = canvasElement.toDataURL('image/png');
             });
         }
 
         if(createPostArea) {
             createPostArea.style.display = 'none';
-        }
-
-        if(postButton) {
-            postButton.addEventListener('click', function(event) {
-
-                var path = $("#formPost").attr("path");
-                var title= titleInput.value;
-                var tags= tagsInput.value;
-                var file= picture;
-
-                /*$.post(path, { 'title': title, 'tags': tags, 'file': file})
-                    .done(function(msg) {
-                        alert( "success"+msg.responseText );
-                    })
-                    .fail(function(msg) {
-                        alert( "error"+msg.responseText );
-                    })
-                    .always(function(msg) {
-                        alert( "complete"+msg.responseText );
-                    });*/
-                    
-                var data = new FormData();
-                data.append('title', titleInput.value);
-                data.append('tags', tagsInput.value);
-                data.append('file', file);
-
-                $.ajax({
-                    type: "POST",
-                    url: path,
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    mimeType:"multipart/form-data"
-                })
-                .done(function(msg) {
-                    alert( "success"+msg.responseText );
-                })
-                .fail(function(msg) {
-                    alert( "error"+msg.responseText );
-                })
-                .always(function(msg) {
-                    alert( "complete"+msg.responseText );
-                });
-            });
-        }
-
-        if(locationBtn) {
-            locationBtn.addEventListener('click', function (event) {
-                if (!('geolocation' in navigator)) {
-                    return;
-                }
-                var sawAlert = false;
-
-                locationBtn.style.display = 'none';
-                locationLoader.style.display = 'block';
-
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    locationBtn.style.display = 'inline';
-                    locationLoader.style.display = 'none';
-                    fetchedLocation = {lat: position.coords.latitude, lng: 0};
-                    locationInput.value = 'In Munich';
-                    document.querySelector('#manual-location').classList.add('is-focused');
-                }, function (err) {
-                    console.log(err);
-                    locationBtn.style.display = 'inline';
-                    locationLoader.style.display = 'none';
-                    if (!sawAlert) {
-                        alert('Couldn\'t fetch location, please enter manually!');
-                        sawAlert = true;
-                    }
-                    fetchedLocation = {lat: 0, lng: 0};
-                }, {timeout: 7000});
-            });
         }
 
         if(shareImageButton) {
@@ -157,6 +83,7 @@ window.AdobeSummit.Exercise07 =  {
         }
 
 
+
         if(submitProfileFormButton) {
             submitProfileFormButton.addEventListener('click', function(event) {
 
@@ -169,25 +96,23 @@ window.AdobeSummit.Exercise07 =  {
                 var password= $('#password').val();
                 var hobbies= $('#hobbies').val();
 
-                $.ajax({
-                    url: path,
-                    type: 'POST',
-                    data: 'firstName='+ firstName+'&lastName='+ lastName+'&email='+ email+'&password='+ password+'&hobbies='+ hobbies,
-                    success: function(msg){
-                        alert(msg.responseText); //display the data returned by the servlet
-                    },
-                    error: function(msg){
-                        alert(msg.responseText); //display the data returned by the servlet
-                    },
+                //  @TODO use fetch instead
+
+                fetch(path, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "email": email,
+                        "password": firstName,
+                        "hobbies": hobbies,
+                    })
                 })
-                    .done(function(msg) {
-                        alert( "success"+msg.responseText );
+                    .then(function (data) {
+                        console.log('Request success: ', data);
                     })
-                    .fail(function(msg) {
-                        alert( "error"+msg.responseText );
-                    })
-                    .always(function(msg) {
-                        alert( "complete"+msg.responseText );
+                    .catch(function (error) {
+                        console.log('Request failure: ', error);
                     });
             });
         }

@@ -1,8 +1,10 @@
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js')
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js')
 
-var CACHE_STATIC_NAME = 'static-v4';
-var CACHE_DYNAMIC_NAME = 'dynamic-v2';
+var version = "123456";
+
+var CACHE_STATIC_NAME = 'static-v'+version;
+var CACHE_DYNAMIC_NAME = 'dynamic-v'+version;
 
 var config = {
     apiKey: "AIzaSyDSJsppoDjFCppABijYv5IXiEADtbdp_tM",
@@ -36,16 +38,17 @@ self.addEventListener('install', function(event) {
                     '/content/aem-pwa-blog/profile.html',
                     '/content/aem-pwa-blog/login.html',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor.js',
+                    '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor-pwa.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js',
+                    '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-base.js',
                     '/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.woff2?v=4.7.0',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-base.css',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor.css',
-                    '/etc.clientlibs/core-components-examples/clientlibs/clientlib-themes/core-components-clean.css',
+                    '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.css',
                     '/etc/clientlibs/aem-pwa-blog/logos/summit-logo-m.png',
                     '/etc/clientlibs/aem-pwa-blog/logos/summit-logo.png',
                     '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-144x144.png',
-                    '/content/aem-pwa-blog/home.offline.html',
                     '/etc/clientlibs/aem-pwa-blog/icons/favicon.ico'
                 ]);
                 console.log('[TL30-PWA][install] <<<<< The App Shell has been cached....');
@@ -91,8 +94,12 @@ self.addEventListener('fetch', function(event) {
                         .then(function(res) {
                             return caches.open(CACHE_DYNAMIC_NAME)
                                 .then(function(cache) {
-                                    cache.put(event.request.url, res.clone());
-                                    return res;
+                                    var url = event.request.url;
+                                    if(url.indexOf("http://") > -1 || url.indexOf("https://") > -1){
+                                        cache.put(event.request.url, res.clone());
+                                        return res;
+                                    }
+
                                 })
                         })
                         .catch(function(err) {
@@ -121,7 +128,7 @@ self.addEventListener('sync', function(event) {
                         postData.append('title', dt.title);
                         postData.append('file', dt.picture, dt.id + '.png');
 
-                        fetch('/bin/aem_pwa_blog/share-post.json', {
+                        fetch('/bin/aem-pwa-blog/share-post.json', {
                             method: 'POST',
                             body: postData
                         })
@@ -145,15 +152,15 @@ self.addEventListener('sync', function(event) {
 });
 /*
 
-================================================== Exercise 06 : Web Push notifications ========================================================
+ ================================================== Exercise 06 : Web Push notifications ========================================================
 
  */
 self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
-    var title = 'AEM <3 PWA';
-    var data = {title: 'Adobe Experience Manager <3 PWA', content: 'A notification has been retrieved new happened!', openUrl: '/'};
+    var title = "AEM <3 PWA" ;
+    var data = {title: 'Adobe Experience Manager is PWA-ready !', content: 'A notification has been retrieved new happened!', openUrl: '/'};
 
     if (event.data) {
         data.content = JSON.parse(event.data.text());
@@ -173,7 +180,7 @@ self.addEventListener('push', function(event) {
      *
      * **/
     const options = {
-        body: data,
+        body: 'A notification has been retrieved new happened!',
         icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
         badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
         data: {

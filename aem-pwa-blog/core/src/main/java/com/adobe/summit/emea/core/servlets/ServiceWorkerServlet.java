@@ -36,10 +36,10 @@ import java.util.Collections;
  */
 @Component(service=Servlet.class,
         property={
-                Constants.SERVICE_DESCRIPTION + "=ServiceWorker Servlet - This servlet will expose the service worker at /content/aem-pwa-blog/sw.js to be compliant with" +
+                Constants.SERVICE_DESCRIPTION + "=ServiceWorker Servlet - This servlet will expose the service worker at /content/sw.js to be compliant with" +
                         "service worker requirements in the browser. ",
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
-                HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN+"=/content/aem-pwa-blog/sw.js" ,
+                HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN+"=/content/sw.js" ,
                 HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT+"="+ ("(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=org.osgi.service.http)")
         })
 @Designate(ocd = ManifestServlet.Configuration.class)

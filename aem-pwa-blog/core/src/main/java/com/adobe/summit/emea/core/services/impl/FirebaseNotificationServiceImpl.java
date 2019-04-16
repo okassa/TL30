@@ -24,17 +24,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Firebase Cloud Messaging (FCM) can be used to send messages to clients on iOS, Android and Web.
- *
- * This sample uses FCM to send two types of messages to clients that are subscribed to the `news`
- * topic. One type of message is a simple notification message (display message). The other is
- * a notification message (display notification) with platform specific customizations, for example,
- * a badge is added to messages that are sent to iOS devices.
- */
 
 /**
- * <h1>NotificationServiceImpl</h1>
+ * <h1>FirebaseNotificationServiceImpl</h1>
  *
  * <p>
  * This service will be used to send web push notifications to a PWA installed on a smartphone.
@@ -42,7 +34,7 @@ import java.util.List;
  *
  * <b>Example :</b>
  * <pre>
- * NotificationService notificationService = new NotificationServiceImpl() ;
+ * NotificationService notificationService = new FirebaseNotificationServiceImpl() ;
  * </pre>
  *
  * @author Olympe Kassa &lt;kassa@adobe.com&gt;
@@ -60,7 +52,7 @@ import java.util.List;
 )
 public class FirebaseNotificationServiceImpl implements NotificationService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FirebaseNotificationServiceImpl.class);
 
     private Gson gson = new Gson();
 
