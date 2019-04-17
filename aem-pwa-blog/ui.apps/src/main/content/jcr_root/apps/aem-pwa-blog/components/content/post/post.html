@@ -1,58 +1,54 @@
 <div id="aem-pwa-blog__createPost">
 
 	<section id="create-post" style="display:none;">
-        <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-10">
-                <video id="player" autoplay width="100%"></video>
-            </div>
-            <div class="col-sm-1"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6">
-                <canvas id="canvas" width="320px" height="240px"></canvas>
-            </div>
-            <div class="col-sm-3"></div>
-        </div>
-        <br>
-		<div class="row">
-            <div class="col-sm-4"></div>
-            <button class="btn btn-primary col-sm-4 col-form-label" id="capture-btn">
-				<i class="fa fa-camera-retro fa-2x" aria-hidden="true">Capture</i>
-            </button>
-            <div class="col-sm-4"></div>
-        </div>
-        <br>
+		<section class="row aem-pwa-blog__postTile">
+			<h4 class="mx-auto">Create a new Post </h4>
+		</section>
+
+		<!-- This block should be uncommented when working with camera-->
+
+		<sly data-sly-resource="${'camera' @ resourceType='aem-pwa-blog/components/content/camera'}"></sly>
+		<!---->
 
 		<br>
 		<form id="formPost" path="${currentPage.path}/jcr:content.create.html" action="" method="">
             <div class="row">
-                <div class="col-sm-3"></div>
-                    <label class="col-sm-2 col-form-label" for="title" name="title">Title</label>
-                    <input class="col-sm-4" type="text" id="title">
-		        <div class="col-sm-3"></div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+					<label class="col-form-label" for="title" name="title">Title</label>
+					<input class="form-control" type="text" id="title" placeholder="My awesome post title">
+				</div>
 		    </div>
 			<div class="row">
-				<div class="col-sm-3"></div>
-				<label class="col-sm-2 col-form-label" for="title" name="tags">Tags</label>
-				<input class="col-sm-4" type="text" id="tags">
-				<div class="col-sm-3"></div>
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+					<label for="comment">Comment:</label>
+					<textarea class="form-control" rows="5" id="comment" placeholder="I can add anything i want about progressive web application , AEM or anything else !"></textarea>
+				</div>
 			</div>
-            <br>
 			<div class="row">
-                <div class="col-sm-4"></div>
-                <button class="btn btn-primary col-sm-4 col-form-label" type="submit" id="post-btn">
-					<i class="fa fa-paper-plane fa-2x" aria-hidden="true">Post!</i>
-                </button>
-                <div class="col-sm-4"></div>
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+					<label class="col-sm-2 col-form-label" for="title" name="tags">Tags</label>
+					<input class="form-control" type="text" id="tags" placeholder="sport,life,summit,aem,anything">
+				</div>
 			</div>
 		    <br>
 			<div class="row">
-                <div class="col-sm-4"></div>
-				<button class="btn btn-primary col-sm-4  col-form-label" id="close-create-post-modal-btn" type="button">
-				  <i class="fa fa-times fa-2x" aria-hidden="true">Close</i>
-				</button>
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+					<button class="btn btn-success col-sm-4 col-form-label" type="submit" id="post-btn">
+						<span><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+						<span>Send my Post!</span>
+					</button>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+					<button class="btn btn-danger col-sm-4  col-form-label" id="close-create-post-modal-btn" type="button">
+						<span><i class="fa fa-times" aria-hidden="true"></i></span>
+						<span>Close</span>
+					</button>
+				</div>
+
 				<div class="col-sm-4"></div>
 			</div>
 		</form>
@@ -60,36 +56,28 @@
 
 	<section id="view-post">
 	    <div class="row">
-	        <div class="col-sm-12 text-center">
-	            <img src="/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png" class="img-fluid" alt="Responsive image">
-	        </div>
-	    </div>
-
-	    <div class="row">
-	        <div class="col-sm-3"></div>
-	        <h5 class="col-sm-6 text-center">Share your Moments</h5>
-	        <div class="col-sm-3"></div>
+			<div class="mx-auto">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 ">
+					<img src="/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png" class="img-fluid" alt="Responsive image">
+				</div>
+			</div>
 	    </div>
 
 		<div class="row">
 		   <div class="col-sm-2"></div>
 			<div class="col-sm-8" id="shared-moments">
-	            <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
-	            <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
-	            <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
-	            <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
-	            <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
-	            <i class="fa fa-picture-o fa-5x" aria-hidden="true"></i>
+				<h6 id="backgroundSyncMessage" class="text-danger"></h6>
 			</div>
 			<div class="col-sm-2"></div>
 		</div>
 
 		<div class="row">
-	        <div class="col-sm-5"></div>
-			<button class="btn btn-primary col-sm-2 col-form-label" id="share-image-button">
-			    <i class="fa fa-camera-retro fa-2x" id="confirmation-toast" aria-hidden="true"></i>
-			</button>
-			<div class="col-sm-5"></div>
+			<div class="mx-auto">
+				<button class="btn btn-warning col-lg-12 col-md-12 col-xl-12 col-sm-12 col-form-label" id="share-image-button">
+					<span><i class="fa fa-pencil" id="confirmation-toast" aria-hidden="true"></i></span>
+					<span>Share your Moments</span>
+				</button>
+			</div>
 		</div>
 	</section>
 </div>

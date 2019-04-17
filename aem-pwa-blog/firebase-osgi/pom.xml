@@ -25,8 +25,8 @@
     </parent>
     <artifactId>aem-pwa-blog.firebase-osgi</artifactId>
     <packaging>bundle</packaging>
-    <name>aem-pwa-blog - Firebase OSGi</name>
-    <description>Firebase OSGi bundle for aem-pwa-blog</description>
+    <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  Firebase bundle </name>
+    <description>Firebase OSGi bundle containing dependencies for TL30</description>
     <build>
         <plugins>
             <plugin>

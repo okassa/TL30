@@ -22,13 +22,15 @@
     <artifactId>aem-pwa-blog</artifactId>
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
-    <description>aem-pwa-blog</description>
+    <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  Parent prooject </name>
+    <description>Parent project for TL30</description>
 
     <modules>
         <module>core</module>
         <module>ui.apps</module>
         <module>ui.content</module>
         <module>firebase-osgi</module>
+        <module>ui.reactor</module>
     </modules>
 
     <properties>
@@ -239,7 +241,7 @@
                 <plugin>
                     <groupId>com.day.jcr.vault</groupId>
                     <artifactId>content-package-maven-plugin</artifactId>
-                    <version>1.0.2</version>
+                    <version>0.0.24</version>
                     <configuration>
                         <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
                         <failOnError>true</failOnError>

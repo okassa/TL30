@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:vlt="http://www.day.com/jcr/vault/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:created="{Date}2018-09-17T17:56:29.770+02:00"
+    jcr:createdBy="admin"
+    jcr:description="Adobe Experience Manager (AEM) Replication Dashboard - UI apps"
+    jcr:lastModified="{Date}2018-09-17T17:56:29.770+02:00"
+    jcr:lastModifiedBy="admin"
+    jcr:primaryType="vlt:PackageDefinition"
+    acHandling="Overwrite"
+    buildCount="8"
+    builtWith="Adobe Experience Manager-6.2.0"
+    group="replication-dashboard"
+    lastUnwrapped="{Date}2018-09-17T17:56:29.770+02:00"
+    lastUnwrappedBy="admin"
+    lastWrapped="{Date}2018-09-17T17:56:29.770+02:00"
+    lastWrappedBy="admin"
+    name="replication-dashboard.ui.apps"
+    version="1.1-SNAPSHOT">
+    <thumbnail.png/>
+    <tumbnail.png/>
+    <filter jcr:primaryType="nt:unstructured">
+        <f0
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/apps/aem-replication-dashboard/wcm"
+            rules="[exclude:.*\\.jar]"/>
+    </filter>
+    <thumbnail jcr:primaryType="nt:unstructured">
+        <file/>
+    </thumbnail>
+</jcr:root>

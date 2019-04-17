@@ -28,10 +28,10 @@
     var canvasElement = document.querySelector('#canvas');
     var captureButton = document.querySelector('#capture-btn');
     var imagePicker = document.querySelector('#image-picker');
-    var imagePickerArea = document.querySelector('#pick-image');
     var picture;
     var tiles = document.querySelector('.aem-pwa-blog__tiles');
     var postButton = document.querySelector('#post-btn');
+    var backgroundSyncMessage = document.querySelector('#backgroundSyncMessage');
 
 
 
@@ -72,15 +72,23 @@
 
                 if(captureButton){
                     captureButton.addEventListener('click', function (event) {
-                        canvasElement.style.display = 'block';
-                        videoPlayer.style.display = 'none';
-                        captureButton.style.display = 'none';
-                        var context = canvasElement.getContext('2d');
-                        context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
-                        videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
-                            track.stop();
-                        });
-                        picture = dataURItoBlob(canvasElement.toDataURL());
+                        var context ;
+                        if(canvasElement){
+                            canvasElement.style.display = 'block';
+                            context = canvasElement.getContext('2d');
+                        }
+                       if(videoPlayer){
+                           videoPlayer.style.display = 'none';
+                           context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
+                           videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
+                               track.stop();
+                           });
+                       }
+
+                       if(captureButton){
+                           captureButton.style.display = 'none';
+                       }
+
                     });
                 }
 
@@ -112,25 +120,9 @@
 
                         // @TODO Check if the message is saved before real call
                         if ('serviceWorker' in navigator && 'SyncManager' in window) {
-                            navigator.serviceWorker.ready
-                                .then(function (sw) {
-                                    var post = {
-                                        id: new Date().toISOString(),
-                                        title: titleInput.value,
-                                        tags:tagsInput.value,
-                                        file: canvasElement.toDataURL(),
-                                    };
-                                    writeData('sync-posts', post)
-                                        .then(function () {
-                                            return sw.sync.register('sync-new-posts');
-                                        })
-                                        .then(function () {
-                                            console.log("sync registered");
-                                        })
-                                        .catch(function (err) {
-                                            console.log(err);
-                                        });
-                                });
+
+                            // ===========================> CODE SHOULD BE PASTED BELOW <===========================
+
                         } else {
                             AdobeSummit.sendData();
                         }

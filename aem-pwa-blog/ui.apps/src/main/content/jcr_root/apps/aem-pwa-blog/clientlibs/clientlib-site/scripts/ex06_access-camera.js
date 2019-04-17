@@ -69,12 +69,6 @@ window.AdobeSummit.Exercise07 =  {
             });
         }
 
-        if(createProfileButton) {
-            createProfileButton.addEventListener('click', window.AdobeSummit.initializeMedia());
-        }
-
-
-
         if(submitProfileFormButton) {
             submitProfileFormButton.addEventListener('click', function(event) {
 

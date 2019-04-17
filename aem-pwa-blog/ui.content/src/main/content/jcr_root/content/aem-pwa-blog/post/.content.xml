@@ -11,5 +11,17 @@
         sling:resourceType="aem-pwa-blog/components/structure/post-page"
         icon="fa fa-pencil-square-o">
         <image/>
+        <navigation
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Recent articles"
+                sling:resourceType="aem-pwa-blog/components/content/navigation"/>
+        <post
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Recent articles"
+                sling:resourceType="aem-pwa-blog/components/content/post"/>
+        <footer
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Recent articles"
+                sling:resourceType="aem-pwa-blog/components/content/footer"/>
     </jcr:content>
 </jcr:root>

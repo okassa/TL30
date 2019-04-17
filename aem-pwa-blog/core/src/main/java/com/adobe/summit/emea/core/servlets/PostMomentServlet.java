@@ -9,6 +9,7 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
 import com.google.gson.Gson;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -48,12 +49,21 @@ public class PostMomentServlet extends SlingAllMethodsServlet {
         String id = req.getParameter("id");
         String tags = req.getParameter("tags");
         String title = req.getParameter("title");
-        String file = req.getParameter("file").replace("data:image/png;base64,", "");
-        byte[] initialArray = Base64.decode(file.getBytes());
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(initialArray);
-        String fullAssetPath = "/content/dam/aem-pwa-blog/uploads/" + title + "_" + System.currentTimeMillis() + ".jpg";
-        AssetManager assetManager = (AssetManager)req.getResourceResolver().adaptTo(AssetManager.class);
-        Asset imageAsset = assetManager.createAsset(fullAssetPath, inputStream, "image/jpeg", true);
+        String file = req.getParameter("file");
+        Asset imageAsset = null;
+        if (StringUtils.isNotEmpty(file) && !file.equals("undefined")){
+            String fileWithoutBase64 = file.replace("data:image/png;base64,", "");
+            byte[] initialArray = Base64.decode(fileWithoutBase64.getBytes());
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(initialArray);
+            String fullAssetPath = "/content/dam/aem-pwa-blog/uploads/" + title + "_" + System.currentTimeMillis() + ".jpg";
+            AssetManager assetManager = (AssetManager)req.getResourceResolver().adaptTo(AssetManager.class);
+            imageAsset = assetManager.createAsset(fullAssetPath, inputStream, "image/jpeg", true);
+        }
+
+        if (StringUtils.isNotEmpty(tags)){
+             String[] tagArray = tags.split(",");
+        }
+
 
         HashMap<String,String> res = new HashMap<>();
         res.put("id",id);

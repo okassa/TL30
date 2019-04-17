@@ -10,10 +10,18 @@
             jcr:title="Home"
             sling:resourceType="aem-pwa-blog/components/structure/page"
             icon="fa fa-home">
+        <navigation
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Recent articles"
+                sling:resourceType="aem-pwa-blog/components/content/navigation"/>
         <tiles
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Recent articles"
                 sling:resourceType="aem-pwa-blog/components/content/tiles"/>
+        <footer
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Recent articles"
+                sling:resourceType="aem-pwa-blog/components/content/footer"/>
         <image/>
     </jcr:content>
 </jcr:root>

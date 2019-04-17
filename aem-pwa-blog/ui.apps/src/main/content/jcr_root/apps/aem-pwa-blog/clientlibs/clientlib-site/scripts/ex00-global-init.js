@@ -19,25 +19,16 @@
 ;
 (function (window, navigator, document) {
 
-    var shareImageButton = document.querySelector('#share-image-button');
     var createPostArea = document.querySelector('#create-post');
     var viewPostArea = document.querySelector('#view-post');
-    var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn');
     var sharedMomentsArea = document.querySelector('#shared-moments');
     var form = document.querySelector('form');
     var titleInput = document.querySelector('#title');
-    var locationInput = document.querySelector('#location');
     var videoPlayer = document.querySelector('#player');
     var canvasElement = document.querySelector('#canvas');
     var captureButton = document.querySelector('#capture-btn');
-    var imagePicker = document.querySelector('#image-picker');
-    var imagePickerArea = document.querySelector('#pick-image');
-    var picture;
-    var locationBtn = document.querySelector('#location-btn');
-    var locationLoader = document.querySelector('#location-loader');
     var tiles = document.querySelector('.aem-pwa-blog__tilesContent');
-    var fetchedLocation = {lat: 0, lng: 0};
-    var postButton = document.querySelector('#post-btn');
+
 
 // Init AdobeSummit namespace if not available.
 var AdobeSummit = window.AdobeSummit || {
@@ -86,34 +77,56 @@ var AdobeSummit = window.AdobeSummit || {
                 });
         },
         openCreatePostModal : function () {
-            createPostArea.style.display = 'block';
-            canvasElement.style.display = 'none';
-            viewPostArea.style.display = 'none';
-            this.initializeMedia();
-            this.initializeLocation();
+            if(createPostArea){
+                createPostArea.style.display = 'block';
+            }
 
-            setTimeout(function () {
-                createPostArea.style.transform = 'translateY(0)';
-            }, 1);
+            if(viewPostArea){
+                viewPostArea.style.display = 'none';
+            }
 
-            //window.AdobeSummit.Device.startDeviceInstall();
+            if(canvasElement){
+                canvasElement.style.display = 'none';
+                this.initializeMedia();
+            }
+
+            if(createPostArea){
+                setTimeout(function () {
+                    createPostArea.style.transform = 'translateY(0)';
+                }, 1);
+            }
 
         },
         closeCreatePostModal : function () {
 
-            videoPlayer.style.display = 'none';
-            canvasElement.style.display = 'none';
-            captureButton.style.display = 'inline';
-            if (videoPlayer.srcObject) {
+            if(videoPlayer){
+                videoPlayer.style.display = 'none';
+            }
+            if(canvasElement){
+                canvasElement.style.display = 'none';
+            }
+            if(captureButton){
+                captureButton.style.display = 'inline';
+            }
+
+
+            if (videoPlayer && videoPlayer.srcObject) {
                 videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
                     track.stop();
                 });
             }
-            setTimeout(function () {
-                createPostArea.style.transform = 'translateY(100vh)';
-            }, 1);
-            createPostArea.style.display = 'none';
-            viewPostArea.style.display = 'block';
+            if(createPostArea){
+                setTimeout(function () {
+                    createPostArea.style.transform = 'translateY(100vh)';
+                }, 1);
+                createPostArea.style.display = 'none';
+            }
+
+            if(viewPostArea) {
+                viewPostArea.style.display = 'block';
+            }
+
+
         },
         clearCard : function () {
             if (sharedMomentsArea){
@@ -193,7 +206,10 @@ var AdobeSummit = window.AdobeSummit || {
             var postData = new FormData();
             postData.append('id', id);
             postData.append('title', titleInput.value);
-            postData.append('file', canvasElement.toDataURL());
+            if(canvasElement){
+                postData.append('file', canvasElement.toDataURL());
+            }
+
 
             fetch('/content/aem-pwa-blog/notifications.json', {
                 method: 'POST',

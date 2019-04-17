@@ -20,9 +20,9 @@
 #=============================================================================
 ex00-global-init.js
 ex02_register-service-worker.js
-ex05_background-sync.js
-ex06_push-notifications.js
-ex07_access-camera.js
+ex04_background-sync.js
+ex05_push-notifications.js
+ex06_access-camera.js
 #Keep this start-all-exercises.js at the bottom
 start-all-exercises.js
 
