@@ -121,7 +121,31 @@
                         // @TODO Check if the message is saved before real call
                         if ('serviceWorker' in navigator && 'SyncManager' in window) {
 
-                            // ===========================> CODE SHOULD BE PASTED BELOW <===========================
+                            // ===========================> CODE FROM ex04-code-to-paste-01.txt SHOULD BE PASTED BELOW <===========================
+                            navigator.serviceWorker.ready
+                                .then(function (sw) {
+                                    var post = {
+                                        id: new Date().toISOString(),
+                                        title: titleInput.value,
+                                        tags:tagsInput.value,
+
+                                    };
+                                    if (canvasElement){
+                                        post.file = canvasElement.toDataURL();
+                                    }
+
+                                    writeData('sync-posts', post)
+                                        .then(function () {
+                                            return sw.sync.register('sync-new-posts');
+                                        })
+                                        .then(function () {
+                                            console.log("sync registered");
+                                            alert('Your post have been saved into the database for syncing later on!');
+                                        })
+                                        .catch(function (err) {
+                                            console.log(err);
+                                        });
+                                });
 
                         } else {
                             AdobeSummit.sendData();

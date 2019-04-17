@@ -42,7 +42,34 @@
                 pushButton.addEventListener('click', function() {
 
                     // ===========================> CODE FROM ex05-code-to-paste-01.txt SHOULD BE PASTED BELOW <===========================
-
+                    messaging
+                        .requestPermission()
+                        .then(function () {
+                            console.log("[TL30-PWA][pushNotification] Got notification permission");
+                            // Send the token to the server to check it with validate_only
+                            return messaging.getToken();
+                        })
+                        .then(function (token) {
+                            // print the token on the HTML page
+                            console.log("[TL30-PWA][pushNotification] Token", token);
+                            // Retrieve user preferences from a dataLayer
+                            var topic = "sport";
+                            //Suscribe to user topics
+                            fetch('/bin/aem-pwa-blog/notifications.json', {
+                                'method': 'POST',
+                                'headers': {
+                                    'Content-Type': 'application/json'
+                                },
+                                'body': JSON.stringify({'token': token})
+                            }).then(function(response) {
+                                console.log("[TL30-PWA][pushNotification] Subscription to "+topic+" has responded with :"+response);
+                            }).catch(function(error) {
+                                console.error("[TL30-PWA][pushNotification] Subscription to the topic "+topic+" failed" +error);
+                            })
+                        })
+                        .catch(function (err) {
+                            console.log("[TL30-PWA][pushNotification] Didn't get notification permission", err);
+                        });
                 });
             }
 
@@ -59,7 +86,10 @@
 
             // ===========================> CODE FROM ex05-code-to-paste-00.txt SHOULD BE PASTED BELOW <===========================
 
-
+            navigator.serviceWorker.ready
+                .then(function (sw) {
+                    window.AdobeSummit.Exercise06.initializeUI(sw);
+                });
 
             messaging.onTokenRefresh(function () {
                 messaging.getToken()

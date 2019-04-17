@@ -17,7 +17,7 @@ console.log('[TL30-PWA][activate] >>>>> Activating Service Worker ....', event);
                  console.log('[TL30-PWA][activate] <<<<< Removed the old cache....', key);
                     }
                 }));
-            });
+            })
     );
     console.log('[TL30-PWA][activate] <<<<< The Service Worker '+
                                                        'has been activated....', event);

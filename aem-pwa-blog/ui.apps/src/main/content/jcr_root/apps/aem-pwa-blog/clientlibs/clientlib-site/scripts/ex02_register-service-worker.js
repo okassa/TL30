@@ -82,6 +82,17 @@
                      */
 
                     // ===========================> CODE SHOULD BE PASTED BELOW <===========================
+                    navigator.serviceWorker
+                        .register(
+                            AdobeSummit.Constants.SW_PATH,
+                            { scope: AdobeSummit.Constants.SW_SCOPE })
+                        .then(function(registration) {
+                            // Registration was successful
+                            console.log('[TL30-PWA] >>>>> SW registration is OK : ', registration.scope);
+                        }, function(err) {
+                            // registration failed :(
+                            console.log('[TL30-PWA] >>>>> SW registration is KO: ', err);
+                        });
 
 
                 });

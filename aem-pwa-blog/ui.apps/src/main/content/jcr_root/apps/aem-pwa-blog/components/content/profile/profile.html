@@ -1,5 +1,8 @@
 <form data-sly-use.profileModel="com.adobe.summit.emea.core.models.ProfileModel" id="formProfile" path="${currentPage.path}/jcr:content.create.html" action="" method="">
     <hr>
+    <section class="row aem-pwa-blog__postTile">
+        <h4 class="mx-auto">My Profile </h4>
+    </section>
     <div class="form-group row">
         <div class="col-sm-3"></div>
         <label for="firstName" class="col-sm-2 col-form-label">First name</label>
@@ -45,11 +48,28 @@
         <div class="col-sm-3"></div>
     </div>
     <hr>
-    <div class="form-group row">
-        <div class="col-sm-3"></div>
-        <button class="btn btn-secondary col-sm-2 col-form-label" type="reset">Cancel</button>
-        <div class="col-sm-2"></div>
-        <button class="btn btn-primary col-sm-2 col-form-label" id="submit" type="submit">Submit</button>
-        <div class="col-sm-3"></div>
+    <div class="form-group ">
+
+        <br>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <button class="btn btn-success col-sm-4 col-form-label" type="submit" id="submit">
+                    <span><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+                    <span>Submit</span>
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <button class="btn btn-danger col-sm-4  col-form-label" id="close-create-post-modal-btn" type="reset">
+                    <span><i class="fa fa-times" aria-hidden="true"></i></span>
+                    <span>Cancel</span>
+                </button>
+            </div>
+
+            <div class="col-sm-4"></div>
+        </div>
     </div>
 </form>
