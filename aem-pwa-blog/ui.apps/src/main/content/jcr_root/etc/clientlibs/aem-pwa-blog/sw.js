@@ -8,7 +8,7 @@ importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js');
  =
  ================================================================================================================================================
  */
-var version = "16422001001120";
+var version = "164220099011456";
 
 var CACHE_STATIC_NAME = 'static-v'+version;
 var CACHE_DYNAMIC_NAME = 'dynamic-v'+version;

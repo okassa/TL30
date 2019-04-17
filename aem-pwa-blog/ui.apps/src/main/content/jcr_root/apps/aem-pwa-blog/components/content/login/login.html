@@ -1,12 +1,14 @@
-<form action="login.html/j_security_check" method="post" class="overlay">
-
+<form id="login" action="${currentPage.path}.html/j_security_check" method="post" class="overlay">
+    <input type="hidden" name="_charset_" value="UTF-8">
+    <input type="hidden" name="errorMessage" value="">
+    <input type="hidden" name="resource" value="/">
 	<hr>
     <div class="form-group row">
         <div class="col-sm-3"></div>
         <label for="j_username" class="col-sm-2 col-form-label">Login</label>
         <div class="col-sm-4">
         	<i class="fa fa-user" aria-hidden="true"></i>
-            <input type="text" class="form-control" id="login" name="j_username" placeholder="login" required>
+            <input type="text" class="form-control" id="username" name="j_username" placeholder="login" required>
         </div>
         <div class="col-sm-3"></div>
     </div>
