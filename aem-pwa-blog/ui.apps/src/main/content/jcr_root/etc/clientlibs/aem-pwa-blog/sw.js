@@ -289,6 +289,26 @@ self.addEventListener('notificationclose', function(event) {
     console.log('Notification was closed', event);
 });
 
+self.addEventListener('message', function(event){
+    console.log("SW Received Message: " + event.data);
+    caches.open(CACHE_STATIC_NAME).then(function(cache) {
+
+        cache.delete('/content/aem-pwa-blog/post.html');
+        cache.delete('/content/aem-pwa-blog/login.html');
+        cache.delete('/content/aem-pwa-blog/home.html');
+        cache.delete('/content/aem-pwa-blog/profile.html');
+    });
+
+    if(event.data === "logged-in"){
+        console.log('[Service Worker] Flush the app shell.');
+
+        event.ports[0].postMessage("app-shell-for-logged-in");
+    }
+    if(event.data === "logged-in"){
+        console.log('[Service Worker] Flush the app shell.');
+        event.ports[0].postMessage("app-shell-for-everyone");
+    }
+});
 
 
 

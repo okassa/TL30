@@ -47,30 +47,25 @@
 
     }
 
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
+    function sendMessageToServiceWorker(msg){
+    return new Promise(function(resolve, reject){
+        // Create a Message Channel
+        var msgChan = new MessageChannel();
+
+        // Handler for recieving message reply from service worker
+        msgChan.port1.onmessage = function(event){
+            if(event.data.error){
+                reject(event.data.error);
+            }else{
+                resolve(event.data);
             }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
+        };
+        // Send message to service worker along with port for reply
+        navigator.serviceWorker.controller.postMessage(msg, [msgChan.port2]);
+    });
     }
 
-    $( document ).ready(function() {
-        var authenticated = getCookie("login-token");
-        if(authenticated && authenticated !== ""){
-            $("#logout").show();
-        }else{
-            $("#logout").hide();
-        }
-    });
+
 
 // Bind an event listener on login form to make an ajax call
     $("#login").submit(function(event) {
@@ -106,8 +101,9 @@
                 if (window.location.hash && u.indexOf('#') < 0) {
                     u = u + window.location.hash;
                 }
-
+                sendMessageToServiceWorker("logged-in");
                 document.location = "/content/aem-pwa-blog/home.html";
+
             },
             error: function() {
                 displayError(errorMessage);
@@ -124,6 +120,7 @@
             async: false,
             global: false,
             success: function (data, code, jqXHR){
+                sendMessageToServiceWorker("logged-out");
                 document.location = "/content/aem-pwa-blog/home.html";
             },
             error: function() {

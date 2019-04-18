@@ -87,7 +87,7 @@
                         }, function(err) {
                             // registration failed :(
                             console.log('[TL30-PWA] >>>>> ServiceWorker registration failed: ', err);
-                        })
+                        });
                     // Intializing the notifications
 
                 });
