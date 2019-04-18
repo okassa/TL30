@@ -179,3 +179,7 @@ Handle image responsiveness for mobile
 .aem-pwa-blog__postTile {
     margin-top: 1.2rem;
 }
+
+.aem-pwa-blog_tile {
+    margin-bottom: 1.5rem;
+}
