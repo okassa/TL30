@@ -3,6 +3,10 @@
         <section class="row aem-pwa-blog__postTile">
             <h4 class="mx-auto">A Progessive Web Application built with AEM</h4>
         </section>
-        <sly data-sly-resource="${'tiles'}"></sly>
+        <div class="aem-pwa-blog__tiles comp-tiles  tiles" data-async-url="${resource.path}.model.json" >
+            <div class="row aem-pwa-blog__tilesContent" >
+
+            </div>
+        </div>
     </div> <!-- /container -->
 </section>

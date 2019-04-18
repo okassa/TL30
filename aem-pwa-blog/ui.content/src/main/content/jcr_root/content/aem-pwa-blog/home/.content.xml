@@ -14,10 +14,6 @@
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Recent articles"
                 sling:resourceType="aem-pwa-blog/components/content/navigation"/>
-        <tiles
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Recent articles"
-                sling:resourceType="aem-pwa-blog/components/content/tiles"/>
         <footer
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Recent articles"
