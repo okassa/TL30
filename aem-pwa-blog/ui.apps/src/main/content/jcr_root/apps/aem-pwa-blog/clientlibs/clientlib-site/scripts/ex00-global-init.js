@@ -139,7 +139,7 @@ var AdobeSummit = window.AdobeSummit || {
         createCard : function (data) {
 
             var cardWrapper = document.createElement('div');
-            cardWrapper.className = 'col-xl-6 col-lg-6 col-md-6 col-sm-12';
+            cardWrapper.className = 'col-xl-6 col-lg-6 col-md-6 col-sm-12 aem-pwa-blog_tile';
 
             var article = document.createElement('article');
             article.className = 'comp-tile tile hover-effect';
