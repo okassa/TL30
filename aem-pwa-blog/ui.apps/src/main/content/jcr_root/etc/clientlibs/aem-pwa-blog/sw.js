@@ -1,7 +1,14 @@
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js');
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js');
 
-var version = "160419";
+/*
+ ================================================== FOR ANY MODIFICATION INCREASE   ========================================================
+ =
+ =  The version number should be incremented
+ =
+ ================================================================================================================================================
+ */
+var version = "164220099011456";
 
 var CACHE_STATIC_NAME = 'static-v'+version;
 var CACHE_DYNAMIC_NAME = 'dynamic-v'+version;
@@ -31,6 +38,8 @@ self.addEventListener('install', function(event) {
     self.skipWaiting();
 
     console.log('[TL30-PWA] >>>>> Installing Service Worker ...', event);
+
+    // ===========================> CODE SHOULD BE PASTED BELOW <===========================
     /**
      * The event.waitUntil function in the push event tells the service worker not to close until the event is finished.
      */
@@ -47,6 +56,10 @@ self.addEventListener('install', function(event) {
                  */
                 console.log('[TL30-PWA][install] >>>>> Precaching App Shell');
                 cache.addAll([
+                    '/content/aem-pwa-blog/post.html',
+                    '/content/aem-pwa-blog/login.html',
+                    '/content/aem-pwa-blog/home.html',
+                    '/content/aem-pwa-blog/profile.html',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor-pwa.js',
                     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js',
@@ -63,7 +76,8 @@ self.addEventListener('install', function(event) {
                 ]);
                 console.log('[TL30-PWA][install] <<<<< The App Shell has been cached....');
             })
-    )
+    );
+
 });
 /*
  ================================================== Exercise 02 : (2) Registering service worker  ========================================================
@@ -74,17 +88,20 @@ self.addEventListener('install', function(event) {
  ================================================================================================================================================
  */
 self.addEventListener('activate', function(event) {
+
+    // ===========================> CODE FROM ex03-code-to-paste-delete.txt SHOULD BE PASTED BELOW <===========================
     console.log('[TL30-PWA][activate] >>>>> Activating Service Worker ....', event);
     event.waitUntil(
         caches.keys()
             .then(function(keyList) {
                 return Promise.all(keyList.map(function(key) {
                     /*
-                     ================================================== Exercise 04 : (3) Caching app shell  ========================================================
+                     ============Exercise 04 : (3) Caching app shell  ===================
                      =
-                     =  We update the cache when a new version of the sw is being installed
+                     =  We flush the cache when a new version of
+                     =  the sw is being installed
                      =
-                     ================================================================================================================================================
+                     ===========================================================
                      */
                     if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
                         console.log('[TL30-PWA][activate] >>>>> Removing old cache.', key);
@@ -94,8 +111,10 @@ self.addEventListener('activate', function(event) {
                 }));
             })
     );
-    console.log('[TL30-PWA][activate] <<<<< The Service Worker has been activated....', event);
+    console.log('[TL30-PWA][activate] <<<<< The Service Worker '+
+        'has been activated....', event);
     return self.clients.claim();
+
 });
 
 /*
@@ -108,14 +127,17 @@ self.addEventListener('activate', function(event) {
  */
 
 self.addEventListener('fetch', function(event) {
+
+    // ===========================> CODE FROM ex03-code-to-paste-dynamic.txt SHOULD BE PASTED BELOW <===========================
     event.respondWith(
         caches.match(event.request)
             .then(function(response) {
-                console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP request by the Service Worker ....');
+                console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP  request ['+event.request.url+'] by the Service Worker ....');
                 if (response) {
-                    console.log('[TL30-PWA][fetch] Catching an HTTP request by the Service Worker ....');
+                    console.log('[TL30-PWA][fetch] Catching an HTTP request ['+event.request.url+'] by the Service Worker ....');
                     return response;
                 } else {
+                    console.log('[TL30-PWA][fetch] Executing the real HTTP request ['+event.request.url+'] by the Service Worker ....');
                     console.log('[TL30-PWA][fetch] Executing the real HTTP request by the Service Worker ....');
                     return fetch(event.request)
                         .then(function(res) {
@@ -132,9 +154,10 @@ self.addEventListener('fetch', function(event) {
                             console.error('[TL30-PWA][fetch] HTTP request execution by the Service Worker failed ....');
                         });
                 }
-                console.log('[TL30-PWA][fetch] <<<<< The HTTP request has been handled by the Service Worker properly ....');
+                console.log('[TL30-PWA][fetch] <<<<< The HTTP request ['+event.request.url+'] has been handled by the Service Worker properly ....');
             })
     );
+
 });
 /*
  ================================================== Exercise 05 :  Background sync  ========================================================
@@ -146,6 +169,8 @@ self.addEventListener('fetch', function(event) {
  */
 self.addEventListener('sync', function(event) {
     console.log('[TL30-PWA][sync] Background syncing', event);
+
+    // ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
     if (event.tag === 'sync-new-posts') {
         console.log('[TL30-PWA][sync]  Syncing new Posts');
         event.waitUntil(
@@ -179,6 +204,7 @@ self.addEventListener('sync', function(event) {
                 })
         );
     }
+
 });
 
 /*
@@ -191,6 +217,8 @@ self.addEventListener('sync', function(event) {
  */
 self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
+
+    // ===========================> CODE FROM ex05-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
     var title = "AEM <3 PWA" ;
@@ -223,6 +251,7 @@ self.addEventListener('push', function(event) {
     };
 
     event.waitUntil(self.registration.showNotification(title, options));
+
 });
 
 
@@ -259,6 +288,8 @@ self.addEventListener('notificationclick', function(event) {
 self.addEventListener('notificationclose', function(event) {
     console.log('Notification was closed', event);
 });
+
+
 
 
 

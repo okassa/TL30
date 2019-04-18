@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          form.login.form="/system/sling/form/login"
+          form.auth.storage="cookie"
+          form.auth.name="sling.formauth"
+          form.auth.timeout="60"
+          form.credentials.name="sling.formauth"
+          form.token.file="cookie-tokens.bin"
+          jcr:primaryType="sling:OsgiConfig"/>

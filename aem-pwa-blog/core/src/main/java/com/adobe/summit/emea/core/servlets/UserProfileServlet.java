@@ -71,7 +71,7 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
                 UserManager e = (UserManager)resolver.adaptTo(UserManager.class);
                 User user = null;
                 if(e.getAuthorizable(email) == null) {
-                    user = e.createUser(email, password, new UserProfileServlet.SimplePrincipal(email), "/home/users/aem-pwa-blog");
+                    user = e.createUser(email, password, new SimplePrincipal(email), "/home/users/aem-pwa-blog");
                     ValueFactory valueFactory = session.getValueFactory();
                     Value firstNameValue = valueFactory.createValue(firstName, 1);
                     user.setProperty("./profile/givenName", firstNameValue);

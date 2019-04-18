@@ -51,7 +51,7 @@ public class NotificationServlet extends SlingAllMethodsServlet {
 
     @Activate
     @Modified
-    public void activate(NotificationServlet.Configuration configuration) {
+    public void activate(Configuration configuration) {
         this.directMessage = Boolean.valueOf(configuration.directMessage());
     }
 

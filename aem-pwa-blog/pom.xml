@@ -15,20 +15,22 @@
  |  limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.adobe.summit.emea</groupId>
     <artifactId>aem-pwa-blog</artifactId>
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
-    <description>aem-pwa-blog</description>
+    <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  Parent prooject </name>
+    <description>Parent project for TL30</description>
 
     <modules>
         <module>core</module>
         <module>ui.apps</module>
         <module>ui.content</module>
         <module>firebase-osgi</module>
+        <module>ui.reactor</module>
     </modules>
 
     <properties>
@@ -239,7 +241,7 @@
                 <plugin>
                     <groupId>com.day.jcr.vault</groupId>
                     <artifactId>content-package-maven-plugin</artifactId>
-                    <version>1.0.2</version>
+                    <version>0.0.24</version>
                     <configuration>
                         <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
                         <failOnError>true</failOnError>
@@ -272,7 +274,7 @@
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
-                <!--This plugin's configuration is used to store Eclipse 
+                <!--This plugin's configuration is used to store Eclipse
                     m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
@@ -443,14 +445,14 @@
         <!-- Development profile: install only the bundle -->
         <profile>
             <id>autoInstallBundle</id>
-            <!-- 
-                To enable this feature for a bundle, the maven-sling-plugin 
+            <!--
+                To enable this feature for a bundle, the maven-sling-plugin
                 (without configuration) needs to be included:
-                 
-                <plugin> 
-                    <groupId>org.apache.sling</groupId> 
-                    <artifactId>maven-sling-plugin</artifactId> 
-                 </plugin> 
+
+                <plugin>
+                    <groupId>org.apache.sling</groupId>
+                    <artifactId>maven-sling-plugin</artifactId>
+                 </plugin>
             -->
             <activation>
                 <activeByDefault>false</activeByDefault>

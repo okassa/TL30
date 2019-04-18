@@ -32,8 +32,8 @@
     <!-- ====================================================================== -->
     <artifactId>aem-pwa-blog.ui.apps</artifactId>
     <packaging>content-package</packaging>
-    <name>aem-pwa-blog - UI apps</name>
-    <description>UI apps package for aem-pwa-blog</description>
+    <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  UI apps</name>
+    <description>Application package containing all source code: components, bundles</description>
 
     <!-- <scm>
         <connection></connection>
@@ -48,7 +48,11 @@
     <build>
         <sourceDirectory>src/main/content/jcr_root</sourceDirectory>
         <resources>
-            <!-- define the resources that will go into the package -->
+            <resource>
+                <directory>src/main/content/META-INF/vault/definition</directory>
+                <targetPath>../vault-work/META-INF/vault/definition</targetPath>
+                <!-- define the resources that will go into the package -->
+            </resource>
             <resource>
                 <directory>${basedir}/src/main/content/jcr_root</directory>
                 <excludes>
@@ -102,6 +106,7 @@
                             <target>/apps/aem-pwa-blog/install</target>
                         </embedded>
                     </embeddeds>
+                    <!--
                     <subPackages>
                         <subPackage>
                             <groupId>com.adobe.cq</groupId>
@@ -114,6 +119,7 @@
                             <filter>true</filter>
                         </subPackage>
                     </subPackages>
+                    -->
                 </configuration>
             </plugin>
             <plugin>
@@ -146,13 +152,13 @@
         <dependency>
             <groupId>com.adobe.summit.emea</groupId>
             <artifactId>aem-pwa-blog.core</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.adobe.summit.emea</groupId>
             <artifactId>aem-pwa-blog.firebase-osgi</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

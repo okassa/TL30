@@ -1,0 +1,28 @@
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response) {
+                console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP  request ['+event.request.url+'] by the Service Worker ....');
+                if (response) {
+                    console.log('[TL30-PWA][fetch] Catching an HTTP request ['+event.request.url+'] by the Service Worker ....');
+                    return response;
+                } else {
+                    console.log('[TL30-PWA][fetch] Executing the real HTTP request ['+event.request.url+'] by the Service Worker ....');
+                    console.log('[TL30-PWA][fetch] Executing the real HTTP request by the Service Worker ....');
+                    return fetch(event.request)
+                        .then(function(res) {
+                            return caches.open(CACHE_DYNAMIC_NAME)
+                                .then(function(cache) {
+                                    var url = event.request.url;
+                                    if(url.indexOf("http://") > -1 || url.indexOf("https://") > -1){
+                                        cache.put(event.request.url, res.clone());
+                                        return res;
+                                    }
+                                })
+                        })
+                        .catch(function(err) {
+                            console.error('[TL30-PWA][fetch] HTTP request execution by the Service Worker failed ....');
+                        });
+                }
+                console.log('[TL30-PWA][fetch] <<<<< The HTTP request ['+event.request.url+'] has been handled by the Service Worker properly ....');
+            })
+    );

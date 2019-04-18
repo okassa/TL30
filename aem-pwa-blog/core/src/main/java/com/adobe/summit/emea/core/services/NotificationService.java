@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface NotificationService {
 
-    void sendCommonMessage(String title,String body,String token) throws IOException;
+    void sendCommonMessage(String title, String body, String token) throws IOException;
 
-    void sendSubscriptionMessage(String token,List<String> hobbies) throws IOException;
+    void sendSubscriptionMessage(String token, List<String> hobbies) throws IOException;
 
-    void sendTopicMessage(String title,String body,String topic) throws IOException;
+    void sendTopicMessage(String title, String body, String topic) throws IOException;
 }

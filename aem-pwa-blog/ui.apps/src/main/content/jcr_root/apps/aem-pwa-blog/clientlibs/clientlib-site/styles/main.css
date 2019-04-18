@@ -118,7 +118,7 @@ Handle image responsiveness for mobile
 .aem-pwa-blog__separatorVertical {
     padding: 0.07em;
     background-color: #000000;
-	margin-top: 0.3em;
+    margin-top: 0.3em;
     margin-bottom: 0.3em;
 }
 
@@ -129,7 +129,7 @@ Handle image responsiveness for mobile
 .aem-pwa-blog__footerBorderSection {
     border-top: 0.05em solid grey;
     border-bottom: 0.05em solid grey;
-  	padding-top: 0.6em;
+    padding-top: 0.6em;
 }
 
 
@@ -174,4 +174,12 @@ Handle image responsiveness for mobile
     margin-bottom: 0.1rem;
     border: 1px solid #e3e3e3;
     margin-right: 1rem;
+}
+
+.aem-pwa-blog__postTile {
+    margin-top: 1.2rem;
+}
+
+.aem-pwa-blog_tile {
+    margin-bottom: 1.5rem;
 }

@@ -69,7 +69,7 @@ public class ManifestServlet extends HttpServlet {
 
     @Activate
     @Modified
-    protected void Activate(ManifestServlet.Configuration config) {
+    protected void Activate(Configuration config) {
         this.manifest.put("lang", config.lang());
         this.manifest.put("dir", config.dir());
         this.manifest.put("name", config.name());

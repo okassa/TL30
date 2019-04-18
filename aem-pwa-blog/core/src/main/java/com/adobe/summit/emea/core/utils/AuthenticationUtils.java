@@ -70,8 +70,8 @@ public final class AuthenticationUtils {
 
 
                 Map<String,Object> userInfos = new HashMap<>();
-                userInfos.put("lastname",lastName);
-                userInfos.put("firstname",firstName);
+                userInfos.put("lastName",lastName);
+                userInfos.put("firstName",firstName);
                 userInfos.put("email",email);
                 userInfos.put("hobbies",hobbies);
 
