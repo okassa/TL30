@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
+    cq:authorizableCategory=""
+    jcr:mixinTypes="[rep:AccessControllable]"
+    jcr:primaryType="rep:User"
+    jcr:uuid="88336c2b-2904-30f0-acbc-ba8e5d14b978"
+    rep:authorizableId="sburke"
+    rep:password="\{SHA-256}297ac0eb15d53af0-1000-8544da24cbf16e006c419b993b545e43fd133de67c967ee08da7f64c01f352a7"
+    rep:principalName="sburke">
+    <profile
+        jcr:primaryType="nt:unstructured"
+        aboutMe="Sylvie is an amazing cook, she likes spicy food and is always looking for new recipes. She enjoys her family on week-ends. She is a regular mobile user and true shopper."
+        birthday="{Date}1995-09-03T00:00:00.000+01:00"
+        email="sylvia.burke@summit-pwa-aem.com"
+        familyName="Burke"
+        gender="male"
+        givenName="Sylvia"
+        hobbies="[food,family,creativity]">
+        <photos/>
+    </profile>
+</jcr:root>

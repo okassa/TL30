@@ -11,56 +11,63 @@
 		<!---->
 
 		<br>
-		<form id="formPost" path="${currentPage.path}/jcr:content.create.html" action="" method="">
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-					<label class="col-form-label" for="title" name="title">Title</label>
-					<input class="form-control" type="text" id="title" placeholder="My awesome post title">
-				</div>
-		    </div>
+		<form id="formPost" path="${currentPage.path}/jcr:content.create.html" action="" method="post">
 			<div class="row">
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-					<label for="comment">Comment:</label>
-					<textarea class="form-control" rows="5" id="comment" placeholder="I can add anything i want about progressive web application , AEM or anything else !"></textarea>
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mx-auto">
+					<div class="form-group">
+						<label class="col-form-label" for="title" name="title">Title</label>
+						<input class="form-control" type="text" id="title" placeholder="My awesome post title">
+					</div>
 				</div>
 			</div>
+
 			<div class="row">
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-					<label class="col-sm-2 col-form-label" for="title" name="tags">Tags</label>
-					<input class="form-control" type="text" id="tags" placeholder="sport,life,summit,aem,anything">
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mx-auto">
+					<div class="form-group">
+						<label for="comment">Comment:</label>
+						<textarea class="form-control" rows="5" id="comment" placeholder="I can add anything i want about progressive web application , AEM or anything else !"></textarea>
+					</div>
 				</div>
 			</div>
-		    <br>
+
 			<div class="row">
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-					<button class="btn btn-success col-form-label" type="submit" id="post-btn">
-						<span><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
-						<span>Send my Post!</span>
-					</button>
-				</div>
-				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-					<button class="btn btn-danger col-form-label" id="close-create-post-modal-btn" type="button">
-						<span><i class="fa fa-times" aria-hidden="true"></i></span>
-						<span>Close</span>
-					</button>
+				<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mx-auto">
+					<div class="form-group">
+						<label class="col-form-label" for="title" name="tags">Tags</label>
+						<input class="form-control" type="text" id="tags" placeholder="sport,life,summit,aem,anything">
+						<br>
+					</div>
 				</div>
 			</div>
-			<br>
+
+			<div class="row">
+				<button class="btn btn-success col-xl-4 col-lg-4 col-md-4 col-sm-12 mx-auto" type="submit" id="post-btn">
+					<span><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+					<span>Submit</span>
+				</button>
+				<div class="col-xl-2 col-lg-2 col-md-2"></div>
+				<button class="btn btn-danger col-xl-4 col-lg-4 col-md-4 col-sm-12  mx-auto" id="close-create-post-modal-btn" type="button">
+					<span><i class="fa fa-times" aria-hidden="true"></i></span>
+					<span>Cancel</span>
+				</button>
+			</div>
+
+
 
 		</form>
 	</section>
 
 	<section id="view-post">
-	    <div class="row">
+		<div class="row">
 			<div class="mx-auto">
 				<div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 ">
 					<img src="/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png" class="img-fluid" alt="Responsive image">
 				</div>
 			</div>
-	    </div>
+		</div>
 
 		<div class="row">
-		   <div class="col-sm-2"></div>
+			<div class="col-sm-2"></div>
 			<div class="col-sm-8" id="shared-moments">
 				<h6 id="backgroundSyncMessage" class="text-danger"></h6>
 			</div>
@@ -69,7 +76,7 @@
 
 		<div class="row">
 			<div class="mx-auto">
-				<button class="btn btn-warning col-lg-12 col-md-12 col-xl-12 col-sm-12 col-form-label" id="share-image-button">
+				<button class="btn btn-warning btn-lg btn-block col-form-label" id="share-image-button">
 					<span><i class="fa fa-pencil" id="confirmation-toast" aria-hidden="true"></i></span>
 					<span>Share your Moments</span>
 				</button>

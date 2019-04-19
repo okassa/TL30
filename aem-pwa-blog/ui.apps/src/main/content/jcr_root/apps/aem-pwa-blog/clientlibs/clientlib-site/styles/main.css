@@ -74,6 +74,15 @@ Handle image responsiveness for mobile
         margin-right: 1rem;
     }
 
+    #player {
+        display: block;
+        height: 211px;
+        width: 100%;
+    }
+    #canvas {
+        height: 211px;
+        width: 110px;
+    }
 }
 
 .aem-pwa-blog__mainContainer {
@@ -182,4 +191,13 @@ Handle image responsiveness for mobile
 
 .aem-pwa-blog_tile {
     margin-bottom: 1.5rem;
+}
+
+#player {
+    height: 320px;
+    width:100%
+}
+#canvas {
+    width:327px;
+    height:250px;
 }

@@ -33,8 +33,11 @@
      * --
      * -----------------------------------------------------------------------
      */
-    var tl30 = window.AdobeSummit;
+    $( document ).ready(function() {
+        var tl30 = window.AdobeSummit;
         tl30.init();
+    });
+
 }(window, navigator, document));
 
 

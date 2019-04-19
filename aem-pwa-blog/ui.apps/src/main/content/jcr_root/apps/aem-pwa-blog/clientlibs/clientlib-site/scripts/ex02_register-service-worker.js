@@ -91,18 +91,6 @@
                     // Intializing the notifications
 
                 });
-                /**
-                 * Step two: When the beforeinstallprompt event has fired,
-                 * save a reference to the event,and update your user interface
-                 * to indicate that the user can add your app to their home screen.
-                 *
-                 */
-                $(window).on('beforeinstallprompt',function(event) {
-                    console.log('[TL30-PWA] >>>>> beforeinstallprompt has been  fired !');
-                    event.preventDefault();
-                     deferredPrompt = event;
-                    return false;
-                });
             }
         }
 

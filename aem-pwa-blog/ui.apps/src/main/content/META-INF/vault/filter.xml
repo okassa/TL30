@@ -3,4 +3,5 @@
     <filter root="/apps/aem-pwa-blog"/>
     <filter root="/apps/sling" />
     <filter root="/etc/clientlibs/aem-pwa-blog/" />
+    <filter root="/home/users/aem-pwa-blog" />
 </workspaceFilter>

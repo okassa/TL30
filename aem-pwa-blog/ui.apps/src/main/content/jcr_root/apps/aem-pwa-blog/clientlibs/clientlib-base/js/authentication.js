@@ -102,7 +102,9 @@
                     u = u + window.location.hash;
                 }
                 sendMessageToServiceWorker("logged-in");
-                document.location = "/content/aem-pwa-blog/home.html";
+                // Update service worker to use a dynamic shell
+                // Redirect tp
+                document.location = "/content/aem-pwa-blog/home.authenticated.html";
 
             },
             error: function() {
