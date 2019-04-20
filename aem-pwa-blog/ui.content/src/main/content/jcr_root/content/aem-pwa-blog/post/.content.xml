@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:lastModified="{Date}2019-01-22T13:17:02.163+01:00"
+        cq:lastModified="{Date}2019-04-20T14:51:49.994+02:00"
         cq:lastModifiedBy="admin"
+        cq:tags="[aem-pwa-blog:sport,aem-pwa-blog:music,aem-pwa-blog:creativity,aem-pwa-blog:nature]"
         cq:template="/conf/aem-pwa-blog/settings/wcm/templates/post-page"
         jcr:description="AEM PWA Blog Post Page"
         jcr:primaryType="cq:PageContent"
         jcr:title="Post"
         sling:resourceType="aem-pwa-blog/components/structure/post-page"
         icon="fa fa-pencil-square-o">
-        <image/>
         <navigation
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Recent articles"
-                sling:resourceType="aem-pwa-blog/components/content/navigation"/>
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/navigation"/>
         <post
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Recent articles"
-                sling:resourceType="aem-pwa-blog/components/content/post"/>
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/post"/>
         <footer
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Recent articles"
-                sling:resourceType="aem-pwa-blog/components/content/footer"/>
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/footer"/>
+        <image/>
     </jcr:content>
 </jcr:root>

@@ -18,16 +18,17 @@
                 sling:resourceType="wcm/foundation/components/responsivegrid"/>
         </root>
         <navigation
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Recent articles"
-                sling:resourceType="aem-pwa-blog/components/content/navigation"/>
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/navigation"/>
         <profile
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Recent articles"
-                sling:resourceType="aem-pwa-blog/components/content/profile"/>
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/profile"/>
         <footer
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Recent articles"
-                sling:resourceType="aem-pwa-blog/components/content/footer"/>
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/footer"/>
+        <image/>
     </jcr:content>
 </jcr:root>
