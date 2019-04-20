@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -98,7 +99,7 @@ public class FirebaseNotificationServiceImpl implements NotificationService {
 
 
     @Override
-    public void sendCommonMessage(String title, String body, String token) throws IOException {
+    public boolean sendCommonMessage(String title, String body, String token)  {
         try {
 
             Message message = Message.builder()
@@ -108,30 +109,42 @@ public class FirebaseNotificationServiceImpl implements NotificationService {
                             .setNotification(new WebpushNotification(title, body))
                             .build())
                     .build();
-            String res = messaging.send(message);;
+            String res = messaging.send(message);
 
-            LOGGER.error("Message sent : {}",res);
+            if (!res.isEmpty()){
+                return true;
+            }
+            LOGGER.debug("Message sent : {}",res);
 
         } catch (Exception e) {
             LOGGER.error("Error when sending a message to this token :"+token,e);
         }
+        return false;
     }
 
     @Override
-    public void sendSubscriptionMessage(String token, List<String> hobbies)  {
-            hobbies.stream().forEach(topic -> {
+    public boolean sendSubscriptionMessage(String token, List<String> hobbies)  {
+       final Long count = hobbies.stream().map(topic -> {
                 try {
                     TopicManagementResponse response = messaging.subscribeToTopic(Collections.singletonList(token), topic);
-                    int count  = response.getSuccessCount();
-                    LOGGER.error("Topic subscription sent : {}",count);
+                    Long resCount = Long.valueOf(response.getSuccessCount());
+                    LOGGER.error("Topic subscription sent : {}",resCount);
+                    return resCount;
                 } catch (Exception e) {
                     LOGGER.error("Error when suscribing to this topic :"+topic,e);
+                    return Long.valueOf(0);
                 }
-            });
+            }).collect(Collectors.counting());
+
+        if (count == hobbies.size()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override
-    public void sendTopicMessage(String title, String body, String topic) throws IOException {
+    public boolean sendTopicMessage(String title, String body, String topic)  {
         try {
 
             Message message = Message.builder()
@@ -141,12 +154,14 @@ public class FirebaseNotificationServiceImpl implements NotificationService {
                             .setNotification(new WebpushNotification(title, body))
                             .build())
                     .build();
-            String res = messaging.send(message);;
-
+            String res = messaging.send(message);
             LOGGER.error("Message sent : {}",res);
-
+            if (!res.isEmpty()){
+                return true;
+            }
         } catch (Exception e) {
             LOGGER.error("Error when sending a message to this topic :"+topic,e);
         }
+        return false;
     }
 }
