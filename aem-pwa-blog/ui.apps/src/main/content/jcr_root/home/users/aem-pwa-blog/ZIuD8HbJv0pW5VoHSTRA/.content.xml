@@ -16,6 +16,6 @@
         gender="male"
         givenName="Sylvia"
         hobbies="[food,family,creativity]">
-        <photos/>
+        <photos jcr:primaryType="nt:unstructured"/>
     </profile>
 </jcr:root>

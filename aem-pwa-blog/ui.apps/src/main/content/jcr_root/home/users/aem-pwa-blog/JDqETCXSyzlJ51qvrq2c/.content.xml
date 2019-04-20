@@ -16,6 +16,6 @@
         gender="male"
         givenName="Bryan"
         hobbies="[sport,music,travel]">
-        <photos/>
+        <photos jcr:primaryType="nt:unstructured"/>
     </profile>
 </jcr:root>
