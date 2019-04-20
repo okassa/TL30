@@ -7,6 +7,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import org.apache.commons.collections4.IteratorUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.spi.commons.name.NameConstants;
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.LoginException;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.day.cq.dam.api.DamConstants.NT_DAM_ASSET;
 import static com.day.cq.wcm.api.NameConstants.NT_PAGE;
@@ -111,14 +113,19 @@ public class BlogContentChangeListener implements EventHandler {
                     .map(e -> String.valueOf(e.getProperty(SlingConstants.PROPERTY_PATH)))
                     .filter(s -> s != null &&  !s.isEmpty())
                     .filter(isPathAllowed)
-                    .filter(isResourceTypeAllowed)
                     .ifPresent(p -> {
                         LOGGER.trace("[onChange] ---  Processing changes for path '{}'", p);
                         String jobName = JOB_NAME_PREFIX + p;
                         options.name(jobName);
-                        ImmediateJob job = new ImmediateJob(p);
+                        Resource resource = resolver.resolve(p);
+                        TagManager tagManager = resolver.adaptTo(TagManager.class);
+                        Tag[] tags = tagManager.getTags(resource);
+                        List<String> tagNames = Arrays.asList(tags).stream().map(t -> t.getName().toLowerCase()).collect(Collectors.toList());
+                        ImmediateJob job = new ImmediateJob(tagNames);
                         LOGGER.debug("[onChange] ---  Adding job '{}' for path '{}'", jobName, p);
                         scheduler.schedule(job, options);
+
+
                     });
             LOGGER.trace("[onChange] <<<<<< Processing changes....DONE");
 
@@ -130,16 +137,16 @@ public class BlogContentChangeListener implements EventHandler {
     }
 
     private class ImmediateJob implements Runnable {
-        private final String path;
+        private final List<String> tags;
 
         /**
          * The constructor can be used to pass in serializable state that will be used during the Job processing.
          *
-         * @param path example parameter passed in from the event
+         *
          */
-        public ImmediateJob(String path) {
+        public ImmediateJob(List<String> tags) {
             // Maintain job state
-            this.path = path;
+            this.tags = tags;
         }
 
         /**
@@ -147,28 +154,23 @@ public class BlogContentChangeListener implements EventHandler {
          * The Sling job management mechanism will call run() to process the job.
          */
         public void run() {
-            LOGGER.debug("[run] Start processing ---  The path is '{}'", path);
+            LOGGER.debug("[run] Start processing ---  The path is '{}'", tags);
             // Get the tags from the asset or the page
 
             try(ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"))) {
 
-                Resource resource = resolver.resolve(path);
-                TagManager tagManager = resolver.adaptTo(TagManager.class);
-                Tag[] tags = tagManager.getTags(resource);
-
-                if(tags.length > 0){
-                    Arrays.asList(tags).stream().forEach(t -> {
-                        String tagName = t.getName();
-                        notificationService.sendTopicMessage("Summit Lab EH", "This is a simple notification sent to you because, we know you might be inetrested by this topic "+tagName,tagName);
+                if(tags.size() > 0){
+                    tags.stream().forEach(t -> {
+                        notificationService.sendTopicMessage("Summit Lab EH", "This is a simple notification sent to you because, we know you might be inetrested by this topic <b>"+t+"</b>",t);
                     });
                 }
 
             } catch (Exception e) {
-               LOGGER.error("An error occured when executing the job for path {}",path);
+               LOGGER.error("An error occured when executing the job for path {}",tags);
             }
             ;
 
-            LOGGER.debug("[run] End processing ---  The path is '{}'", path);
+            LOGGER.debug("[run] End processing ---  The path is '{}'", tags);
         }
     }
 

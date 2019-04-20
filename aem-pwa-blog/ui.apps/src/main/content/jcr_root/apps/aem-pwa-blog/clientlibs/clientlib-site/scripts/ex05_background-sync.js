@@ -110,7 +110,6 @@
 
                         window.AdobeSummit.closeCreatePostModal();
 
-                        // @TODO Check if the message is saved before real call
                         if ('serviceWorker' in navigator && 'SyncManager' in window) {
                             navigator.serviceWorker.ready
                                 .then(function (sw) {
@@ -125,11 +124,13 @@
                                             return sw.sync.register('sync-new-posts');
                                         })
                                         .then(function () {
+                                            $("#background-sync").modal("show");
                                             console.log("sync registered");
                                         })
                                         .catch(function (err) {
                                             console.log(err);
                                         });
+                                    debugger;
                                 });
                         } else {
                             AdobeSummit.sendData();

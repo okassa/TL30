@@ -148,11 +148,13 @@ public class FirebaseNotificationServiceImpl implements NotificationService {
         try {
 
             Message message = Message.builder()
-                    .setNotification(new Notification(title, body))
-                    .setTopic(topic)
                     .setWebpushConfig(WebpushConfig.builder()
-                            .setNotification(new WebpushNotification(title, body))
+                            .setNotification(new WebpushNotification(
+                                    title,
+                                    body,
+                                    "https://www.adobe.com/content/dam/www/icons/adobe-experience-manager.svg"))
                             .build())
+                    .setTopic(topic)
                     .build();
             String res = messaging.send(message);
             LOGGER.error("Message sent : {}",res);

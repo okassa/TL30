@@ -144,7 +144,7 @@ self.addEventListener('fetch', function(event) {
                             return caches.open(CACHE_DYNAMIC_NAME)
                                 .then(function(cache) {
                                     var url = event.request.url;
-                                    if(url.indexOf("http://") > -1 || url.indexOf("https://") > -1){
+                                    if((url.indexOf("http://") > -1 || url.indexOf("https://") > -1) && (url.indexOf("authenticated") < -1)){
                                         cache.put(event.request.url, res.clone());
                                         return res;
                                     }
@@ -287,36 +287,6 @@ self.addEventListener('notificationclick', function(event) {
 
 self.addEventListener('notificationclose', function(event) {
     console.log('Notification was closed', event);
-});
-
-self.addEventListener('message', function(event){
-    console.log("SW Received Message: " + event.data);
-
-
-    if(event.data === "logged-in"){
-        console.log('[Service Worker] Flush the app shell.');
-        event.ports[0].postMessage("app-shell-for-logged-in");
-        caches.open(CACHE_DYNAMIC_NAME).then(function(cache) {
-            cache.addAll([
-                '/content/aem-pwa-blog/post.authenticated.html',
-                '/content/aem-pwa-blog/login.authenticated.html',
-                '/content/aem-pwa-blog/home.authenticated.html',
-                '/content/aem-pwa-blog/profile.authenticated.html',
-            ]);
-        });
-    }
-    if(event.data === "logged-out"){
-        console.log('[Service Worker] Flush the app shell.');
-        caches.open(CACHE_DYNAMIC_NAME).then(function(cache) {
-
-            cache.delete('/content/aem-pwa-blog/post.authenticated.html');
-            cache.delete('/content/aem-pwa-blog/login.authenticated.html');
-            cache.delete('/content/aem-pwa-blog/home.authenticated.html');
-            cache.delete('/content/aem-pwa-blog/profile.authenticated.html');
-        });
-        event.ports[0].postMessage("app-shell-for-everyone");
-
-    }
 });
 
 

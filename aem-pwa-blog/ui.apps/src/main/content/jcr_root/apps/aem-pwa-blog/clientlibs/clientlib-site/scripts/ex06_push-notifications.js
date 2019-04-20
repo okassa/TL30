@@ -90,6 +90,9 @@
 
             messaging.onMessage(function (payload) {
                 console.log("[TL30-PWA][pushNotification] Message received. ", JSON.stringify(payload));
+               var $webPush = $("#webpush-received");
+                $webPush.find("#notification-content").text( payload.notification.body);
+                $webPush.modal("show");
             });
             messaging.onTokenRefresh(function () {
                 messaging.getToken()

@@ -97,13 +97,7 @@
                 j_validate: true
             },
             success: function (data, code, jqXHR){
-                var u = resource;
-                if (window.location.hash && u.indexOf('#') < 0) {
-                    u = u + window.location.hash;
-                }
-                sendMessageToServiceWorker("logged-in");
-                // Update service worker to use a dynamic shell
-                // Redirect tp
+
                 document.location = "/content/aem-pwa-blog/home.authenticated.html";
 
             },
@@ -122,8 +116,7 @@
             async: false,
             global: false,
             success: function (data, code, jqXHR){
-                sendMessageToServiceWorker("logged-out");
-                document.location = "/content/aem-pwa-blog/home.html";
+                document.location = "/content/aem-pwa-blog/home.authenticated.html";
             },
             error: function() {
                 displayError("Error occured during logout");
