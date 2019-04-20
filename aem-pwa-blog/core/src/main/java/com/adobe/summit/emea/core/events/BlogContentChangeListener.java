@@ -1,11 +1,16 @@
 package com.adobe.summit.emea.core.events;
 
 import com.adobe.summit.emea.core.services.NotificationService;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.jackrabbit.spi.commons.name.NameConstants;
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.observation.ExternalResourceChangeListener;
@@ -80,8 +85,8 @@ public class BlogContentChangeListener implements EventHandler {
         LOGGER.debug("Resource event: {} at: {}", event.getTopic(), event.getProperty(SlingConstants.PROPERTY_PATH));
         LOGGER.debug("[onChange] >>>>>> Processing changes ....");
 
-        try {
-            ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"));
+        try(ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"))) {
+
 
             ScheduleOptions options = scheduler.NOW();
             options.canRunConcurrently(false);
@@ -145,8 +150,19 @@ public class BlogContentChangeListener implements EventHandler {
             LOGGER.debug("[run] Start processing ---  The path is '{}'", path);
             // Get the tags from the asset or the page
 
-            try {
-               // notificationService.sendTopicMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested");
+            try(ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"))) {
+
+                Resource resource = resolver.resolve(path);
+                TagManager tagManager = resolver.adaptTo(TagManager.class);
+                Tag[] tags = tagManager.getTags(resource);
+
+                if(tags.length > 0){
+                    Arrays.asList(tags).stream().forEach(t -> {
+                        String tagName = t.getName();
+                        notificationService.sendTopicMessage("Summit Lab EH", "This is a simple notification sent to you because, we know you might be inetrested by this topic "+tagName,tagName);
+                    });
+                }
+
             } catch (Exception e) {
                LOGGER.error("An error occured when executing the job for path {}",path);
             }
