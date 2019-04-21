@@ -35,7 +35,8 @@
      */
     $( document ).ready(function() {
         var tl30 = window.AdobeSummit;
-        tl30.init();
+        var channel = new BroadcastChannel('sw-messages');
+        tl30.init(channel);
     });
 
 }(window, navigator, document));

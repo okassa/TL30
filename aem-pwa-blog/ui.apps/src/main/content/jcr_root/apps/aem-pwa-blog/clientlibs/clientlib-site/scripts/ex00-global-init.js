@@ -30,6 +30,7 @@
     var tiles = document.querySelector('.aem-pwa-blog__tilesContent');
 
 
+
 // Init AdobeSummit namespace if not available.
     var AdobeSummit = window.AdobeSummit || {
             /**
@@ -250,12 +251,12 @@
                     console.log("Exercise07 has not been implemented");
                 }
             },
-            init:function () {
+            init:function (channel) {
                 this.Exercise02.init();
                 this.Exercise03.init();
                 this.Exercise04.init();
-                this.Exercise05.init();
-                this.Exercise06.init();
+                this.Exercise05.init(channel);
+                this.Exercise06.init(channel);
                 this.Exercise07.init();
 
             }

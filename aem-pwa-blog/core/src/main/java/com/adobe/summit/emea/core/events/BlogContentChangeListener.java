@@ -6,6 +6,7 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.google.gson.Gson;
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.spi.commons.name.NameConstants;
@@ -35,10 +36,7 @@ import javax.jcr.observation.Event;
 import javax.jcr.observation.EventIterator;
 import javax.jcr.observation.EventListener;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -71,6 +69,8 @@ public class BlogContentChangeListener implements EventHandler {
     private static final String JOB_NAME_PREFIX = BlogContentChangeListener.class.getCanonicalName().replace(".", "/") + "/";
 
     private final int[] events = {Event.NODE_ADDED,Event.NODE_MOVED,Event.NODE_REMOVED};
+
+    private final Gson gson = new Gson();
 
     private static final List<String> pathList = Arrays.asList(new String[]{"/content/dam/aem-pwa-blog","/content/aem-pwa-blog"});
 
@@ -121,7 +121,7 @@ public class BlogContentChangeListener implements EventHandler {
                         TagManager tagManager = resolver.adaptTo(TagManager.class);
                         Tag[] tags = tagManager.getTags(resource);
                         List<String> tagNames = Arrays.asList(tags).stream().map(t -> t.getName().toLowerCase()).collect(Collectors.toList());
-                        ImmediateJob job = new ImmediateJob(tagNames);
+                        ImmediateJob job = new ImmediateJob(tagNames,p);
                         LOGGER.debug("[onChange] ---  Adding job '{}' for path '{}'", jobName, p);
                         scheduler.schedule(job, options);
 
@@ -138,15 +138,17 @@ public class BlogContentChangeListener implements EventHandler {
 
     private class ImmediateJob implements Runnable {
         private final List<String> tags;
+        private final String path;
 
         /**
          * The constructor can be used to pass in serializable state that will be used during the Job processing.
          *
          *
          */
-        public ImmediateJob(List<String> tags) {
+        public ImmediateJob(List<String> tags,String path) {
             // Maintain job state
             this.tags = tags;
+            this.path = path;
         }
 
         /**
@@ -159,9 +161,14 @@ public class BlogContentChangeListener implements EventHandler {
 
             try(ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"))) {
 
+
                 if(tags.size() > 0){
                     tags.stream().forEach(t -> {
-                        notificationService.sendTopicMessage("Summit Lab EH", "This is a simple notification sent to you because, we know you might be inetrested by this topic <b>"+t+"</b>",t);
+                        HashMap<String,String> bodyMap = new HashMap<>();
+                        bodyMap.put("path",path);
+                        bodyMap.put("message","Just because you like this topic : "+t+", we would like to share with you this new resource");
+
+                        notificationService.sendTopicMessage("Summit Lab EH", gson.toJson(bodyMap),t);
                     });
                 }
 

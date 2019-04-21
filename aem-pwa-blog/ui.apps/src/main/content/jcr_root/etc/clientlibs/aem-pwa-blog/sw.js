@@ -25,6 +25,9 @@ firebase.initializeApp(config);
 
 var messaging = firebase.messaging();
 
+var channel = new BroadcastChannel('sw-messages');
+
+
 /*
  ================================================== Exercise 02 : (2) Registering service worker  ========================================================
  =
@@ -193,6 +196,7 @@ self.addEventListener('sync', function(event) {
                                     res.json()
                                         .then(function(resData) {
                                             deleteItemFromData('sync-posts', resData.id);
+                                            channel.postMessage({type:"synced-post"});
                                         });
                                 }
                             })
@@ -251,6 +255,7 @@ self.addEventListener('push', function(event) {
     };
 
     event.waitUntil(self.registration.showNotification(title, options));
+    channel.postMessage({type:"web-push-received"});
 
 });
 
