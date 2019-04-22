@@ -55,7 +55,7 @@ import java.util.stream.Stream;
            property={
                    Constants.SERVICE_DESCRIPTION + "=Manifest Servlet - This servlet will expose all informations used to make the browser understand that the website is a PWA",
                    Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
-                   HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN+"=/content/aem-pwa-blog/manifest.json" ,
+                   HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN+"=/content/manifest.json" ,
                    HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT+"="+ ("(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=org.osgi.service.http)")
            })
 @Designate(ocd = ManifestServlet.Configuration.class)
