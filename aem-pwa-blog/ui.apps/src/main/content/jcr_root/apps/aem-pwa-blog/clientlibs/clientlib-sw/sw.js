@@ -7,6 +7,7 @@ var STATIC_FILES = [
     '/content/aem-pwa-blog/post.html',
     '/content/aem-pwa-blog/login.html',
     '/content/aem-pwa-blog/home.html',
+    '/content/aem-pwa-blog/home.offline.html',
     '/content/aem-pwa-blog/profile.html',
     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor.js',
     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor-pwa.js',
@@ -101,24 +102,37 @@ self.addEventListener('fetch', function (event) {
                         console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] has been looked for in all caches by the Service Worker and a match has been found....');
                         return response;
                     } else {
-                        return fetch(event.request)
-                            .then(function (res) {
-                                return caches.open(CACHE_DYNAMIC_NAME)
-                                    .then(function (cache) {
-                                        console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
-                                        cache.put(event.request.url, res.clone());
-                                        return res;
-                                    })
-                            })
-                            .catch(function (err) {
-                                console.log('[TL30-PWA][fetch] The real HTTP request ['+event.request.url+'] failed, the Service Worker will display the offline page....');
-                                return caches.open(CACHE_STATIC_NAME)
-                                    .then(function (cache) {
-                                        if (event.request.headers.get('accept').includes('text/html')) {
-                                            return cache.match('/content/aem-pwa-sample/en.offline.html');
+                            return fetch(event.request)
+                                .then(function (res) {
+                                    if(event.request.url.indexOf("authenticated") <= -1){
+                                        return caches.open(CACHE_DYNAMIC_NAME)
+                                            .then(function (cache) {
+                                                console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
+
+                                                cache.put(event.request.url, res.clone());
+                                                return res;
+
+
+                                            })
+                                    }else{
+                                        if (!res.ok) {
+                                            return cache.match('/content/aem-pwa-blog/home.offline.html');
+                                        }else{
+                                            return res;
                                         }
-                                    });
-                            });
+                                    }
+                                })
+                                .catch(function (err) {
+                                    console.log('[TL30-PWA][fetch] The real HTTP request ['+event.request.url+'] failed, the Service Worker will display the offline page....');
+                                    return caches.open(CACHE_STATIC_NAME)
+                                        .then(function (cache) {
+                                            if (event.request.headers.get('accept').includes('text/html')) {
+                                                return cache.match('/content/aem-pwa-blog/home.offline.html');
+                                            }
+                                        });
+                                });
+
+
                     }
                 })
         );
@@ -188,7 +202,7 @@ self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
     var title = "AEM <3 PWA" ;
-    var data = {title: 'Adobe Experience Manager is PWA-ready !', content: 'A notification has been retrieved new happened!', openUrl: '/'};
+    var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'A notification has been retrieved new happened!', openUrl: '/content/aem-pwa-blog/home.push.html'};
 
     if (event.data) {
         data.content = JSON.parse(event.data.text());
@@ -217,7 +231,7 @@ self.addEventListener('push', function(event) {
     };
 
     event.waitUntil(self.registration.showNotification(title, options));
-    channel.postMessage({type:"web-push-received"});
+    channel.postMessage(data);
 
 });
 

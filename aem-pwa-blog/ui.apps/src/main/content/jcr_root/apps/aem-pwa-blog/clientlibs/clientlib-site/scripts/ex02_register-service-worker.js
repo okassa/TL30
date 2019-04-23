@@ -20,30 +20,6 @@
 (function (window, navigator, document) {
     'use strict';
 
-    // Init AdobeSummit namespace if not available.
-    var deferredPrompt;
-
-    window.AdobeSummit.Device = {
-        deferredPrompt:false,
-        startDeviceInstall : function () {
-            if (this.deferredPrompt) {
-                this.deferredPrompt.prompt();
-
-                this.deferredPrompt.userChoice.then(function (choiceResult) {
-                    console.log(choiceResult.outcome);
-
-                    if (choiceResult.outcome === 'dismissed') {
-                        console.log('User cancelled installation');
-                    } else {
-                        console.log('User added to home screen');
-                    }
-                });
-
-                this.deferredPrompt = null;
-            }
-        },
-    }
-
     window.AdobeSummit.Exercise02 =  {
 
         /**
@@ -65,8 +41,7 @@
                 /**
                  * Step one: run a function on load (or whenever is appropriate for you)
                  * Function run on load sets up the service worker if it is supported in the
-                 * browser. Requires a serviceworker in a `sw.js`. This file contains what will
-                 * happen when we receive a push notification.
+                 * browser. Requires a serviceworker in a `/content/sw.js`.
                  *
                  */
                 $(window).load(function() {
@@ -75,10 +50,7 @@
                      * Register the service worker.
                      *
                      *      SW_PATH:"/content/sw.js",
-                     *      SW_SCOPE:"/content/aem-pwa-blog"
                      *
-                     *      What does service worker scope do ? It will restrict the service worker
-                     *      to be used only with pages beneath /content/aem-pwa-blog
                      */
                     navigator.serviceWorker.register("/content/sw.js")
                         .then(function(registration) {

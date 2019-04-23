@@ -14,7 +14,7 @@
             jcr:primaryType="nt:unstructured"
             jcr:title="Recent articles"
             sling:resourceType="aem-pwa-blog/components/content/navigation"/>
-        <login-form
+        <login
             jcr:primaryType="nt:unstructured"
             jcr:title="Recent articles"
             sling:resourceType="aem-pwa-blog/components/content/login"/>

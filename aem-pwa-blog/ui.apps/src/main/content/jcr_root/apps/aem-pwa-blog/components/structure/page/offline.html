@@ -2,7 +2,12 @@
 
 <section class="aem-pwa-blog__mainContainer">
     <div class="container t-cmp-clean">
-        You're currently offline
+        You were authenticated on the website, and the connection is not avaiable. You have been logged out for
+        your own safety. This PWA does not cache PII data.
     </div> <!-- /container -->
 </section>
 <sly data-sly-resource="${'footer' @ resourceType='aem-pwa-blog/components/content/footer'}"></sly>
+<script>
+    // We trigger a click on the logout button.
+    $("#logout").trigger("click");
+</script>
