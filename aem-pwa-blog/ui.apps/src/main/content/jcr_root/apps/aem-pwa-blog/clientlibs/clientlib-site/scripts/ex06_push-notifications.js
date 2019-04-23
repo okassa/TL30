@@ -90,9 +90,10 @@
 
             channel.addEventListener('message', function (event) {
                 if(event.data.type == "web-push-received"){
-                    //alert("The service worker has synchronized the post");
                     var $webPush = $("#webpush-received");
-                    $webPush.find("#notification-content").text( event.data.content.notification.body);
+                    var data = JSON.parse(event.data.content.notification.body);
+                    $webPush.find("#notification-content").text( data.message);
+                    $webPush.find("#notification-image").prop("src", data.path);
                     $webPush.modal("show");
                 }
 

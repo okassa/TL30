@@ -33,7 +33,6 @@ import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
-import javax.annotation.Nonnull;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,16 +52,14 @@ import java.util.stream.Stream;
  * idempotent. For write operations use the {@link SlingAllMethodsServlet}.
  */
 @Component(service=Servlet.class,
-        configurationPolicy = ConfigurationPolicy.REQUIRE,
         property={
                 Constants.SERVICE_DESCRIPTION + "=Manifest Servlet - This servlet will expose all informations used to make the browser understand that the website is a PWA",
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
-                "sling.servlet.methods=" + HttpConstants.METHOD_POST,
-                "sling.servlet.paths="+ "/content/manifest",
-                "sling.servlet.extensions=" + "json"
+                HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN+"=/content/manifest.json" ,
+                HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT+"="+ ("(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=org.osgi.service.http)")
         })
 @Designate(ocd = ManifestServlet.Configuration.class)
-public class ManifestServlet extends SlingAllMethodsServlet {
+public class ManifestServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Gson gson = new Gson();
     private HashMap<String, Object> manifest = new HashMap();
@@ -92,7 +89,7 @@ public class ManifestServlet extends SlingAllMethodsServlet {
         this.manifest.put("serviceworker", this.gson.fromJson(config.serviceworker(), HashMap.class));
     }
 
-    protected void doGet(@Nonnull SlingHttpServletRequest req, @Nonnull SlingHttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.getWriter().write(this.gson.toJson(this.manifest));
     }

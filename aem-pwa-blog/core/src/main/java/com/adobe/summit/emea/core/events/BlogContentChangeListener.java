@@ -165,10 +165,10 @@ public class BlogContentChangeListener implements EventHandler {
                 if(tags.size() > 0){
                     tags.stream().forEach(t -> {
                         HashMap<String,String> bodyMap = new HashMap<>();
-                        bodyMap.put("path",path);
+                        bodyMap.put("path",StringUtils.substringBefore(path,"/jcr:content/metadata"));
                         bodyMap.put("message","Just because you like this topic : "+t+", we would like to share with you this new resource");
 
-                        notificationService.sendTopicMessage("Summit Lab EH", gson.toJson(bodyMap),t);
+                        notificationService.sendTopicMessage("Adobe Summit EMEA 2019 - TL30", gson.toJson(bodyMap),t);
                     });
                 }
 

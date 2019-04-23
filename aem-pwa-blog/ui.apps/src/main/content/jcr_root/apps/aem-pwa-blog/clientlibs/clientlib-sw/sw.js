@@ -108,11 +108,8 @@ self.addEventListener('fetch', function (event) {
                                         return caches.open(CACHE_DYNAMIC_NAME)
                                             .then(function (cache) {
                                                 console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
-
                                                 cache.put(event.request.url, res.clone());
                                                 return res;
-
-
                                             })
                                     }else{
                                         if (!res.ok) {
@@ -146,7 +143,7 @@ self.addEventListener('fetch', function (event) {
  =
  ================================================================================================================================================
  */
-self.addEventListener('sync', function(event) {
+/self.addEventListener('sync', function(event) {
     console.log('[TL30-PWA][sync] Background syncing', event);
 
     // ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
@@ -202,27 +199,14 @@ self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push had this data:'+ event.data.text());
 
     var title = "AEM <3 PWA" ;
-    var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'A notification has been retrieved new happened!', openUrl: '/content/aem-pwa-blog/home.push.html'};
+    var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.', openUrl: '/content/aem-pwa-blog/home.push.html'};
 
     if (event.data) {
         data.content = JSON.parse(event.data.text());
     }
 
-    /**
-     *
-     var options = {
-        "body":   "Time is up!",
-        "icon":   "/images/manifest/icon-96x96.png",
-        "badge":  "/images/notification/badge-96x96.png",
-        "vibrate": [500,100,500,100,500,100,500],
-        "tag": 'renotify',
-        "renotify": true
-      };
-     *
-     *
-     * **/
     const options = {
-        body: 'A notification has been retrieved new happened!',
+        body: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.',
         icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
         badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
         data: {
