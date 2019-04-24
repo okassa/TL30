@@ -34,35 +34,37 @@
 
         init:function (channel) {
 
-            var canvasElement = $('#canvas').val();
+            var canvasElement = $('#canvas');
             var titleInput = $('#title').val();
             var tagsInput = $('#tags').val();
-            var $postButton = document.querySelector('#post-btn');
+            var $postButton = $('#post-btn');
 
             /**
              *  When the service worker has synced the post with
              *  AEM, it will then receive via a channel the response
              *  from the server.
              */
-            channel.addEventListener('message', function (event) {
-                if(event.data.type == "synced-post"){
-                    //alert("The service worker has synchronized the post")
-                    var $backSync = $("#background-sync");
-                    $backSync.modal("show");
-                }
+            if(channel){
+                channel.addEventListener('message', function (event) {
+                    if(event.data.type == "synced-post"){
+                        //alert("The service worker has synchronized the post")
+                        var $backSync = $("#background-sync");
+                        $backSync.modal("show");
+                    }
 
-            } );
+                } );
+            }
+
+
             /**
              *  When the user clicks on the "send post" button,
              *  the post will be register into the sync manager
              *  for a synchronization later on.
              */
             if($postButton) {
-                $postButton.click(function(event) {
+                $postButton.click(function() {
 
-                    event.preventDefault();
-
-                    if (titleInput.value.trim() === '' || tagsInput.value.trim() === '') {
+                    if (titleInput.trim() === '' || tagsInput.trim() === '') {
                         alert('Please enter valid data!');
                         return;
                     }
@@ -80,8 +82,6 @@
 
                          ======================================================
                          **/
-                    } else {
-                        AdobeSummit.sendData();
                     }
                 });
             }

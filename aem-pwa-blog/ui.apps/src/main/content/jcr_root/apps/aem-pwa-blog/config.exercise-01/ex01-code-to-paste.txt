@@ -1,1 +1,0 @@
-<link rel="manifest" href="/content/aem-pwa-blog/manifest.json">

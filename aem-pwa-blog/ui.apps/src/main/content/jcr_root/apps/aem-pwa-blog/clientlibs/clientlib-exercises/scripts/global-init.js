@@ -29,6 +29,7 @@
     var videoPlayer = document.querySelector('#player');
     var captureButton = document.querySelector('#capture-btn');
     var shareImageButton = document.querySelector('#share-image-button');
+    var submitProfileFormButton = document.querySelector('#submit');
     var picture;
     var tiles = document.querySelector('.aem-pwa-blog__tiles');
 
@@ -294,12 +295,45 @@
                     shareImageButton.addEventListener('click', function(){window.AdobeSummit.openCreatePostModal()});
                 }
 
+                if(submitProfileFormButton) {
+                    submitProfileFormButton.addEventListener('click', function(event) {
+
+                        event.preventDefault();
+
+                        var path= $("#form").attr("path");
+                        var firstName= $('#firstName').val();
+                        var lastName= $('#lastName').val();
+                        var email= $('#email').val();
+                        var password= $('#password').val();
+                        var hobbies= $('#hobbies').val();
+
+                        //  @TODO use fetch instead
+
+                        fetch(path, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                "firstName": firstName,
+                                "lastName": lastName,
+                                "email": email,
+                                "password": firstName,
+                                "hobbies": hobbies,
+                            })
+                        })
+                            .then(function (data) {
+                                console.log('Request success: ', data);
+                            })
+                            .catch(function (error) {
+                                console.log('Request failure: ', error);
+                            });
+                    });
+                }
+
 
             },
             init:function (channel) {
                 this.initUI();
                 this.Exercise02.init();
-                this.Exercise04.init();
+                this.Exercise04.init(channel);
                 this.Exercise05.init(channel);
                 this.Exercise06.init(channel);
 

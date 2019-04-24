@@ -18,46 +18,11 @@
 ;
 (function (window, navigator, document) {
     'use strict';
-    var form = document.querySelector('form');
-    var submitProfileFormButton = document.querySelector('#submit');
 
 window.AdobeSummit.Exercise06 =  {
 
     init:function () {
 
-
-        if(submitProfileFormButton) {
-            submitProfileFormButton.addEventListener('click', function(event) {
-
-                event.preventDefault();
-
-                var path= $("#form").attr("path");
-                var firstName= $('#firstName').val();
-                var lastName= $('#lastName').val();
-                var email= $('#email').val();
-                var password= $('#password').val();
-                var hobbies= $('#hobbies').val();
-
-                //  @TODO use fetch instead
-
-                fetch(path, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        "firstName": firstName,
-                        "lastName": lastName,
-                        "email": email,
-                        "password": firstName,
-                        "hobbies": hobbies,
-                    })
-                })
-                    .then(function (data) {
-                        console.log('Request success: ', data);
-                    })
-                    .catch(function (error) {
-                        console.log('Request failure: ', error);
-                    });
-            });
-        }
     }
 }
 }(window, navigator, document));
