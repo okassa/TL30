@@ -5,7 +5,7 @@
  * @description :
  *                  This needs to be updated
  *
- * @file : /apps/aem-pwa-blog/clientlibs/clientlib-site/js/ex00-global-init.js
+ * @file : /apps/aem-pwa-blog/clientlibs/clientlib-site/js/global-init.js
  *
  *
  *
@@ -19,17 +19,18 @@
 ;
 (function (window, navigator, document) {
 
-    var createPostArea = document.querySelector('#create-post');
     var viewPostArea = document.querySelector('#view-post');
     var sharedMomentsArea = document.querySelector('#shared-moments');
     var form = document.querySelector('form');
     var titleInput = document.querySelector('#title');
-    var videoPlayer = document.querySelector('#player');
     var canvasElement = document.querySelector('#canvas');
+    var createPostArea = document.querySelector('#create-post');
+    var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn');
+    var videoPlayer = document.querySelector('#player');
     var captureButton = document.querySelector('#capture-btn');
-    var tiles = document.querySelector('.aem-pwa-blog__tilesContent');
-
-
+    var shareImageButton = document.querySelector('#share-image-button');
+    var picture;
+    var tiles = document.querySelector('.aem-pwa-blog__tiles');
 
 // Init AdobeSummit namespace if not available.
     var AdobeSummit = window.AdobeSummit || {
@@ -221,43 +222,86 @@
                         this.updateUI();
                     })
             },
-            Exercise02:{
-                init:function () {
-                    console.log("Exercise02 has not been implemented");
+            initUI : function () {
+                if(tiles){
+                    var url = tiles.attributes["data-async-url"].value;
+                    var networkDataReceived = false;
+
+                    fetch(url)
+                        .then(function (res) {
+                            return res.json();
+                        })
+                        .then(function (data) {
+                            networkDataReceived = true;
+                            console.log('From web', data.teasers);
+                            var dataArray = [];
+                            for (var key in data.teasers) {
+                                dataArray.push(data.teasers[key]);
+                            }
+                            AdobeSummit.updateUI(dataArray);
+                        });
+
+                    if ('indexedDB' in window) {
+                        readAllData('posts')
+                            .then(function (data) {
+                                if (!networkDataReceived) {
+                                    console.log('From cache', data);
+                                    AdobeSummit.updateUI(data.teasers);
+                                }
+                            });
+                    }
                 }
-            },
-            Exercise03:{
-                init:function () {
-                    console.log("Exercise03 has not been implemented");
+
+
+                if(captureButton){
+                    captureButton.addEventListener('click', function (event) {
+                        canvasElement.style.display = 'block';
+                        videoPlayer.style.display = 'none';
+                        captureButton.style.display = 'none';
+                        var context = canvasElement.getContext('2d');
+                        context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
+                        videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
+                            track.stop();
+                        });
+                        picture = dataURItoBlob(canvasElement.toDataURL());
+                    });
                 }
-            },
-            Exercise04:{
-                init:function () {
-                    console.log("Exercise04 has not been implemented");
+
+                if(createPostArea) {
+                    createPostArea.style.display = 'none';
                 }
-            },
-            Exercise05:{
-                init:function () {
-                    console.log("Exercise05 has not been implemented");
+
+                if(closeCreatePostModalButton){
+                    closeCreatePostModalButton.addEventListener('click', window.AdobeSummit.closeCreatePostModal());
                 }
-            },
-            Exercise06:{
-                init:function () {
-                    console.log("Exercise06 has not been implemented");
+
+                if (captureButton){
+                    captureButton.addEventListener('click', function (event) {
+                        canvasElement.style.display = 'block';
+                        videoPlayer.style.display = 'none';
+                        captureButton.style.display = 'none';
+                        //var context = canvasElement.getContext('2d');
+                        //context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
+                        videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
+                            track.stop();
+                        });
+                        picture = dataURItoBlob(canvasElement.toDataURL());
+                    });
                 }
-            },
-            Exercise07:{
-                init:function () {
-                    console.log("Exercise07 has not been implemented");
+
+
+                if(shareImageButton) {
+                    shareImageButton.addEventListener('click', function(){window.AdobeSummit.openCreatePostModal()});
                 }
+
+
             },
             init:function (channel) {
+                this.initUI();
                 this.Exercise02.init();
-                this.Exercise03.init();
                 this.Exercise04.init();
                 this.Exercise05.init(channel);
                 this.Exercise06.init(channel);
-                this.Exercise07.init();
 
             }
         };

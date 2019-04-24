@@ -18,13 +18,13 @@
 #=============================================================================
 #  Please uncomment the line of the script you'd like to use
 #=============================================================================
-ex00-global-init.js
+global-init.js
+ex01-add-manifest.js
 ex02_register-service-worker.js
+ex03_cache-app-shell.js
+ex04_push-notifications.js
 ex05_background-sync.js
-ex06_push-notifications.js
-ex07_access-camera.js
-#Keep this start-all-exercises.js at the bottom
-start-all-exercises.js
+bonus/ex06_access-camera.js
 
 
 

@@ -1,4 +1,0 @@
-            navigator.serviceWorker.ready
-                .then(function (sw) {
-                    window.AdobeSummit.Exercise06.initializeUI(sw);
-                });

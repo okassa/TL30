@@ -6,8 +6,8 @@
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.eot?v=4.7.0');
-  src: url('/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('/etc/clientlibs/aem-pwa-blog/fonts-awesome/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  src: url('../resources/fonts-awesome/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../resources/fonts-awesome/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../resources/fonts-awesome/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../resources/fonts-awesome/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../resources/fonts-awesome/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../resources/fonts-awesome/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }

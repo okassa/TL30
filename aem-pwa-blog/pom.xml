@@ -22,7 +22,7 @@
     <artifactId>aem-pwa-blog</artifactId>
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
-    <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  Parent prooject </name>
+    <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  Parent project </name>
     <description>Parent project for TL30</description>
 
     <modules>

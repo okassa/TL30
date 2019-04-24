@@ -24,248 +24,112 @@ var STATIC_FILES = [
     '/etc/clientlibs/aem-pwa-blog/icons/favicon.ico'
 ];
 
-var channel = new BroadcastChannel('sw-messages');
-
-
-/*
- ================================================== Exercise 02 : (2) Registering service worker  ========================================================
- =
- =  When window.AdobeSummit.Exercise02.init() method is called the service worker is registered and an install event is caught by the service
- =  worker.The install event is fired only once
- =
- ================================================================================================================================================
- */
-self.addEventListener('install', function (event) {
-    console.log('[Service Worker] Installing Service Worker ...', event);
-    event.waitUntil(
-        caches.open(CACHE_STATIC_NAME)
-            .then(function (cache) {
-                console.log('[Service Worker] Precaching App Shell');
-                cache.addAll(STATIC_FILES);
-            })
-    )
-});
-/*
- ================================================== Exercise 02 : (2) Registering service worker  ========================================================
- =
- =  After the install event completion, there is an activate event that is sent by the browser to notify the service worker that everything went fine.
- =
- =
- ================================================================================================================================================
- */
-self.addEventListener('activate', function (event) {
-    console.log('[Service Worker] Activating Service Worker ....', event);
-    event.waitUntil(
-        caches.keys()
-            .then(function (keyList) {
-                return Promise.all(keyList.map(function (key) {
-                    if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
-                        console.log('[Service Worker] Removing old cache.', key);
-                        return caches.delete(key);
-                    }
-                }));
-            })
-    );
-    return self.clients.claim();
-});
 
 function isInArray(string, array) {
     var cachePath;
     if (string.indexOf(self.origin) === 0) { // request targets domain where we serve the page from (i.e. NOT a CDN)
         console.log('matched ', string);
-        cachePath = string.substring(self.origin.length); // take the part of the URL AFTER the domain (e.g. after localhost:8080)
+        cachePath = string.substring(self.origin.length); // take the part of the URL AFTER the domain (e.g. after localhost:4503)
     } else {
         cachePath = string; // store the full request (for CDNs)
     }
     return array.indexOf(cachePath) > -1;
 }
-/*
 
- ================================================== Exercise 04 : (2) Caching app shell  ========================================================
- =
- =  We cache only dynamic  resources such html pages, json payload fron ajax requests...
- =
- ================================================================================================================================================
- */
+
+var channel = new BroadcastChannel('sw-messages');
+
+
+<!--
+=============================================================================================
+
+Exercise 03 : Caching the App shell
+-----------
+Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-static.txt
+below this commented block  :
+
+=============================================================================================
+-->
+self.addEventListener('install', function (event) {
+    console.log('[TL30-PWA][install] Installing Service Worker ...', event);
+
+});
+/*
+=============================================================================================
+
+Exercise 03 : Deleting old caches when a newer version is being installed
+-----------
+Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-delete.txt
+ into the callback function : :
+
+=============================================================================================
+*/
+self.addEventListener('activate', function (event) {
+    console.log('[TL30-PWA][activate] Activating Service Worker ....', event);
+
+});
+
+
+/*
+=============================================================================================
+
+Exercise 03 : Adding request to a dynamic cache
+-----------
+Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
+into the callback function :
+
+=============================================================================================
+*/
 self.addEventListener('fetch', function (event) {
     console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP  request ['+event.request.url+'] by the Service Worker ....');
-    if (event.request.method == "GET") {
-        if (isInArray(event.request.url, STATIC_FILES)) {
-            console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] is available in '+CACHE_STATIC_NAME+', it will then be used by the Service Worker ....');
-            event.respondWith(
-                caches.match(event.request)
-            );
-        } else {
-            event.respondWith(
-                caches.match(event.request)
-                    .then(function (response) {
-                        if (response) {
-                            console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] has been looked for in all caches by the Service Worker and a match has been found....');
-                            return response;
-                        } else {
-                            return fetch(event.request)
-                                .then(function (res) {
-                                    if(event.request.url.indexOf("authenticated") <= -1){
-                                        return caches.open(CACHE_DYNAMIC_NAME)
-                                            .then(function (cache) {
-                                                console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
-                                                cache.put(event.request.url, res.clone());
-                                                return res;
-                                            })
-                                    }else{
-                                        if (!res.ok) {
-                                            return cache.match('/content/aem-pwa-blog/home.offline.html');
-                                        }else{
-                                            return res;
-                                        }
-                                    }
-                                })
-                                .catch(function (err) {
-                                    console.log('[TL30-PWA][fetch] The real HTTP request ['+event.request.url+'] failed, the Service Worker will display the offline page....');
-                                    return caches.open(CACHE_STATIC_NAME)
-                                        .then(function (cache) {
-                                            if (event.request.headers.get('accept').includes('text/html')) {
-                                                return cache.match('/content/aem-pwa-blog/home.offline.html');
-                                            }
-                                        });
-                                });
 
 
-                        }
-                    })
-            )
-        }
-    } else if (event.request.method == "POST") {
-        var postPromise = new Promise(function (resolve) {resolve()});
-        var responsePromise = postPromise.then(function () {
-            return registration.sync.register(event.request.url);
-        }).then(function (){
-            return new Response(new Blob(), {status: 202, statusText: "Accepted by Service Worker"});
-        });
-        event.respondWith(responsePromise);
-    }
+});
 
-})
+
 
 
 /*
- ================================================== Exercise 05 :  Background sync  ========================================================
- =
- =  When window.AdobeSummit.Exercise05.init() we register the sync manager to check network availability, when a sync event occured because
- = the network is back then all post that have been store within indexdb will be executed.
- =
- ================================================================================================================================================
+ =============================================================================================
+
+ Exercise 04 : Adding request to a dynamic cache
+ -----------
+ Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
+ into the callback function :
+
+ =============================================================================================
+ */
+self.addEventListener('push', function(event) {
+    console.log('[TL30-PWA][push] Push Received.');
+    /**
+     ======================================================
+
+     Exercise 04 : Push notifications
+     -----------
+     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-01.txt
+     below this commented block  :
+
+     ======================================================
+     **/
+});
+
+/*
+ =============================================================================================
+
+ Exercise 05 : Using background synchronization
+ -----------
+ Copy the code from this file : /apps/aem-pwa-blog/config.exercise-04/ex05-code-to-paste-02.txt
+ into the callback function :
+
+ =============================================================================================
  */
 self.addEventListener('sync', function(event) {
     console.log('[TL30-PWA][sync] Background syncing', event);
 
-    // ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
-    if (event.tag === 'sync-post') {
-        console.log('[TL30-PWA][sync]  Syncing new Posts');
-        event.waitUntil(
-            readAllData('sync-posts')
-                .then(function(data) {
-                    for (var dt in data) {
-                        var postData = new FormData();
-                        postData.append('id', data[dt].id);
-                        postData.append('title', data[dt].title);
-                        postData.append('tags', data[dt].tags);
-                        postData.append('file', data[dt].file);
 
-                        fetch('/bin/aem-pwa-blog/share-post.json', {
-                            method: 'POST',
-                            body: postData
-                        })
-                            .then(function(res) {
-                                console.log('[TL30-PWA][sync] Sent data', res);
-                                if (res.ok) {
-                                    res.json()
-                                        .then(function(resData) {
-                                            deleteItemFromData('sync-posts', resData.id);
-                                            channel.postMessage({type:"synced-post"});
-                                        });
-                                }
-                            })
-                            .catch(function(err) {
-                                console.log('[TL30-PWA][sync] Error while sending data', err);
-                            });
-                    }
-
-                })
-        );
-    }
 
 });
 
-/*
- ================================================== Exercise 06 :  Background sync  ========================================================
- =
- =  When a user has allow his/her device to receive notifications, any notification will be caught by the service worker that will trigger a
- = notification.
- =
- ================================================================================================================================================
- */
-self.addEventListener('push', function(event) {
-    console.log('[Service Worker] Push Received.');
-
-    // ===========================> CODE FROM ex05-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
-    console.log('[Service Worker] Push had this data:'+ event.data.text());
-
-    var title = "AEM <3 PWA" ;
-    var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.', openUrl: '/content/aem-pwa-blog/home.push.html'};
-
-    if (event.data) {
-        data.content = JSON.parse(event.data.text());
-    }
-
-    const options = {
-        body: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.',
-        icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
-        badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
-        data: {
-            url: data.openUrl
-        }
-    };
-
-    event.waitUntil(self.registration.showNotification(title, options));
-    channel.postMessage(data);
-
-});
-
-
-self.addEventListener('notificationclick', function(event) {
-    var notification = event.notification;
-    var action = event.action;
-
-    console.log(notification);
-
-    if (action === 'confirm') {
-        console.log('Confirm was chosen');
-        notification.close();
-    } else {
-        console.log(action);
-        event.waitUntil(
-            clients.matchAll()
-                .then(function(clis) {
-                    var client = clis.find(function(c) {
-                        return c.visibilityState === 'visible';
-                    });
-
-                    if (client !== undefined) {
-                        client.navigate(notification.data.url);
-                        client.focus();
-                    } else {
-                        clients.openWindow(notification.data.url);
-                    }
-                    notification.close();
-                })
-        );
-    }
-});
-
-self.addEventListener('notificationclose', function(event) {
-    console.log('Notification was closed', event);
-});
 
 
 
