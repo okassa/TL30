@@ -32,6 +32,7 @@
     var submitProfileFormButton = document.querySelector('#submit');
     var picture;
     var tiles = document.querySelector('.aem-pwa-blog__tiles');
+    var tileContent = document.querySelector('.aem-pwa-blog__tilesContent');
 
 // Init AdobeSummit namespace if not available.
     var AdobeSummit = window.AdobeSummit || {
@@ -188,7 +189,7 @@
                 article.appendChild(tileInner);
                 cardWrapper.appendChild(article);
 
-                tiles.appendChild(cardWrapper);
+                tileContent.appendChild(cardWrapper);
             },
 
             syncUpdateUI : function(data) {

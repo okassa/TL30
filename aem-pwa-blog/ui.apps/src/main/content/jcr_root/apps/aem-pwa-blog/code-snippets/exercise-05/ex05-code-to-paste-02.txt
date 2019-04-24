@@ -1,0 +1,35 @@
+// ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
+if (event.tag === 'sync-post') {
+    console.log('[TL30-PWA][sync]  Syncing new Posts');
+    event.waitUntil(
+        readAllData('sync-posts')
+            .then(function(data) {
+                for (var dt in data) {
+                    var postData = new FormData();
+                    postData.append('id', data[dt].id);
+                    postData.append('title', data[dt].title);
+                    postData.append('tags', data[dt].tags);
+                    postData.append('file', data[dt].file);
+
+                    fetch('/bin/aem-pwa-blog/share-post.json', {
+                        method: 'POST',
+                        body: postData
+                    })
+                        .then(function(res) {
+                            console.log('[TL30-PWA][sync] Sent data', res);
+                            if (res.ok) {
+                                res.json()
+                                    .then(function(resData) {
+                                        deleteItemFromData('sync-posts', resData.id);
+                                        channel.postMessage({type:"synced-post"});
+                                    });
+                            }
+                        })
+                        .catch(function(err) {
+                            console.log('[TL30-PWA][sync] Error while sending data', err);
+                        });
+                }
+
+            })
+    );
+}

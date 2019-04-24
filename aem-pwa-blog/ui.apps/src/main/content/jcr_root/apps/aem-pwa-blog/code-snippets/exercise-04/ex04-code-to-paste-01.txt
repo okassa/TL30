@@ -1,0 +1,20 @@
+console.log('[TL30-PWA][push] Push had this data:'+ event.data.text());
+
+var title = "AEM <3 PWA" ;
+var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.', openUrl: '/content/aem-pwa-blog/home.push.html'};
+
+if (event.data) {
+    data.content = JSON.parse(event.data.text());
+}
+
+const options = {
+    body: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.',
+    icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
+    badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
+    data: {
+        url: data.openUrl
+    }
+};
+
+event.waitUntil(self.registration.showNotification(title, options));
+channel.postMessage(data);
