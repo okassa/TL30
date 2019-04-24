@@ -2,7 +2,7 @@ navigator.serviceWorker
          .register("/content/sw.js",)
          .then(function(registration) {
            // Registration was successful
-             console.log('[TL30-PWA] >>>>> SW registration is OK : ', registration.scope);
+             console.log('[TL30-PWA] >>>>> SW registration is OK : ');
             }, function(err) {
           // registration failed :(
              console.log('[TL30-PWA] >>>>> SW registration is KO: ', err);

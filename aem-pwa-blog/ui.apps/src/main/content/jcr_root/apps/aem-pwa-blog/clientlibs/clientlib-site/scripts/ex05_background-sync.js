@@ -131,7 +131,7 @@
                                 };
                                 writeData('sync-posts', post)
                                     .then(function () {
-                                        return sw.sync.register('sync-new-posts');
+                                        return sw.sync.register('sync-post');
                                     })
                                     .then(function () {
 

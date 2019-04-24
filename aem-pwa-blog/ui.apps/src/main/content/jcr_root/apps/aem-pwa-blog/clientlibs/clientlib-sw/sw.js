@@ -1,8 +1,8 @@
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js');
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js');
-
-var CACHE_STATIC_NAME = 'static-v40';
-var CACHE_DYNAMIC_NAME = 'dynamic-v3';
+var VERSION=2;
+var CACHE_STATIC_NAME = 'static-v'+VERSION;
+var CACHE_DYNAMIC_NAME = 'dynamic-v'+VERSION;
 var STATIC_FILES = [
     '/content/aem-pwa-blog/post.html',
     '/content/aem-pwa-blog/login.html',
@@ -89,19 +89,20 @@ function isInArray(string, array) {
  */
 self.addEventListener('fetch', function (event) {
     console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP  request ['+event.request.url+'] by the Service Worker ....');
-    if (isInArray(event.request.url, STATIC_FILES)) {
-        console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] is available in '+CACHE_STATIC_NAME+', it will then be used by the Service Worker ....');
-        event.respondWith(
-            caches.match(event.request)
-        );
-    } else {
-        event.respondWith(
-            caches.match(event.request)
-                .then(function (response) {
-                    if (response) {
-                        console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] has been looked for in all caches by the Service Worker and a match has been found....');
-                        return response;
-                    } else {
+    if (event.request.method == "GET") {
+        if (isInArray(event.request.url, STATIC_FILES)) {
+            console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] is available in '+CACHE_STATIC_NAME+', it will then be used by the Service Worker ....');
+            event.respondWith(
+                caches.match(event.request)
+            );
+        } else {
+            event.respondWith(
+                caches.match(event.request)
+                    .then(function (response) {
+                        if (response) {
+                            console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] has been looked for in all caches by the Service Worker and a match has been found....');
+                            return response;
+                        } else {
                             return fetch(event.request)
                                 .then(function (res) {
                                     if(event.request.url.indexOf("authenticated") <= -1){
@@ -130,11 +131,23 @@ self.addEventListener('fetch', function (event) {
                                 });
 
 
-                    }
-                })
-        );
+                        }
+                    })
+            )
+        }
+    } else if (event.request.method == "POST") {
+        var postPromise = new Promise(function (resolve) {resolve()});
+        var responsePromise = postPromise.then(function () {
+            return registration.sync.register(event.request.url);
+        }).then(function (){
+            return new Response(new Blob(), {status: 202, statusText: "Accepted by Service Worker"});
+        });
+        event.respondWith(responsePromise);
     }
-});
+
+})
+
+
 /*
  ================================================== Exercise 05 :  Background sync  ========================================================
  =
@@ -143,11 +156,11 @@ self.addEventListener('fetch', function (event) {
  =
  ================================================================================================================================================
  */
-/self.addEventListener('sync', function(event) {
+self.addEventListener('sync', function(event) {
     console.log('[TL30-PWA][sync] Background syncing', event);
 
     // ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
-    if (event.tag === 'sync-new-posts') {
+    if (event.tag === 'sync-post') {
         console.log('[TL30-PWA][sync]  Syncing new Posts');
         event.waitUntil(
             readAllData('sync-posts')
