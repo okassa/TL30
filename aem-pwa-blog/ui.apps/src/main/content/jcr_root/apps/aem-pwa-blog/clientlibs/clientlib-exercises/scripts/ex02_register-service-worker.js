@@ -2,10 +2,9 @@
  *  Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM
  *
  * @description :
- *                  This file contains the code for displaying the cross when clicking
- *                  onto the nav toggle button
+ *                  This file contains the code for registering a service worker.
  *
- * @file : /apps/aem-pwa-blog/clientlibs/clientlib-base/js/updateIcon.js
+ * @file : /apps/aem-pwa-blog/clientlibs/clientlib-exercises/scripts/ex02_register-service-worker.js
  *
  *
  *

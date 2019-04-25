@@ -4,7 +4,7 @@
  * @description :
  *                  This description must be updated
  *
- * @file : /apps/aem-pwa-blog/clientlibs/clientlib-site/scripts/ex05_background-sync.js
+ * @file : /apps/aem-pwa-blog/clientlibs/clientlib-exercises/scripts/ex05_background-sync.js
  *
  *
  *

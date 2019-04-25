@@ -1,26 +1,26 @@
-navigator.serviceWorker.ready
-        .then(function (sw) {
+                        navigator.serviceWorker.ready
+                            .then(function (sw) {
 
-            var post = {
-                id: new Date().toISOString(),
-                title: titleInput,
-                tags:tagsInput,
+                                var post = {
+                                    id: new Date().toISOString(),
+                                    title: titleInput,
+                                    tags:tagsInput,
 
-            };
+                                };
 
-            if(canvasElement){
-                post.file = canvasElement.toDataURL(),
-            }
-            x
-            writeData('sync-posts', post)
-                .then(function () {
-                    return sw.sync.register('sync-post');
-                })
-                .then(function () {
+                                if(canvasElement){
+                                    post.file = canvasElement.toDataURL();
+                                }
 
-                    console.log("sync registered");
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-        });
+                                writeData('sync-posts', post)
+                                    .then(function () {
+                                        return sw.sync.register('sync-post');
+                                    })
+                                    .then(function () {
+
+                                        console.log("sync registered");
+                                    })
+                                    .catch(function (err) {
+                                        console.log(err);
+                                    });
+                            });

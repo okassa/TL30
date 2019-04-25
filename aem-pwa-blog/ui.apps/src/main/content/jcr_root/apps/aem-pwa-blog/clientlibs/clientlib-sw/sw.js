@@ -27,11 +27,11 @@ var STATIC_FILES = [
 
 function isInArray(string, array) {
     var cachePath;
-    if (string.indexOf(self.origin) === 0) { // request targets domain where we serve the page from (i.e. NOT a CDN)
+    if (string.indexOf(self.origin) === 0) {
         console.log('matched ', string);
-        cachePath = string.substring(self.origin.length); // take the part of the URL AFTER the domain (e.g. after localhost:4503)
+        cachePath = string.substring(self.origin.length);
     } else {
-        cachePath = string; // store the full request (for CDNs)
+        cachePath = string;
     }
     return array.indexOf(cachePath) > -1;
 }
@@ -40,7 +40,7 @@ function isInArray(string, array) {
 var channel = new BroadcastChannel('sw-messages');
 
 
-<!--
+/*
 =============================================================================================
 
 Exercise 03 : Caching the App shell
@@ -49,7 +49,7 @@ Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-t
 below this commented block  :
 
 =============================================================================================
--->
+*/
 self.addEventListener('install', function (event) {
     console.log('[TL30-PWA][install] Installing Service Worker ...', event);
 
