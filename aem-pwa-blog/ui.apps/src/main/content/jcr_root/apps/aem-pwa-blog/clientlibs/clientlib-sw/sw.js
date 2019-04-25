@@ -55,14 +55,14 @@ self.addEventListener('install', function (event) {
 
 });
 /*
- =============================================================================================
+ ==================================================================================================
 
  Exercise 03 : Deleting old caches when a newer version is being installed
  -----------
  Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-delete.txt
  into the callback function : :
 
- =============================================================================================
+ ===================================================================================================
  */
 self.addEventListener('activate', function (event) {
     console.log('[TL30-PWA][activate] Activating Service Worker ....', event);
@@ -71,14 +71,14 @@ self.addEventListener('activate', function (event) {
 
 
 /*
- =============================================================================================
+ ===================================================================================================
 
  Exercise 03 : Adding request to a dynamic cache
  -----------
  Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
  into the callback function :
 
- =============================================================================================
+ ====================================================================================================
  */
 self.addEventListener('fetch', function (event) {
     console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP  request ['+event.request.url+'] by the Service Worker ....');
@@ -90,50 +90,42 @@ self.addEventListener('fetch', function (event) {
 
 
 /*
- =============================================================================================
+ ===================================================================================================
 
  Exercise 04 : Adding request to a dynamic cache
  -----------
  Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
  into the callback function :
 
- =============================================================================================
+ ===================================================================================================
  */
 self.addEventListener('push', function(event) {
     console.log('[TL30-PWA][push] Push Received.');
     /**
-     ======================================================
+     ======================================================================================================
 
      Exercise 04 : Push notifications
      -----------
      Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-01.txt
      below this commented block  :
 
-     ======================================================
+     =======================================================================================================
      **/
 });
 
 /*
- =============================================================================================
+ =====================================================================================================
 
  Exercise 05 : Using background synchronization
  -----------
- Copy the code from this file : /apps/aem-pwa-blog/config.exercise-04/ex05-code-to-paste-02.txt
+ Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-05/ex05-code-to-paste-02.txt
  into the callback function :
 
- =============================================================================================
+ =====================================================================================================
  */
 self.addEventListener('sync', function(event) {
     console.log('[Service Worker] Background syncing', event);
-    if (event.tag === 'sync-new-posts') {
-        console.log('[Service Worker] Syncing new Posts');
-        event.waitUntil(
-            readAllData('sync-posts')
-                .then(function(data) {
-                    console.log("Data to sync is : "+JSON.stringify(data));
-                })
-        );
-    }
+
 });
 
 

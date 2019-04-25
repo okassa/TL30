@@ -1,26 +1,22 @@
-                        navigator.serviceWorker.ready
-                            .then(function (sw) {
+                    var post = {
+                        id: new Date().toISOString(),
+                        title: titleInput,
+                        tags: tagsInput
+                    };
 
-                                var post = {
-                                    id: new Date().toISOString(),
-                                    title: titleInput,
-                                    tags:tagsInput,
+                    if(canvasElement && typeof canvasElement.toDataURL === "function"){
+                        post.file = canvasElement.toDataURL();
+                    }
 
-                                };
+                    writeData('sync-posts', post)
+                        .then(function () {
+                            return sw.sync.register('sync-new-posts');
+                        })
+                        .then(function () {
 
-                                if(canvasElement && typeof canvasElement.toDataURL === "function"){
-                                    post.file = canvasElement.toDataURL();
-                                }
-
-                                writeData('sync-posts', post)
-                                    .then(function () {
-                                        return sw.sync.register('sync-post');
-                                    })
-                                    .then(function () {
-
-                                        console.log("sync registered");
-                                    })
-                                    .catch(function (err) {
-                                        console.log(err);
-                                    });
-                            });
+                            var data = {message: 'Your Post was saved for syncing!'};
+                            console.log(JSON.stringify(data));
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                        });

@@ -75,28 +75,7 @@
 
                 if ('serviceWorker' in navigator && 'SyncManager' in window) {
 
-                    var post = {
-                        id: new Date().toISOString(),
-                        title: titleInput,
-                        tags: tagsInput
-                    };
 
-                    if(canvasElement && typeof canvasElement.toDataURL === "function"){
-                        postData.append('file', canvasElement.toDataURL());
-                    }
-
-                    writeData('sync-posts', post)
-                        .then(function () {
-                            return sw.sync.register('sync-new-posts');
-                        })
-                        .then(function () {
-
-                            var data = {message: 'Your Post was saved for syncing!'};
-                            console.log(JSON.stringify(data));
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        });
 
                 } else {
                     AdobeSummit.sendData();

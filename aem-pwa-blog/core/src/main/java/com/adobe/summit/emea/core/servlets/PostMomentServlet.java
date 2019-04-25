@@ -5,6 +5,7 @@ import com.day.cq.dam.api.AssetManager;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
@@ -46,10 +47,11 @@ public class PostMomentServlet extends SlingAllMethodsServlet {
 
     protected void doPost(SlingHttpServletRequest req, SlingHttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        String id = req.getParameter("id");
-        String tags = req.getParameter("tags");
-        String title = req.getParameter("title");
-        String file = req.getParameter("file");
+        HashMap<String,String> bodyMap = this.gson.fromJson((String)req.getReader().lines().collect(Collectors.joining()), HashMap.class);
+        String id = bodyMap.get("id");
+        String tags = bodyMap.get("tags");
+        String title = bodyMap.get("title");
+        String file = bodyMap.get("file");
         Asset imageAsset = null;
         if (StringUtils.isNotEmpty(file) && !file.equals("undefined")){
             String fileWithoutBase64 = file.replace("data:image/png;base64,", "");

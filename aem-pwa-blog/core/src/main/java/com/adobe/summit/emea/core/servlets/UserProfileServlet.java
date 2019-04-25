@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
@@ -14,6 +15,9 @@ import javax.jcr.ValueFactory;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
+import com.adobe.summit.emea.core.utils.AuthenticationUtils;
+import com.google.auth.http.AuthHttpConstants;
+import com.google.gson.Gson;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.api.security.user.UserManager;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -50,17 +54,20 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
     @Reference
     private ResourceResolverFactory resolverFactory;
 
+    private Gson gson = new Gson();
+
     public UserProfileServlet() {
     }
 
     protected void doPost(SlingHttpServletRequest req, SlingHttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         String[] selectors = req.getRequestPathInfo().getSelectors();
-        String firstName = req.getParameter("firstName");
-        String lastName = req.getParameter("lastName");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String hobbies = req.getParameter("hobbies");
+        HashMap<String,String> bodyMap = this.gson.fromJson((String)req.getReader().lines().collect(Collectors.joining()), HashMap.class);
+        String firstName = bodyMap.get("firstName");
+        String lastName = bodyMap.get("lastName");
+        String email = bodyMap.get("email");
+        String password = bodyMap.get("password");
+        String hobbies = bodyMap.get("hobbies");
         if(selectors.length != 0 && "create".equals(selectors[0])) {
             ResourceResolver resolver = null;
             Session session = null;
@@ -68,11 +75,15 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
             try {
                 resolver = this.resolverFactory.getServiceResourceResolver(Collections.singletonMap("sling.service.subservice", "pwaWriteUserAccess"));
                 session = (Session)resolver.adaptTo(Session.class);
+                ValueFactory valueFactory = session.getValueFactory();
                 UserManager e = (UserManager)resolver.adaptTo(UserManager.class);
                 User user = null;
-                if(e.getAuthorizable(email) == null) {
+                // Authenticated user infos
+                String userId = AuthenticationUtils.getCurrentUserId(req);
+                Map<String,Object> userInfos = AuthenticationUtils.getUserProfile(resolver,userId);
+
+                if(e.getAuthorizable(email) == null && userInfos != null &&  !userInfos.get("email").equals(email)) {
                     user = e.createUser(email, password, new SimplePrincipal(email), "/home/users/aem-pwa-blog");
-                    ValueFactory valueFactory = session.getValueFactory();
                     Value firstNameValue = valueFactory.createValue(firstName, 1);
                     user.setProperty("./profile/givenName", firstNameValue);
                     Value lastNameValue = valueFactory.createValue(lastName, 1);
@@ -87,6 +98,11 @@ public class UserProfileServlet extends SlingAllMethodsServlet {
                     resp.getWriter().write("Account created, you can log in now with your email and password !!!");
                 } else {
                     LOGGER.info("---> User already exist..");
+                    Value hobbiesValue = valueFactory.createValue(hobbies, 1);
+                    user = e.createUser(email, password, new SimplePrincipal(email), "/home/users/aem-pwa-blog");
+                    user.setProperty("./profile/hobbies", hobbiesValue);
+                    session.refresh(true);
+                    session.save();
                     resp.getWriter().write("Email already exists, you can log in now with your email and password !!!");
                 }
             } catch (RepositoryException | LoginException var21) {
