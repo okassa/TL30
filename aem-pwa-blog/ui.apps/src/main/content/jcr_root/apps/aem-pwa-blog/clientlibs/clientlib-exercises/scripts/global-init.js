@@ -210,7 +210,7 @@
                 var postData = new FormData();
                 postData.append('id', id);
                 postData.append('title', titleInput.value);
-                if(canvasElement){
+                if(canvasElement && typeof canvasElement.toDataURL === "function"){
                     postData.append('file', canvasElement.toDataURL());
                 }
 
@@ -331,12 +331,9 @@
 
 
             },
-            init:function (channel) {
+            init:function () {
                 this.initUI();
                 this.Exercise02.init();
-                this.Exercise04.init(channel);
-                this.Exercise05.init(channel);
-                this.Exercise06.init(channel);
 
             }
         };

@@ -1,6 +1,6 @@
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js');
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js');
-var VERSION=2;
+var VERSION=45;
 var CACHE_STATIC_NAME = 'static-v'+VERSION;
 var CACHE_DYNAMIC_NAME = 'dynamic-v'+VERSION;
 var STATIC_FILES = [
@@ -41,29 +41,29 @@ var channel = new BroadcastChannel('sw-messages');
 
 
 /*
-=============================================================================================
+ =============================================================================================
 
-Exercise 03 : Caching the App shell
------------
-Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-static.txt
-below this commented block  :
+ Exercise 03 : Caching the App shell
+ -----------
+ Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-static.txt
+ below this commented block  :
 
-=============================================================================================
-*/
+ =============================================================================================
+ */
 self.addEventListener('install', function (event) {
     console.log('[TL30-PWA][install] Installing Service Worker ...', event);
 
 });
 /*
-=============================================================================================
+ =============================================================================================
 
-Exercise 03 : Deleting old caches when a newer version is being installed
------------
-Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-delete.txt
+ Exercise 03 : Deleting old caches when a newer version is being installed
+ -----------
+ Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-delete.txt
  into the callback function : :
 
-=============================================================================================
-*/
+ =============================================================================================
+ */
 self.addEventListener('activate', function (event) {
     console.log('[TL30-PWA][activate] Activating Service Worker ....', event);
 
@@ -71,15 +71,15 @@ self.addEventListener('activate', function (event) {
 
 
 /*
-=============================================================================================
+ =============================================================================================
 
-Exercise 03 : Adding request to a dynamic cache
------------
-Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
-into the callback function :
+ Exercise 03 : Adding request to a dynamic cache
+ -----------
+ Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
+ into the callback function :
 
-=============================================================================================
-*/
+ =============================================================================================
+ */
 self.addEventListener('fetch', function (event) {
     console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP  request ['+event.request.url+'] by the Service Worker ....');
 
@@ -124,10 +124,16 @@ self.addEventListener('push', function(event) {
  =============================================================================================
  */
 self.addEventListener('sync', function(event) {
-    console.log('[TL30-PWA][sync] Background syncing', event);
-
-
-
+    console.log('[Service Worker] Background syncing', event);
+    if (event.tag === 'sync-new-posts') {
+        console.log('[Service Worker] Syncing new Posts');
+        event.waitUntil(
+            readAllData('sync-posts')
+                .then(function(data) {
+                    console.log("Data to sync is : "+JSON.stringify(data));
+                })
+        );
+    }
 });
 
 

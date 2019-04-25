@@ -39,7 +39,7 @@
      */
     window.AdobeSummit.Exercise04 =  {
 
-        init:function (channel) {
+        init:function (swRegistration,channel) {
 
             /**
              *  When the service worker has received a push notification,
@@ -64,54 +64,53 @@
              *  Firebase Cloud Messaging server to AEM, in order to send piush notifications
              *  later on.
              */
-            navigator.serviceWorker.ready
-                .then(function (sw) {
-                    firebase.initializeApp(config);
 
-                    var messaging = firebase.messaging();
-                    messaging.useServiceWorker(swRegistration);
+            firebase.initializeApp(config);
 
-                    var $pushButton = $('.js-push-btn');
+            var messaging = firebase.messaging();
+            messaging.useServiceWorker(swRegistration);
 
-                    if($pushButton){
-                        $pushButton.click( function() {
+            var $pushButton = $('.js-push-btn');
 
-                            /**
-                             ======================================================
+            if($pushButton){
+                $pushButton.click( function() {
 
-                             Exercise 04 :  Push notifications
-                             -----------
-                             Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-00.txt
-                             below this commented block  :
+                    /**
+                     ======================================================
 
-                             ======================================================
-                             **/
+                     Exercise 04 :  Push notifications
+                     -----------
+                     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-00.txt
+                     below this commented block  :
 
-                        });
-                    }
+                     ======================================================
+                     **/
 
-                    messaging.onTokenRefresh(function () {
-                        messaging.getToken()
-                            .then(function (refreshedToken) {
-                                console.log('[TL30-PWA][pushNotification] Token refreshed : '+refreshedToken);
-                                //Send the new token to AEM
-                                fetch('/bin/aem-pwa-blog/notifications.json', {
-                                    'method': 'POST',
-                                    'headers': {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    'body': JSON.stringify({'token': refreshedToken})
-                                }).then(function(response) {
-                                    console.log("[TL30-PWA][pushNotification] Subscription to web push notifications has responded with :"+response);
-                                }).catch(function(error) {
-                                    console.error("[TL30-PWA][pushNotification] Subscription to web push notifications failed" +error);
-                                })
-                            }).catch(function (err) {
-                            console.log('[TL30-PWA][pushNotification] Unable to retrieve refreshed token ', err);
-                            alert('Error when trying to retrieve refreshed token from Firebase!');
-                        });
-                    });
                 });
+            }
+
+            messaging.onTokenRefresh(function () {
+                messaging.getToken()
+                    .then(function (refreshedToken) {
+                        console.log('[TL30-PWA][pushNotification] Token refreshed : '+refreshedToken);
+                        //Send the new token to AEM
+                        fetch('/bin/aem-pwa-blog/notifications.json', {
+                            'method': 'POST',
+                            'headers': {
+                                'Content-Type': 'application/json'
+                            },
+                            'body': JSON.stringify({'token': refreshedToken})
+                        }).then(function(response) {
+                            console.log("[TL30-PWA][pushNotification] Subscription to web push notifications has responded with :"+response);
+                        }).catch(function(error) {
+                            console.error("[TL30-PWA][pushNotification] Subscription to web push notifications failed" +error);
+                        })
+                    }).catch(function (err) {
+                    console.log('[TL30-PWA][pushNotification] Unable to retrieve refreshed token ', err);
+                    alert('Error when trying to retrieve refreshed token from Firebase!');
+                });
+            });
+
         }
     }
 

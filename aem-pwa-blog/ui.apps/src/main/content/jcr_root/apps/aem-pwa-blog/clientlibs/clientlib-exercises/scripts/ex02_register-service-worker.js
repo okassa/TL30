@@ -52,17 +52,33 @@
                  * browser. Requires a serviceworker in a `/content/sw.js`.
                  *
                  */
+
+
                 $(window).load(function() {
                     /**
-                    =============================================================================================
+                     =============================================================================================
 
-                    Exercise 02 : Register the service worker
-                    -----------
-                    Copy the code from this file : /apps/aem-pwa-blog/config.exercise-02/ex02-code-to-paste.txt
-                    below this commented block  :
+                     Exercise 02 : Register the service worker
+                     -----------
+                     Copy the code from this file : /apps/aem-pwa-blog/config.exercise-02/ex02-code-to-paste.txt
+                     below this commented block  :
 
                      =============================================================================================
-                    **/
+                     **/
+                    navigator.serviceWorker.register("/content/sw.js")
+                        .then(function(registration) {
+
+                            // Registration was successful
+                            console.log('[TL30-PWA] >>>>> ServiceWorker registration successful with scope: ', registration.scope);
+
+                            var channel = new BroadcastChannel('sw-messages');
+                            window.AdobeSummit.Exercise04.init(registration,channel);
+                            window.AdobeSummit.Exercise05.init(registration,channel);
+                            window.AdobeSummit.Exercise06.init(channel);
+                        }, function(err) {
+                            // registration failed :(
+                            console.log('[TL30-PWA] >>>>> ServiceWorker registration failed: ', err);
+                        });
 
                 });
             }

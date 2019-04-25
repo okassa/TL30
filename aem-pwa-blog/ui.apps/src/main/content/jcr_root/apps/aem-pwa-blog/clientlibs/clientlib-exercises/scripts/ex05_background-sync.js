@@ -32,11 +32,9 @@
     window.AdobeSummit.Exercise05 = {
 
 
-        init:function (channel) {
+        init:function (sw,channel) {
 
-            var canvasElement = $('#canvas');
-            var titleInput = $('#title').val();
-            var tagsInput = $('#tags').val();
+
             var $postButton = $('#post-btn');
 
             /**
@@ -61,30 +59,49 @@
              *  the post will be register into the sync manager
              *  for a synchronization later on.
              */
-            if($postButton) {
-                $postButton.click(function() {
 
-                    if (titleInput.trim() === '' || tagsInput.trim() === '') {
-                        alert('Please enter valid data!');
-                        return;
+            $("#formPost").on('submit', function (event) {
+                event.preventDefault();
+
+                var canvasElement = $('#canvas');
+                var titleInput = $('#title').val();
+                var tagsInput = $('#tags').val();
+
+                if (titleInput === '' || tagsInput === '') {
+                    alert('Please enter valid data!');
+                    return;
+                }
+
+
+                if ('serviceWorker' in navigator && 'SyncManager' in window) {
+
+                    var post = {
+                        id: new Date().toISOString(),
+                        title: titleInput,
+                        tags: tagsInput
+                    };
+
+                    if(canvasElement && typeof canvasElement.toDataURL === "function"){
+                        postData.append('file', canvasElement.toDataURL());
                     }
 
-                    window.AdobeSummit.closeCreatePostModal();
+                    writeData('sync-posts', post)
+                        .then(function () {
+                            return sw.sync.register('sync-new-posts');
+                        })
+                        .then(function () {
 
-                    if ('serviceWorker' in navigator && 'SyncManager' in window) {
-                        /**
-                         ======================================================
+                            var data = {message: 'Your Post was saved for syncing!'};
+                            console.log(JSON.stringify(data));
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                        });
 
-                         Exercise 04 : Background synchronization
-                         -----------
-                         Copy the code from this file : /apps/aem-pwa-blog/config.exercise-04/ex05-code-to-paste-01.txt
-                         below this commented block  :
-
-                         ======================================================
-                         **/
-                    }
-                });
-            }
+                } else {
+                    AdobeSummit.sendData();
+                }
+            });
         }
 
 
