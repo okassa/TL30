@@ -36,20 +36,7 @@
 
 // Init AdobeSummit namespace if not available.
     var AdobeSummit = window.AdobeSummit || {
-            /**
-             *
-             *
-             *
-             */
-            Constants : {
-                SW_PATH:"/content/sw.js",
-                SW_SCOPE:"/content/aem-pwa-blog"
-            },
-            initializeLocation : function(locationBtn) {
-                if (!('geolocation' in navigator) && locationBtn) {
-                    locationBtn.style.display = 'none';
-                }
-            },
+
             initializeMedia : function () {
                 if (!('mediaDevices' in navigator)) {
                     navigator.mediaDevices = {};
@@ -235,7 +222,7 @@
                         })
                         .then(function (data) {
                             networkDataReceived = true;
-                            console.log('From web', data.teasers);
+                            console.log('[TL30-PWA][initUI] Retrieve data from AEM', data.teasers);
                             var dataArray = [];
                             for (var key in data.teasers) {
                                 dataArray.push(data.teasers[key]);
@@ -247,7 +234,7 @@
                         readAllData('posts')
                             .then(function (data) {
                                 if (!networkDataReceived) {
-                                    console.log('From cache', data);
+                                    console.log('[TL30-PWA][initUI] Retrieve data from cache', data);
                                     AdobeSummit.updateUI(data.teasers);
                                 }
                             });
@@ -273,24 +260,6 @@
                     createPostArea.style.display = 'none';
                 }
 
-                if(closeCreatePostModalButton){
-                    closeCreatePostModalButton.addEventListener('click', window.AdobeSummit.closeCreatePostModal());
-                }
-
-                if (captureButton){
-                    captureButton.addEventListener('click', function (event) {
-                        canvasElement.style.display = 'block';
-                        videoPlayer.style.display = 'none';
-                        captureButton.style.display = 'none';
-                        //var context = canvasElement.getContext('2d');
-                        //context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
-                        videoPlayer.srcObject.getVideoTracks().forEach(function (track) {
-                            track.stop();
-                        });
-                        picture = dataURItoBlob(canvasElement.toDataURL());
-                    });
-                }
-
 
                 if(shareImageButton) {
                     shareImageButton.addEventListener('click', function(){window.AdobeSummit.openCreatePostModal()});
@@ -308,7 +277,6 @@
                         var password= $('#password').val();
                         var hobbies= $('#hobbies').val();
 
-                        //  @TODO use fetch instead
 
                         fetch(path, {
                             method: 'POST',

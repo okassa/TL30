@@ -106,7 +106,7 @@ self.addEventListener('push', function(event) {
 
      Exercise 04 : Push notifications
      -----------
-     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-01.txt
+     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-02.txt
      below this commented block  :
 
      =======================================================================================================

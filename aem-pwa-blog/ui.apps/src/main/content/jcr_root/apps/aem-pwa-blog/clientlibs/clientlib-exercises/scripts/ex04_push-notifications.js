@@ -80,7 +80,7 @@
 
                      Exercise 04 :  Push notifications
                      -----------
-                     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-00.txt
+                     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-01.txt
                      below this commented block  :
 
                      =======================================================================================================

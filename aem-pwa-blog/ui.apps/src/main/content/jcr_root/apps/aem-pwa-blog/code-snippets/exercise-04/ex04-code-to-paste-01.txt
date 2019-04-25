@@ -1,20 +1,28 @@
-console.log('[TL30-PWA][push] Push had this data:'+ event.data.text());
+messaging
+    .requestPermission()
+    .then(function () {
+        console.log("[TL30-PWA][pushNotification] Got notification permission");
+        // Send the token to the server to check it with validate_only
+        return messaging.getToken();
+    })
+    .then(function (token) {
+        // print the token on the HTML page
+        console.log("[TL30-PWA][pushNotification] Token", token);
 
-var title = "AEM <3 PWA" ;
-var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.', openUrl: '/content/aem-pwa-blog/home.push.html'};
-
-if (event.data) {
-    data.content = JSON.parse(event.data.text());
-}
-
-const options = {
-    body: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.',
-    icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
-    badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
-    data: {
-        url: data.openUrl
-    }
-};
-
-event.waitUntil(self.registration.showNotification(title, options));
-channel.postMessage(data);
+        //Suscribe to user topics
+        fetch('/bin/aem-pwa-blog/notifications.json', {
+            'method': 'POST',
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify({'token': token})
+        }).then(function(response) {
+            console.log("[TL30-PWA][pushNotification] Subscription to web push notifications has responded with :"+response);
+        }).catch(function(error) {
+            console.error("[TL30-PWA][pushNotification] Subscription to web push notifications failed" +error);
+        })
+    })
+    .catch(function (err) {
+        console.log("[TL30-PWA][pushNotification] Didn't get notification permission", err);
+        alert('Error when trying to retrieve the subscription from Firebase!');
+    });
