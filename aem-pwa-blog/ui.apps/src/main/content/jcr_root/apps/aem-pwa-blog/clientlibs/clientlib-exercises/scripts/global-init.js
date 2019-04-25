@@ -34,9 +34,22 @@
     var tiles = document.querySelector('.aem-pwa-blog__tiles');
     var tileContent = document.querySelector('.aem-pwa-blog__tilesContent');
 
-// Init AdobeSummit namespace if not available.
+    // Init AdobeSummit namespace if not available.
     var AdobeSummit = window.AdobeSummit || {
-
+            /**
+             *
+             *
+             *
+             */
+            Constants : {
+                SW_PATH:"/content/sw.js",
+                SW_SCOPE:"/content/aem-pwa-blog"
+            },
+            initializeLocation : function(locationBtn) {
+                if (!('geolocation' in navigator) && locationBtn) {
+                    locationBtn.style.display = 'none';
+                }
+            },
             initializeMedia : function () {
                 if (!('mediaDevices' in navigator)) {
                     navigator.mediaDevices = {};
@@ -211,7 +224,8 @@
                         this.updateUI();
                     })
             },
-            initUI : function () {
+            initDynamicData : function(){
+
                 if(tiles){
                     var url = tiles.attributes["data-async-url"].value;
                     var networkDataReceived = false;
@@ -222,7 +236,7 @@
                         })
                         .then(function (data) {
                             networkDataReceived = true;
-                            console.log('[TL30-PWA][initUI] Retrieve data from AEM', data.teasers);
+                            console.log('From web', data.teasers);
                             var dataArray = [];
                             for (var key in data.teasers) {
                                 dataArray.push(data.teasers[key]);
@@ -234,13 +248,47 @@
                         readAllData('posts')
                             .then(function (data) {
                                 if (!networkDataReceived) {
-                                    console.log('[TL30-PWA][initUI] Retrieve data from cache', data);
+                                    console.log('From cache', data);
                                     AdobeSummit.updateUI(data.teasers);
                                 }
                             });
                     }
                 }
 
+                if(submitProfileFormButton) {
+                    submitProfileFormButton.addEventListener('click', function(event) {
+
+                        event.preventDefault();
+
+                        var path= $("#form").attr("path");
+                        var firstName= $('#firstName').val();
+                        var lastName= $('#lastName').val();
+                        var email= $('#email').val();
+                        var password= $('#password').val();
+                        var hobbies= $('#hobbies').val();
+
+                        //  @TODO use fetch instead
+
+                        fetch(path, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                "firstName": firstName,
+                                "lastName": lastName,
+                                "email": email,
+                                "password": firstName,
+                                "hobbies": hobbies,
+                            })
+                        })
+                            .then(function (data) {
+                                console.log('Request success: ', data);
+                            })
+                            .catch(function (error) {
+                                console.log('Request failure: ', error);
+                            });
+                    });
+                }
+            },
+            initUI : function () {
 
                 if(captureButton){
                     captureButton.addEventListener('click', function (event) {
@@ -264,39 +312,6 @@
                 if(shareImageButton) {
                     shareImageButton.addEventListener('click', function(){window.AdobeSummit.openCreatePostModal()});
                 }
-
-                if(submitProfileFormButton) {
-                    submitProfileFormButton.addEventListener('click', function(event) {
-
-                        event.preventDefault();
-
-                        var path= $("#form").attr("path");
-                        var firstName= $('#firstName').val();
-                        var lastName= $('#lastName').val();
-                        var email= $('#email').val();
-                        var password= $('#password').val();
-                        var hobbies= $('#hobbies').val();
-
-
-                        fetch(path, {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                "firstName": firstName,
-                                "lastName": lastName,
-                                "email": email,
-                                "password": firstName,
-                                "hobbies": hobbies,
-                            })
-                        })
-                            .then(function (data) {
-                                console.log('Request success: ', data);
-                            })
-                            .catch(function (error) {
-                                console.log('Request failure: ', error);
-                            });
-                    });
-                }
-
 
             },
             init:function () {
