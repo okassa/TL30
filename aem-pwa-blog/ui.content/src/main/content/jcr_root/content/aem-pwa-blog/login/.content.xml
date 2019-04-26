@@ -11,19 +11,6 @@
         sling:resourceType="aem-pwa-blog/components/structure/login-page"
         icon="fa fa-key">
         <navigation
-            jcr:primaryType="nt:unstructured"
-            jcr:title="Recent articles"
-            sling:resourceType="aem-pwa-blog/components/content/navigation"/>
-        <login
-            jcr:primaryType="nt:unstructured"
-            jcr:title="Recent articles"
-            sling:resourceType="aem-pwa-blog/components/content/login"/>
-        <footer
-            jcr:primaryType="nt:unstructured"
-            jcr:title="Recent articles"
-            sling:resourceType="aem-pwa-blog/components/content/footer"/>
-        <image/>
-        <navigation
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Recent articles"
                 sling:resourceType="aem-pwa-blog/components/content/navigation"/>
