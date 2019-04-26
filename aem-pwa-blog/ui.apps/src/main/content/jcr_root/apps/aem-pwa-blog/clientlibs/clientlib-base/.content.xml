@@ -3,4 +3,4 @@
     jcr:primaryType="cq:ClientLibraryFolder"
     allowProxy="{Boolean}true"
     categories="[aem-pwa-blog.base]"
-    embed="[aem-pwa-blog.fonts,core.wcm.components.search.v1,aem-pwa-blog.site]"/>
+    embed="[aem-pwa-blog.site]"/>

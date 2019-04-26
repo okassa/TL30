@@ -1,11 +1,18 @@
 package com.adobe.summit.emea.core.events;
 
 import com.adobe.summit.emea.core.services.NotificationService;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
+import com.google.gson.Gson;
 import org.apache.commons.collections4.IteratorUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.spi.commons.name.NameConstants;
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.observation.ExternalResourceChangeListener;
@@ -29,12 +36,10 @@ import javax.jcr.observation.Event;
 import javax.jcr.observation.EventIterator;
 import javax.jcr.observation.EventListener;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.day.cq.dam.api.DamConstants.NT_DAM_ASSET;
 import static com.day.cq.wcm.api.NameConstants.NT_PAGE;
@@ -65,6 +70,8 @@ public class BlogContentChangeListener implements EventHandler {
 
     private final int[] events = {Event.NODE_ADDED,Event.NODE_MOVED,Event.NODE_REMOVED};
 
+    private final Gson gson = new Gson();
+
     private static final List<String> pathList = Arrays.asList(new String[]{"/content/dam/aem-pwa-blog","/content/aem-pwa-blog"});
 
     @Reference
@@ -80,8 +87,8 @@ public class BlogContentChangeListener implements EventHandler {
         LOGGER.debug("Resource event: {} at: {}", event.getTopic(), event.getProperty(SlingConstants.PROPERTY_PATH));
         LOGGER.debug("[onChange] >>>>>> Processing changes ....");
 
-        try {
-            ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"));
+        try(ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"))) {
+
 
             ScheduleOptions options = scheduler.NOW();
             options.canRunConcurrently(false);
@@ -106,14 +113,19 @@ public class BlogContentChangeListener implements EventHandler {
                     .map(e -> String.valueOf(e.getProperty(SlingConstants.PROPERTY_PATH)))
                     .filter(s -> s != null &&  !s.isEmpty())
                     .filter(isPathAllowed)
-                    .filter(isResourceTypeAllowed)
                     .ifPresent(p -> {
                         LOGGER.trace("[onChange] ---  Processing changes for path '{}'", p);
                         String jobName = JOB_NAME_PREFIX + p;
                         options.name(jobName);
-                        ImmediateJob job = new ImmediateJob(p);
+                        Resource resource = resolver.resolve(p);
+                        TagManager tagManager = resolver.adaptTo(TagManager.class);
+                        Tag[] tags = tagManager.getTags(resource);
+                        List<String> tagNames = Arrays.asList(tags).stream().map(t -> t.getName().toLowerCase()).collect(Collectors.toList());
+                        ImmediateJob job = new ImmediateJob(tagNames,p);
                         LOGGER.debug("[onChange] ---  Adding job '{}' for path '{}'", jobName, p);
                         scheduler.schedule(job, options);
+
+
                     });
             LOGGER.trace("[onChange] <<<<<< Processing changes....DONE");
 
@@ -125,15 +137,17 @@ public class BlogContentChangeListener implements EventHandler {
     }
 
     private class ImmediateJob implements Runnable {
+        private final List<String> tags;
         private final String path;
 
         /**
          * The constructor can be used to pass in serializable state that will be used during the Job processing.
          *
-         * @param path example parameter passed in from the event
+         *
          */
-        public ImmediateJob(String path) {
+        public ImmediateJob(List<String> tags,String path) {
             // Maintain job state
+            this.tags = tags;
             this.path = path;
         }
 
@@ -142,17 +156,28 @@ public class BlogContentChangeListener implements EventHandler {
          * The Sling job management mechanism will call run() to process the job.
          */
         public void run() {
-            LOGGER.debug("[run] Start processing ---  The path is '{}'", path);
+            LOGGER.debug("[run] Start processing ---  The path is '{}'", tags);
             // Get the tags from the asset or the page
 
-            try {
-               // notificationService.sendTopicMessage("Summit Lab EH", "A new picture "+path+" has been uploaded to the blog, we know you might be inetrested");
+            try(ResourceResolver resolver = resolverFactory.getServiceResourceResolver(Collections.singletonMap(ResourceResolverFactory.SUBSERVICE, "pwaWriteUserAccess"))) {
+
+
+                if(tags.size() > 0){
+                    tags.stream().forEach(t -> {
+                        HashMap<String,String> bodyMap = new HashMap<>();
+                        bodyMap.put("path",StringUtils.substringBefore(path,"/jcr:content/metadata"));
+                        bodyMap.put("message","Just because you like this topic : "+t+", we would like to share with you this new resource");
+
+                        notificationService.sendTopicMessage("Adobe Summit EMEA 2019 - TL30", gson.toJson(bodyMap),t);
+                    });
+                }
+
             } catch (Exception e) {
-               LOGGER.error("An error occured when executing the job for path {}",path);
+               LOGGER.error("An error occured when executing the job for path {}",tags);
             }
             ;
 
-            LOGGER.debug("[run] End processing ---  The path is '{}'", path);
+            LOGGER.debug("[run] End processing ---  The path is '{}'", tags);
         }
     }
 

@@ -19,20 +19,19 @@
             <ul class="navbar-nav ml-auto ">
                 <sly data-sly-list="${pages.menuPages}">
                     <li class="nav-item">
-                        <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item['jcr:content/jcr:title']}" href="${item.path}.html">
+                        <a class="nav-link aem-pwa-blog__navLink aem-pwa-blog__navLink--${item['jcr:content/jcr:title']}" href="${item.path}${pages.isAuthenticated?'.authenticated':''}.html" >
                             <span><i class="${item['jcr:content/icon']} aem-pwa-blog__navLinkIcon" aria-hidden="true"></i> </span>
-                            <span>${item['jcr:content/jcr:title']}</span></a>
+                            <span>${item['jcr:content/jcr:title']}</span>
+                        </a>
                     </li>
                 </sly>
                 <li class="nav-item">
-
-
+                    <sly data-sly-test="${pages.isAuthenticated}">
                         <a class="btn btn-primary aem-pwa-blog__Notifications js-push-btn" aria-pressed="false">
                             <span><i class="fa fa-bell" aria-hidden="true"></i> </span>
                             <span>Enable notifications</span></a>
                         </a>
-                    <sly data-sly-test="${pages.isAuthenticated}">
-                        <a class="cq-cc-profile-not-anonymous logout-link btn btn-danger" href="/system/sling/logout?resource=/content/aem-pwa-blog/home.html">
+                        <a id="logout" class="cq-cc-profile-not-anonymous logout-link btn btn-danger" >
                             Logout
                         </a>
                     </sly>

@@ -292,26 +292,26 @@
 
 
         <dependency>
-           <groupId>com.google.api</groupId>
-           <artifactId>api-common</artifactId>
-           <version>1.7.0</version>
-       </dependency>
-       <dependency>
-           <groupId>com.google.auth</groupId>
-           <artifactId>google-auth-library-oauth2-http</artifactId>
-           <version>0.11.0</version>
-       </dependency>
-       <dependency>
-           <groupId>com.google.cloud</groupId>
-           <artifactId>google-cloud-storage</artifactId>
-           <version>1.43.0</version>
-       </dependency>
+            <groupId>com.google.api</groupId>
+            <artifactId>api-common</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.auth</groupId>
+            <artifactId>google-auth-library-oauth2-http</artifactId>
+            <version>0.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-storage</artifactId>
+            <version>1.43.0</version>
+        </dependency>
 
-       <dependency>
-           <groupId>com.google.cloud</groupId>
-           <artifactId>google-cloud-firestore</artifactId>
-           <version>0.61.0-beta</version>
-       </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-firestore</artifactId>
+            <version>0.61.0-beta</version>
+        </dependency>
 
         <dependency>
             <groupId>io.netty</groupId>
@@ -402,50 +402,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-codec-http</artifactId>
-            <version>${netty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-handler</artifactId>
-            <version>${netty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-transport</artifactId>
-            <version>${netty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.opencensus</groupId>
-            <artifactId>opencensus-api</artifactId>
-            <version>0.20.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-context</artifactId>
-            <version>1.19.0</version>
-        </dependency>
 
-        <dependency>
-            <groupId>com.google.api</groupId>
-            <artifactId>api-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.api</groupId>
-            <artifactId>gax-grpc</artifactId>
-            <version>0.21.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>1.9.73</version>
-        </dependency>
-         -->
 
     </dependencies>
 </project>

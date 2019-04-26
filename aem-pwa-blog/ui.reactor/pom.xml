@@ -99,6 +99,11 @@
                     <group>aem-pwa-blog</group>
                     <subPackages>
                         <subPackage>
+                            <groupId>com.adobe.cq</groupId>
+                            <artifactId>core.wcm.components.all</artifactId>
+                            <filter>true</filter>
+                        </subPackage>
+                        <subPackage>
                             <groupId>com.adobe.summit.emea</groupId>
                             <artifactId>aem-pwa-blog.ui.apps</artifactId>
                             <filter>true</filter>

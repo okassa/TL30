@@ -1,7 +1,7 @@
 <form data-sly-use.profileModel="com.adobe.summit.emea.core.models.ProfileModel" id="formProfile" path="${currentPage.path}/jcr:content.create.html" action="" method="">
     <hr>
     <section class="row aem-pwa-blog__postTile">
-        <h4 data-sly-test="!${profileModel.isAuthenticated}" class="mx-auto">Create My Profile </h4>
+        <h4 data-sly-test="${!profileModel.isAuthenticated}" class="mx-auto">Create My Profile </h4>
         <h4 data-sly-test="${profileModel.isAuthenticated}" class="mx-auto">My Profile </h4>
     </section>
     <div class="form-group row">
