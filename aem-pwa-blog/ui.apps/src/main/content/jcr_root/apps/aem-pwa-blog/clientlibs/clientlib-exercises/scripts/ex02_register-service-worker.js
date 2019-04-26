@@ -65,21 +65,7 @@
 
                      =============================================================================================
                      **/
-                    navigator.serviceWorker.register("/content/sw.js")
-                        .then(function(registration) {
 
-                            // Registration was successful
-                            console.log('[TL30-PWA] >>>>> ServiceWorker registration successful with scope: ', registration.scope);
-
-                            var channel = new BroadcastChannel('sw-messages');
-                            window.AdobeSummit.Exercise04.init(registration,channel);
-                            window.AdobeSummit.Exercise05.init(registration,channel);
-                            window.AdobeSummit.Exercise06.init(channel);
-                            window.AdobeSummit.initDynamicData()
-                        }, function(err) {
-                            // registration failed :(
-                            console.log('[TL30-PWA] >>>>> ServiceWorker registration failed: ', err);
-                        });
 
                 });
             }

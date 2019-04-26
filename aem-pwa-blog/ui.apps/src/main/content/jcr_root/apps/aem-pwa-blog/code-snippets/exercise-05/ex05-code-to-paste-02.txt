@@ -1,35 +1,34 @@
-// ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
 if (event.tag === 'sync-new-posts') {
-    console.log('[TL30-PWA][sync]  Syncing new Posts');
-    event.waitUntil(
-        readAllData('sync-posts')
-            .then(function(data) {
-                for (var dt in data) {
+        console.log('[TL30-PWA][sync]  Syncing new Posts');
+        event.waitUntil(
+            readAllData('sync-posts')
+                .then(function(data) {
+                    for (var dt in data) {
 
-                    fetch('/bin/aem-pwa-blog/share-post.json', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                        'id': data[dt].id,
-                        'title': data[dt].title,
-                        'tags': data[dt].tags,
-                        'file': data[dt].file
+                        fetch('/content/aem-pwa-blog/post.share-moment.json', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                'id': data[dt].id,
+                                'title': data[dt].title,
+                                'tags': data[dt].tags,
+                                'file': data[dt].file
+                            })
                         })
-                    })
-                        .then(function(res) {
-                            console.log('[TL30-PWA][sync] Sent data', res);
-                            if (res.ok) {
-                                res.json()
-                                    .then(function(resData) {
-                                        deleteItemFromData('sync-posts', resData.id);
-                                        channel.postMessage({type:"synced-post"});
-                                    });
-                            }
-                        })
-                        .catch(function(err) {
-                            console.log('[TL30-PWA][sync] Error while sending data', err);
-                        });
-                }
+                            .then(function(res) {
+                                console.log('[TL30-PWA][sync] Sent data', res);
+                                if (res.ok) {
+                                    res.json()
+                                        .then(function(resData) {
+                                            deleteItemFromData('sync-posts', resData.id);
+                                            channel.postMessage({type:"synced-post"});
+                                        });
+                                }
+                            })
+                            .catch(function(err) {
+                                console.log('[TL30-PWA][sync] Error while sending data', err);
+                            });
+                    }
 
-            })
-    );
-}
+                })
+        );
+    }

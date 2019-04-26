@@ -74,29 +74,17 @@
 
 
                 if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                    /**
+                     ======================================================================================================
 
-                    var post = {
-                        id: new Date().toISOString(),
-                        title: titleInput,
-                        tags: tagsInput
-                    };
+                     Exercise 04 :  Background Sync
+                     -----------
+                     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-05/ex05-code-to-paste-01.txt
+                     below this commented block  :
 
-                    if(canvasElement && typeof canvasElement.toDataURL === "function"){
-                        post.file = canvasElement.toDataURL();
-                    }
+                     =======================================================================================================
+                     **/
 
-                    writeData('sync-posts', post)
-                        .then(function () {
-                            return sw.sync.register('sync-new-posts');
-                        })
-                        .then(function () {
-
-                            var data = {message: 'Your Post was saved for syncing!'};
-                            console.log(JSON.stringify(data));
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        });
 
                 } else {
                     AdobeSummit.sendData();

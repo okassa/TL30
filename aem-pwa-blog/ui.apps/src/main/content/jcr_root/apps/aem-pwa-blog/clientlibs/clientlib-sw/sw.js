@@ -69,13 +69,7 @@ var channel = new BroadcastChannel('sw-messages');
  */
 self.addEventListener('install', function (event) {
     console.log('[TL30-PWA][install] Installing Service Worker ...', event);
-    event.waitUntil(
-        caches.open(CACHE_STATIC_NAME)
-            .then(function (cache) {
-                console.log('[Service Worker] Precaching App Shell');
-                cache.addAll(STATIC_FILES);
-            })
-    )
+
 });
 /*
  =============================================================================================
@@ -89,18 +83,7 @@ self.addEventListener('install', function (event) {
  */
 self.addEventListener('activate', function (event) {
     console.log('[TL30-PWA][activate] Activating Service Worker ....', event);
-    event.waitUntil(
-        caches.keys()
-            .then(function (keyList) {
-                return Promise.all(keyList.map(function (key) {
-                    if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
-                        console.log('[Service Worker] Removing old cache.', key);
-                        return caches.delete(key);
-                    }
-                }));
-            })
-    );
-    return self.clients.claim();
+
 });
 
 
@@ -116,45 +99,7 @@ self.addEventListener('activate', function (event) {
  */
 self.addEventListener('fetch', function (event) {
     console.log('[TL30-PWA][fetch] >>>>> Catching an HTTP  request ['+event.request.url+'] by the Service Worker ....');
-    event.respondWith(
-        caches.match(event.request)
-            .then(function (response) {
-                if (response) {
-                    console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] has been looked for in all caches by the Service Worker and a match has been found....');
-                    return response;
-                } else {
-                    return fetch(event.request)
-                        .then(function (res) {
-                            if(event.request.url.indexOf("authenticated") <= -1){
-                                return caches.open(CACHE_DYNAMIC_NAME)
-                                    .then(function (cache) {
-                                        console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
-                                        if(event.request.url.indexOf(".model.json") <= -1){
-                                            cache.put(event.request.url, res.clone());
-                                        }
 
-                                        return res;
-                                    })
-                            }else{
-                                if (!res.ok) {
-                                    return cache.match('/content/aem-pwa-blog/home.offline.html');
-                                }else{
-                                    return res;
-                                }
-                            }
-                        })
-                        .catch(function (err) {
-                            console.log('[TL30-PWA][fetch] The real HTTP request ['+event.request.url+'] failed, the Service Worker will display the offline page....');
-                            return caches.open(CACHE_STATIC_NAME)
-                                .then(function (cache) {
-                                    if (event.request.headers.get('accept').includes('text/html')) {
-                                        return cache.match('/content/aem-pwa-blog/home.offline.html');
-                                    }
-                                });
-                        });
-                }
-            })
-    )
 
 });
 
@@ -178,31 +123,14 @@ self.addEventListener('push', function(event) {
 
      Exercise 04 : Push notifications
      -----------
-     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-01.txt
+     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-02.txt
      below this commented block  :
 
      ======================================================
      **/
     console.log('[TL30-PWA][push] Push had this data:'+ event.data.text());
 
-    var title = "AEM <3 PWA" ;
-    var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.', openUrl: '/content/aem-pwa-blog/home.push.html'};
 
-    if (event.data) {
-        data.content = JSON.parse(event.data.text());
-    }
-
-    const options = {
-        body: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.',
-        icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
-        badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
-        data: {
-            url: data.openUrl
-        }
-    };
-
-    event.waitUntil(self.registration.showNotification(title, options));
-    channel.postMessage(data);
 });
 
 /*
@@ -210,7 +138,7 @@ self.addEventListener('push', function(event) {
 
  Exercise 05 : Using background synchronization
  -----------
- Copy the code from this file : /apps/aem-pwa-blog/config.exercise-04/ex05-code-to-paste-02.txt
+ Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-05/ex05-code-to-paste-02.txt
  into the callback function :
 
  =============================================================================================
@@ -218,40 +146,7 @@ self.addEventListener('push', function(event) {
 self.addEventListener('sync', function(event) {
     console.log('[Service Worker] Background syncing', event);
 // ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
-    if (event.tag === 'sync-new-posts') {
-        console.log('[TL30-PWA][sync]  Syncing new Posts');
-        event.waitUntil(
-            readAllData('sync-posts')
-                .then(function(data) {
-                    for (var dt in data) {
 
-                        fetch('/content/aem-pwa-blog/post.share-moment.json', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                'id': data[dt].id,
-                                'title': data[dt].title,
-                                'tags': data[dt].tags,
-                                'file': data[dt].file
-                            })
-                        })
-                            .then(function(res) {
-                                console.log('[TL30-PWA][sync] Sent data', res);
-                                if (res.ok) {
-                                    res.json()
-                                        .then(function(resData) {
-                                            deleteItemFromData('sync-posts', resData.id);
-                                            channel.postMessage({type:"synced-post"});
-                                        });
-                                }
-                            })
-                            .catch(function(err) {
-                                console.log('[TL30-PWA][sync] Error while sending data', err);
-                            });
-                    }
-
-                })
-        );
-    }
 });
 
 

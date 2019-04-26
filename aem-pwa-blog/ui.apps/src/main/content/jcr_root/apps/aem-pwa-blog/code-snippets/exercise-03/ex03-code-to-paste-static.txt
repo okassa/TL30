@@ -1,7 +1,7 @@
-event.waitUntil(
-    caches.open(CACHE_STATIC_NAME)
-        .then(function (cache) {
-            console.log('[Service Worker] Precaching App Shell');
-            cache.addAll(STATIC_FILES);
-        })
-)
+    event.waitUntil(
+        caches.open(CACHE_STATIC_NAME)
+            .then(function (cache) {
+                console.log('[Service Worker] Precaching App Shell');
+                cache.addAll(STATIC_FILES);
+            })
+    )
