@@ -1,0 +1,53 @@
+if (event.request.method == "GET") {
+    if (isInArray(event.request.url, STATIC_FILES)) {
+        console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] is available in '+CACHE_STATIC_NAME+', it will then be used by the Service Worker ....');
+        event.respondWith(
+            caches.match(event.request)
+        );
+    } else {
+        event.respondWith(
+            caches.match(event.request)
+                .then(function (response) {
+                    if (response) {
+                        console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] has been looked for in all caches by the Service Worker and a match has been found....');
+                        return response;
+                    } else {
+                        return fetch(event.request)
+                            .then(function (res) {
+                                if(event.request.url.indexOf("authenticated") <= -1){
+                                    return caches.open(CACHE_DYNAMIC_NAME)
+                                        .then(function (cache) {
+                                            console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
+                                            cache.put(event.request.url, res.clone());
+                                            return res;
+                                        })
+                                }else{
+                                    if (!res.ok) {
+                                        return cache.match('/content/aem-pwa-blog/home.offline.html');
+                                    }else{
+                                        return res;
+                                    }
+                                }
+                            })
+                            .catch(function (err) {
+                                console.log('[TL30-PWA][fetch] The real HTTP request ['+event.request.url+'] failed, the Service Worker will display the offline page....');
+                                return caches.open(CACHE_STATIC_NAME)
+                                    .then(function (cache) {
+                                        if (event.request.headers.get('accept').includes('text/html')) {
+                                            return cache.match('/content/aem-pwa-blog/home.offline.html');
+                                        }
+                                    });
+                            });
+                    }
+                })
+        )
+    }
+} else if (event.request.method == "POST") {
+    var postPromise = new Promise(function (resolve) {resolve()});
+    var responsePromise = postPromise.then(function () {
+        return registration.sync.register(event.request.url);
+    }).then(function (){
+        return new Response(new Blob(), {status: 202, statusText: "Accepted by Service Worker"});
+    });
+    event.respondWith(responsePromise);
+}
