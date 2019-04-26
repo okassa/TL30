@@ -2,10 +2,11 @@ importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js');
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js');
 
 // ==============> TO INCREASE AFTER EACH AND EVERY MODIFICATION IN THE SERVICE WORKER <=================
-var VERSION=59;
+var VERSION=879;
 
 var CACHE_STATIC_NAME = 'static-v'+VERSION;
 var CACHE_DYNAMIC_NAME = 'dynamic-v'+VERSION;
+
 var STATIC_FILES = [
     '/content/aem-pwa-blog/home.html',
     '/content/aem-pwa-blog/home.offline.html',
@@ -26,12 +27,20 @@ var STATIC_FILES = [
     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-base.css',
     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-vendor.css',
     '/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.css',
+    '/etc/clientlibs/aem-pwa-blog/icons/favicon.ico',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon.png',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-48x48.png',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-96x96.png',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-144x144.png',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-192x192.png',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-256x256.png',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-384X384.png',
+    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-512X512.png',
+    '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
+    '/etc/clientlibs/aem-pwa-blog/images/pwa-logo.png',
     '/etc/clientlibs/aem-pwa-blog/logos/summit-logo-m.png',
     '/etc/clientlibs/aem-pwa-blog/logos/summit-logo.png',
-    '/etc/clientlibs/aem-pwa-blog/icons/summit-icon-144x144.png',
-    '/etc/clientlibs/aem-pwa-blog/icons/favicon.ico'
 ];
-
 
 function isInArray(string, array) {
     var cachePath;
@@ -120,7 +129,10 @@ self.addEventListener('fetch', function (event) {
                                 return caches.open(CACHE_DYNAMIC_NAME)
                                     .then(function (cache) {
                                         console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
-                                        cache.put(event.request.url, res.clone());
+                                        if(event.request.url.indexOf(".model.json") <= -1){
+                                            cache.put(event.request.url, res.clone());
+                                        }
+
                                         return res;
                                     })
                             }else{
@@ -171,6 +183,26 @@ self.addEventListener('push', function(event) {
 
      ======================================================
      **/
+    console.log('[TL30-PWA][push] Push had this data:'+ event.data.text());
+
+    var title = "AEM <3 PWA" ;
+    var data = {type:"web-push-received",title: 'Adobe Experience Manager is PWA-ready !', content: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.', openUrl: '/content/aem-pwa-blog/home.push.html'};
+
+    if (event.data) {
+        data.content = JSON.parse(event.data.text());
+    }
+
+    const options = {
+        body: 'Your subscription to web push notifications is successful. You will then receive notifications from AEM.',
+        icon: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
+        badge: '/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png',
+        data: {
+            url: data.openUrl
+        }
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+    channel.postMessage(data);
 });
 
 /*
@@ -185,7 +217,41 @@ self.addEventListener('push', function(event) {
  */
 self.addEventListener('sync', function(event) {
     console.log('[Service Worker] Background syncing', event);
+// ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
+    if (event.tag === 'sync-new-posts') {
+        console.log('[TL30-PWA][sync]  Syncing new Posts');
+        event.waitUntil(
+            readAllData('sync-posts')
+                .then(function(data) {
+                    for (var dt in data) {
 
+                        fetch('/content/aem-pwa-blog/post.share-moment.json', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                'id': data[dt].id,
+                                'title': data[dt].title,
+                                'tags': data[dt].tags,
+                                'file': data[dt].file
+                            })
+                        })
+                            .then(function(res) {
+                                console.log('[TL30-PWA][sync] Sent data', res);
+                                if (res.ok) {
+                                    res.json()
+                                        .then(function(resData) {
+                                            deleteItemFromData('sync-posts', resData.id);
+                                            channel.postMessage({type:"synced-post"});
+                                        });
+                                }
+                            })
+                            .catch(function(err) {
+                                console.log('[TL30-PWA][sync] Error while sending data', err);
+                            });
+                    }
+
+                })
+        );
+    }
 });
 
 

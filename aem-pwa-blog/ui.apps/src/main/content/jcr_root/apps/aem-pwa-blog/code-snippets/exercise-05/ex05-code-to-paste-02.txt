@@ -1,19 +1,19 @@
 // ===========================> CODE FROM ex04-code-to-paste-02.txt SHOULD BE PASTED BELOW <===========================
-if (event.tag === 'sync-post') {
+if (event.tag === 'sync-new-posts') {
     console.log('[TL30-PWA][sync]  Syncing new Posts');
     event.waitUntil(
         readAllData('sync-posts')
             .then(function(data) {
                 for (var dt in data) {
-                    var postData = new FormData();
-                    postData.append('id', data[dt].id);
-                    postData.append('title', data[dt].title);
-                    postData.append('tags', data[dt].tags);
-                    postData.append('file', data[dt].file);
 
                     fetch('/bin/aem-pwa-blog/share-post.json', {
                         method: 'POST',
-                        body: postData
+                        body: JSON.stringify({
+                        'id': data[dt].id,
+                        'title': data[dt].title,
+                        'tags': data[dt].tags,
+                        'file': data[dt].file
+                        })
                     })
                         .then(function(res) {
                             console.log('[TL30-PWA][sync] Sent data', res);

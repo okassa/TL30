@@ -52,7 +52,12 @@
                         var $webPush = $("#webpush-received");
                         var data = JSON.parse(event.data.content.notification.body);
                         $webPush.find("#notification-content").text( data.message);
-                        $webPush.find("#notification-image").prop("src", data.path);
+                        if(data.path == ""){
+                            $webPush.find("#notification-image").prop("hidden", "hidden");
+                        }else{
+                            $webPush.find("#notification-image").prop("src", data.path);
+                        }
+
                         $webPush.modal("show");
                     }
                 } );
@@ -72,6 +77,8 @@
 
             var $pushButton = $('.js-push-btn');
 
+
+
             if($pushButton){
                 $pushButton.click( function() {
 
@@ -80,11 +87,39 @@
 
                      Exercise 04 :  Push notifications
                      -----------
-                     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-01.txt
+                     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-04/ex04-code-to-paste-00.txt
                      below this commented block  :
 
                      =======================================================================================================
                      **/
+                    messaging
+                        .requestPermission()
+                        .then(function () {
+                            console.log("[TL30-PWA][pushNotification] Got notification permission");
+                            // Send the token to the server to check it with validate_only
+                            return messaging.getToken();
+                        })
+                        .then(function (token) {
+                            // print the token on the HTML page
+                            console.log("[TL30-PWA][pushNotification] Token", token);
+
+                            //Suscribe to user topics
+                            fetch('/content/aem-pwa-blog/home.notifications.json', {
+                                'method': 'POST',
+                                'headers': {
+                                    'Content-Type': 'application/json'
+                                },
+                                'body': JSON.stringify({'token': token})
+                            }).then(function(response) {
+                                console.log("[TL30-PWA][pushNotification] Subscription to web push notifications has responded with :"+response);
+                            }).catch(function(error) {
+                                console.error("[TL30-PWA][pushNotification] Subscription to web push notifications failed" +error);
+                            })
+                        })
+                        .catch(function (err) {
+                            console.log("[TL30-PWA][pushNotification] Didn't get notification permission", err);
+                            alert('Error when trying to retrieve the subscription from Firebase!');
+                        });
 
                 });
             }
@@ -94,7 +129,7 @@
                     .then(function (refreshedToken) {
                         console.log('[TL30-PWA][pushNotification] Token refreshed : '+refreshedToken);
                         //Send the new token to AEM
-                        fetch('/bin/aem-pwa-blog/notifications.json', {
+                        fetch('/content/aem-pwa-blog/home.notification.json', {
                             'method': 'POST',
                             'headers': {
                                 'Content-Type': 'application/json'

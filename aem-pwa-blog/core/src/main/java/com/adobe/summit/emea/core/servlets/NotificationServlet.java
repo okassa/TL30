@@ -39,7 +39,8 @@ import java.util.stream.Collectors;
                 Constants.SERVICE_DESCRIPTION + "=Notification Servlet - This servlet is the link between the browser and the cloud messaging provider",
                 Constants.SERVICE_VENDOR + "=Adobe Summit EMEA 2019 | Technical Lab 30 : Building a PWA with AEM",
                 "sling.servlet.methods=" + HttpConstants.METHOD_POST,
-                "sling.servlet.paths="+ "/bin/aem-pwa-blog/notifications",
+                "sling.servlet.resourceTypes="+ "cq:Page",
+                "sling.servlet.selectors=" + "notification",
                 "sling.servlet.extensions=" + "json"
         })
 @Designate(ocd = NotificationServlet.Configuration.class)
@@ -74,7 +75,10 @@ public class NotificationServlet extends SlingAllMethodsServlet {
                 throw new ServletException("Anonymous users can not suscribe to topics unless we have a valid token to track back this user");
             }
 
-           boolean subscriptionStatus = this.notificationService.sendCommonMessage("Subscription", "You will receive web push notifications from AEM", token);
+            HashMap<String,String> bodyMap = new HashMap<>();
+            bodyMap.put("path","");
+            bodyMap.put("message","You will receive web push notifications from AEM");
+           boolean subscriptionStatus = this.notificationService.sendCommonMessage("Subscription", gson.toJson(bodyMap), token);
 
             // Create an encrypted string of the data.
             if(subscriptionStatus){
@@ -87,7 +91,6 @@ public class NotificationServlet extends SlingAllMethodsServlet {
                 try {
                     String encryptedToken = cryptoSupport.protect(token);
                     Cookie firebaseSubscription = new Cookie ("firebaseSubscription", new String(Base64.encode(encryptedToken.getBytes())));
-                    firebaseSubscription.setHttpOnly(true);
                     resp.addCookie(firebaseSubscription);
                 } catch (CryptoException e) {
                     LOGGER.error("Error when encrypting the token");

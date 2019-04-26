@@ -288,6 +288,12 @@
                     });
                 }
             },
+            getPageName : function (url) {
+                var index = url.lastIndexOf("/") + 1;
+                var filenameWithExtension = url.substr(index);
+                var filename = filenameWithExtension.split(".")[0];
+                return filename;
+            },
             initUI : function () {
 
                 if(captureButton){

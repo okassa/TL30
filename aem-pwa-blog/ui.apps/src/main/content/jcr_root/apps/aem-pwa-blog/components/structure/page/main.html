@@ -1,12 +1,22 @@
 <section class="aem-pwa-blog__mainContainer">
-    <div class="container t-cmp-clean">
+    <div  class="container t-cmp-clean">
         <section class="row aem-pwa-blog__postTile">
             <h4 class="mx-auto">A Progessive Web Application built with AEM</h4>
         </section>
-        <div class="aem-pwa-blog__tiles comp-tiles  tiles" data-async-url="${resource.path}/tiles.model.json" >
+        <div data-sly-test="${request.requestPathInfo.selectors[0] != 'offline'}"
+             class="aem-pwa-blog__tiles comp-tiles  tiles" data-async-url="${resource.path}/tiles.model.json" >
             <div class="row aem-pwa-blog__tilesContent" >
 
             </div>
         </div>
-    </div> <!-- /container -->
+        <h6 data-sly-test="${request.requestPathInfo.selectors[0] == 'offline'}" class="container t-cmp-clean">
+            You were authenticated on the PWA, but the internet connection is not available. You have been logged out for
+            your own safety. This PWA does not cache PII data.
+        </h6>
+    </div>
 </section>
+<script>
+
+    // We trigger a click on the logout button.
+    $("#logout").trigger("click");
+</script>
