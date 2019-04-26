@@ -1,1 +1,0 @@
-		<sly data-sly-resource="${'camera' @ resourceType='aem-pwa-blog/components/content/camera'}"></sly>
