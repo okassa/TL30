@@ -49,6 +49,20 @@
         <project.http.version>1.28.0</project.http.version>
     </properties>
 
+    <scm>
+        <url>https://github.com/okassa/TL30</url>
+        <connection>scm:git:git://github.com/okassa/TL30.git</connection>
+        <developerConnection>scm:git:git@github.com:okassa/TL30.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <email>olympe.kassa@gmail.com</email>
+            <name>Olympe Kassa</name>
+            <id>okassa</id>
+        </developer>
+    </developers>
+
     <build>
         <plugins>
             <plugin>
@@ -64,6 +78,7 @@
                         <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
                         <versionTagPrefix>version-</versionTagPrefix>
                     </flowInitContext>
+                    <username>okassa</username>
                     <noDeploy>true</noDeploy>
                     <squash>true</squash>
                     <scmCommentPrefix>[RELEASE] </scmCommentPrefix>
