@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.adobe.summit.emea</groupId>
         <artifactId>aem-pwa-blog</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -31,6 +31,7 @@
     <!-- P R O J E C T  D E S C R I P T I O N                                   -->
     <!-- ====================================================================== -->
     <artifactId>aem-pwa-blog.ui.reactor</artifactId>
+  <version>1.3</version>
     <packaging>content-package</packaging>
     <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  UI Reactor</name>
     <description>Reactor package containing all other packages for single installation</description>
@@ -131,13 +132,13 @@
         <dependency>
             <groupId>com.adobe.summit.emea</groupId>
             <artifactId>aem-pwa-blog.ui.apps</artifactId>
-            <version>${project.version}</version>
+            <version>1.3</version>
             <type>content-package</type>
         </dependency>
         <dependency>
             <groupId>com.adobe.summit.emea</groupId>
             <artifactId>aem-pwa-blog.ui.content</artifactId>
-            <version>${project.version}</version>
+            <version>1.3</version>
             <type>content-package</type>
         </dependency>
 
@@ -158,4 +159,8 @@
             <artifactId>cq-wcm-taglib</artifactId>
         </dependency>
     </dependencies>
+
+  <scm>
+    <tag>aem-pwa-blog.ui.reactor-1.3</tag>
+  </scm>
 </project>

@@ -10,7 +10,7 @@ messaging
         console.log("[TL30-PWA][pushNotification] Token", token);
 
         //Suscribe to user topics
-        fetch('/content/aem-pwa-blog/home.notifications.json', {
+        fetch('/content/aem-pwa-blog/home.notification.json', {
             'method': 'POST',
             'headers': {
                 'Content-Type': 'application/json'
