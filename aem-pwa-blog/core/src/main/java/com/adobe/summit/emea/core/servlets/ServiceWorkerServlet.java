@@ -57,7 +57,7 @@ public class ServiceWorkerServlet extends HttpServlet {
                 name = "Service Worker JS file path",
                 description = "Location of the sw.js file"
         )
-        String serviceWorkerPath() default "/apps/aem-pwa-blog/clientlibs/clientlib-sw/sw.js";
+        String serviceWorkerPath() default "/etc/clientlibs/aem-pwa-blog/sw.js";
 
     }
 

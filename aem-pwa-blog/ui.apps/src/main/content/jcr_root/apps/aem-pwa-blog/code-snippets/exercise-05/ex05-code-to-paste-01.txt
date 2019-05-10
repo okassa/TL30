@@ -4,8 +4,8 @@
                         tags: tagsInput
                     };
 
-                    if(canvasElement && typeof canvasElement.toDataURL === "function"){
-                        post.file = canvasElement.toDataURL();
+                    if(canvasElement && canvasElement[0] && typeof canvasElement[0].toDataURL === "function"){
+                        post.file = canvasElement[0].toDataURL();
                     }
 
                     writeData('sync-posts', post)
