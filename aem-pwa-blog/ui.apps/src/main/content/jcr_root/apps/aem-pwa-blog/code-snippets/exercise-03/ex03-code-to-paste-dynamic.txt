@@ -1,0 +1,39 @@
+event.respondWith(
+        caches.match(event.request)
+            .then(function (response) {
+                if (response) {
+                    console.log('[TL30-PWA][fetch] The HTTP request ['+event.request.url+'] has been looked for in all caches by the Service Worker and a match has been found....');
+                    return response;
+                } else {
+                    return fetch(event.request)
+                        .then(function (res) {
+                            if(event.request.url.indexOf("authenticated") <= -1){
+                                return caches.open(CACHE_DYNAMIC_NAME)
+                                    .then(function (cache) {
+                                        console.log('[TL30-PWA][fetch] The  HTTP request ['+event.request.url+'] has been added to '+CACHE_DYNAMIC_NAME+' by the Service Worker ....');
+                                        if(event.request.url.indexOf(".model.json") <= -1){
+                                            cache.put(event.request.url, res.clone());
+                                        }
+
+                                        return res;
+                                    })
+                            }else{
+                                if (!res.ok) {
+                                    return cache.match('/content/aem-pwa-blog/home.offline.html');
+                                }else{
+                                    return res;
+                                }
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log('[TL30-PWA][fetch] The real HTTP request ['+event.request.url+'] failed, the Service Worker will display the offline page....');
+                            return caches.open(CACHE_STATIC_NAME)
+                                .then(function (cache) {
+                                    if (event.request.headers.get('accept').includes('text/html')) {
+                                        return cache.match('/content/aem-pwa-blog/home.offline.html');
+                                    }
+                                });
+                        });
+                }
+            })
+    )

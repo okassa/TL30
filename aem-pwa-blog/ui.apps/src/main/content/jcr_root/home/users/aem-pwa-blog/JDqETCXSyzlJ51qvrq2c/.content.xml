@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:rep="internal"
+    cq:authorizableCategory=""
+    jcr:mixinTypes="[rep:AccessControllable]"
+    jcr:primaryType="rep:User"
+    jcr:uuid="ed4848b0-ac29-38b8-be1e-35a87ae01a26"
+    rep:authorizableId="bjohnson"
+    rep:password="\{SHA-256}fb164623aa7d3ef3-1000-07e5a1443ab0dc47d62f20afb8de7beb90b23fd52dfdc0a68a4eed1933721491"
+    rep:principalName="bjohnson">
+    <profile
+        jcr:primaryType="nt:unstructured"
+        aboutMe="Brian is an avid rock climber that spends summer and winter climbing on week-ends. He is a regular user of AEM."
+        birthday="{Date}1995-09-03T00:00:00.000+01:00"
+        email="bryan.johnson@summit-pwa-aem.com"
+        familyName="Johnson"
+        gender="male"
+        givenName="Bryan"
+        hobbies="[sport,music,travel]">
+        <photos jcr:primaryType="nt:unstructured"/>
+    </profile>
+</jcr:root>

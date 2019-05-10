@@ -13,6 +13,40 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */-->
+<div id="background-sync" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="/etc/clientlibs/aem-pwa-blog/images/pwa-logo.png" alt="PWA logo" height="60px">
+                <h5 class="modal-title">Background Synchronization</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Your content has been synchronized with AEM by the service worker. If you were offline,
+                    the service worker waited for the network to be back.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="webpush-received" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="/etc/clientlibs/aem-pwa-blog/images/aem-logo-6.3.png" alt="AEM logo" height="60px">
+                <h5 class="modal-title">Web Push Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row mx-auto">
+                <img id="notification-image" src="#" class="img-fluid img-thumbnail"/>
+                <p id="notification-content"></p>
+            </div>
+        </div>
+    </div>
+</div>
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html">
-    <sly data-sly-call="${clientlib.js @ categories='aem-pwa-blog.base,aem-pwa-blog.serviceworker'}"/>
+    <sly data-sly-call="${clientlib.js @ categories='aem-pwa-blog.base'}"/>
 </sly>

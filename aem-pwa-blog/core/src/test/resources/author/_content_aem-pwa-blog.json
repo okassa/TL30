@@ -1,0 +1,456 @@
+// 20190412095039
+// http://localhost:8458/content/aem-pwa-blog.-1.json
+
+{
+  "jcr:primaryType": "cq:Page",
+  "jcr:createdBy": "admin",
+  "jcr:created": "Mon Apr 08 2019 14:12:25 GMT+0200",
+  "home": {
+    "jcr:primaryType": "cq:Page",
+    "jcr:createdBy": "admin",
+    "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+    "jcr:content": {
+      "jcr:primaryType": "cq:PageContent",
+      "jcr:createdBy": "admin",
+      "jcr:title": "Home",
+      "cq:template": "/conf/aem-pwa-blog/settings/wcm/templates/content-page",
+      "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+      "cq:lastModified": "Tue Jan 22 2019 13:17:02 GMT+0100",
+      "icon": "fa fa-home",
+      "jcr:description": "Display a rich text paragraph",
+      "sling:resourceType": "aem-pwa-blog/components/structure/page",
+      "cq:lastModifiedBy": "admin",
+      "tiles": {
+        "jcr:primaryType": "nt:unstructured",
+        "jcr:title": "Recent articles",
+        "sling:resourceType": "aem-pwa-blog/components/content/tiles",
+        "teaser": {
+          "jcr:primaryType": "nt:unstructured",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Smile",
+          "fileReference": "/content/dam/aem-pwa-blog/exercises-notifications/exercise-2/smile.jpeg",
+          "actionsEnabled": "true",
+          "jcr:lastModifiedBy": "admin",
+          "jcr:created": "2018-12-07T13:36:44.171+01:00",
+          "titleFromPage": "false",
+          "jcr:description": "Happiness is the key ",
+          "jcr:lastModified": "2018-12-07T13:42:40.613+01:00",
+          "descriptionFromPage": "false",
+          "sling:resourceType": "aem-pwa-blog/components/content/teaser",
+          "textIsRich": "true",
+          "actions": {
+            "jcr:primaryType": "nt:unstructured",
+            "item0": {
+              "jcr:primaryType": "nt:unstructured",
+              "link": "/content/aem-pwa-blog/post.smile.html",
+              "text": "More informations"
+            }
+          }
+        },
+        "teaser_1234534": {
+          "jcr:primaryType": "nt:unstructured",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Volcano",
+          "fileReference": "/content/dam/aem-pwa-blog/exercises-notifications/exercise-4/volcano.jpeg",
+          "actionsEnabled": "true",
+          "jcr:lastModifiedBy": "admin",
+          "jcr:created": "2018-12-07T13:36:44.171+01:00",
+          "titleFromPage": "false",
+          "jcr:description": "It is burning ",
+          "jcr:lastModified": "2018-12-07T13:42:40.613+01:00",
+          "descriptionFromPage": "false",
+          "sling:resourceType": "aem-pwa-blog/components/content/teaser",
+          "textIsRich": "true",
+          "actions": {
+            "jcr:primaryType": "nt:unstructured",
+            "item0": {
+              "jcr:primaryType": "nt:unstructured",
+              "link": "/content/aem-pwa-blog/post.volcano.html",
+              "text": "More informations"
+            }
+          }
+        },
+        "teaser_5789734": {
+          "jcr:primaryType": "nt:unstructured",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Storm",
+          "fileReference": "/content/dam/aem-pwa-blog/exercises-notifications/exercise-3/storm.jpeg",
+          "actionsEnabled": "true",
+          "jcr:lastModifiedBy": "admin",
+          "jcr:created": "2018-12-07T13:36:44.171+01:00",
+          "titleFromPage": "false",
+          "jcr:description": "Storm is not over ",
+          "jcr:lastModified": "2018-12-07T13:42:40.613+01:00",
+          "descriptionFromPage": "false",
+          "sling:resourceType": "aem-pwa-blog/components/content/teaser",
+          "textIsRich": "true",
+          "actions": {
+            "jcr:primaryType": "nt:unstructured",
+            "item0": {
+              "jcr:primaryType": "nt:unstructured",
+              "link": "/content/aem-pwa-blog/post.storm.html",
+              "text": "More informations"
+            }
+          }
+        },
+        "teaser_12145650987": {
+          "jcr:primaryType": "nt:unstructured",
+          "jcr:createdBy": "admin",
+          "jcr:title": "Forest",
+          "fileReference": "/content/dam/aem-pwa-blog/exercises-notifications/exercise-3/forest.jpeg",
+          "actionsEnabled": "true",
+          "jcr:lastModifiedBy": "admin",
+          "jcr:created": "2018-12-07T13:36:44.171+01:00",
+          "titleFromPage": "false",
+          "jcr:description": "Trees are good for nature ",
+          "jcr:lastModified": "2018-12-07T13:42:40.613+01:00",
+          "descriptionFromPage": "false",
+          "sling:resourceType": "aem-pwa-blog/components/content/teaser",
+          "textIsRich": "true",
+          "actions": {
+            "jcr:primaryType": "nt:unstructured",
+            "item0": {
+              "jcr:primaryType": "nt:unstructured",
+              "link": "/content/aem-pwa-blog/post.forest.html",
+              "text": "More informations"
+            }
+          }
+        }
+      },
+      "image": {
+        "jcr:primaryType": "nt:unstructured",
+        "file": {
+          "jcr:primaryType": "nt:file",
+          "jcr:createdBy": "admin",
+          "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+          "jcr:content": {
+            "jcr:primaryType": "nt:resource",
+            "jcr:mixinTypes": [
+              "dam:Thumbnails"
+            ],
+            "jcr:lastModifiedBy": "admin",
+            "jcr:mimeType": "image/png",
+            "jcr:lastModified": "Mon Apr 08 2019 14:19:17 GMT+0200",
+            ":jcr:data": 3777,
+            "jcr:uuid": "7b15628f-ff8b-4972-9b19-22245422ce4f",
+            "dam:thumbnails": {
+              "jcr:primaryType": "nt:folder",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+              "dam:thumbnail_480.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 2834,
+                  "jcr:uuid": "08eecbea-a3be-4834-af4f-f8a4db39809d"
+                }
+              },
+              "dam:thumbnail_300.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 1773,
+                  "jcr:uuid": "dbd97891-9c04-4f00-a33c-f129d830b11a"
+                }
+              },
+              "dam:thumbnail_48.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 267,
+                  "jcr:uuid": "d3e515d8-bb34-44ee-b661-49e574a24083"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "jcr:primaryType": "cq:Page",
+    "jcr:createdBy": "admin",
+    "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+    "jcr:content": {
+      "jcr:primaryType": "cq:PageContent",
+      "jcr:createdBy": "admin",
+      "jcr:title": "Post",
+      "cq:template": "/conf/aem-pwa-blog/settings/wcm/templates/post-page",
+      "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+      "cq:lastModified": "Tue Jan 22 2019 13:17:02 GMT+0100",
+      "icon": "fa fa-pencil-square-o",
+      "jcr:description": "Display a rich text paragraph",
+      "sling:resourceType": "aem-pwa-blog/components/structure/post-page",
+      "cq:lastModifiedBy": "admin",
+      "image": {
+        "jcr:primaryType": "nt:folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+        "file": {
+          "jcr:primaryType": "nt:file",
+          "jcr:createdBy": "admin",
+          "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+          "jcr:content": {
+            "jcr:primaryType": "nt:resource",
+            "jcr:mixinTypes": [
+              "dam:Thumbnails"
+            ],
+            "jcr:lastModifiedBy": "admin",
+            "jcr:mimeType": "image/png",
+            "jcr:lastModified": "Mon Apr 08 2019 14:19:17 GMT+0200",
+            ":jcr:data": 3777,
+            "jcr:uuid": "ba36c655-e6b9-4359-9914-c10643d60558",
+            "dam:thumbnails": {
+              "jcr:primaryType": "nt:folder",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+              "dam:thumbnail_480.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 2834,
+                  "jcr:uuid": "35dca6cb-53fe-4ab1-bbcf-0c7e225b1d80"
+                }
+              },
+              "dam:thumbnail_300.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 1773,
+                  "jcr:uuid": "6cc72b50-3e96-4591-97d0-3388f5997502"
+                }
+              },
+              "dam:thumbnail_48.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 267,
+                  "jcr:uuid": "260c34b0-9d22-4828-abb9-a013ab864bb0"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "profile": {
+    "jcr:primaryType": "cq:Page",
+    "jcr:createdBy": "admin",
+    "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+    "jcr:content": {
+      "jcr:primaryType": "cq:PageContent",
+      "jcr:createdBy": "admin",
+      "jcr:title": "Profile",
+      "cq:template": "/conf/aem-pwa-blog/settings/wcm/templates/profile-page",
+      "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+      "cq:lastModified": "Tue Jan 22 2019 13:17:02 GMT+0100",
+      "icon": "fa fa-user",
+      "jcr:description": "Display a rich text paragraph",
+      "sling:resourceType": "aem-pwa-blog/components/structure/profile-page",
+      "cq:lastModifiedBy": "admin",
+      "root": {
+        "jcr:primaryType": "nt:unstructured",
+        "sling:resourceType": "wcm/foundation/components/responsivegrid",
+        "responsivegrid": {
+          "jcr:primaryType": "nt:unstructured",
+          "sling:resourceType": "wcm/foundation/components/responsivegrid"
+        }
+      },
+      "image": {
+        "jcr:primaryType": "nt:unstructured",
+        "file": {
+          "jcr:primaryType": "nt:file",
+          "jcr:createdBy": "admin",
+          "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+          "jcr:content": {
+            "jcr:primaryType": "nt:resource",
+            "jcr:mixinTypes": [
+              "dam:Thumbnails"
+            ],
+            "jcr:lastModifiedBy": "admin",
+            "jcr:mimeType": "image/png",
+            "jcr:lastModified": "Mon Apr 08 2019 14:19:17 GMT+0200",
+            ":jcr:data": 3777,
+            "jcr:uuid": "66e8ce11-23e8-4570-8eb3-cf31c125816f",
+            "dam:thumbnails": {
+              "jcr:primaryType": "nt:folder",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+              "dam:thumbnail_480.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 2834,
+                  "jcr:uuid": "8d97c5d7-06ba-4ccf-971a-dd534b36ccd2"
+                }
+              },
+              "dam:thumbnail_300.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 1773,
+                  "jcr:uuid": "bd270acd-7b02-4be0-8660-3711786e0560"
+                }
+              },
+              "dam:thumbnail_48.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 267,
+                  "jcr:uuid": "bee9ec0a-677e-4737-b2af-9ae08aef2e75"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "login": {
+    "jcr:primaryType": "cq:Page",
+    "jcr:createdBy": "admin",
+    "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+    "jcr:content": {
+      "jcr:primaryType": "cq:PageContent",
+      "jcr:createdBy": "admin",
+      "jcr:title": "Login",
+      "cq:template": "/conf/aem-pwa-blog/settings/wcm/templates/login-page",
+      "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+      "cq:lastModified": "Tue Jan 22 2019 13:17:02 GMT+0100",
+      "icon": "fa fa-key",
+      "jcr:description": "Display a rich text paragraph",
+      "sling:resourceType": "aem-pwa-blog/components/structure/login-page",
+      "cq:lastModifiedBy": "admin",
+      "image": {
+        "jcr:primaryType": "nt:folder",
+        "jcr:createdBy": "admin",
+        "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+        "file": {
+          "jcr:primaryType": "nt:file",
+          "jcr:createdBy": "admin",
+          "jcr:created": "Mon Apr 08 2019 14:19:17 GMT+0200",
+          "jcr:content": {
+            "jcr:primaryType": "nt:resource",
+            "jcr:mixinTypes": [
+              "dam:Thumbnails"
+            ],
+            "jcr:lastModifiedBy": "admin",
+            "jcr:mimeType": "image/png",
+            "jcr:lastModified": "Mon Apr 08 2019 14:19:17 GMT+0200",
+            ":jcr:data": 3777,
+            "jcr:uuid": "0607c874-ebf0-4f8e-83b7-ddd9b50dc7e1",
+            "dam:thumbnails": {
+              "jcr:primaryType": "nt:folder",
+              "jcr:createdBy": "admin",
+              "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+              "dam:thumbnail_480.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 2834,
+                  "jcr:uuid": "5a263814-9b71-47e7-b461-6e6b806497aa"
+                }
+              },
+              "dam:thumbnail_300.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 1773,
+                  "jcr:uuid": "7a3ac512-3881-48c3-8ff9-b5d7ec9dd9c5"
+                }
+              },
+              "dam:thumbnail_48.png": {
+                "jcr:primaryType": "nt:file",
+                "jcr:createdBy": "admin",
+                "jcr:created": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                "jcr:content": {
+                  "jcr:primaryType": "nt:resource",
+                  "jcr:lastModifiedBy": "admin",
+                  "jcr:mimeType": "image/png",
+                  "jcr:lastModified": "Fri Apr 12 2019 09:40:17 GMT+0200",
+                  ":jcr:data": 267,
+                  "jcr:uuid": "f46c6aab-d94c-4d89-bab2-a8ca9c42cba5"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "jcr:content": {
+    "jcr:primaryType": "cq:PageContent",
+    "jcr:createdBy": "admin",
+    "jcr:title": "aem-pwa-blog",
+    "redirectTarget": "/content/aem-pwa-blog/en",
+    "sling:redirect": true,
+    "jcr:created": "Mon Apr 08 2019 14:12:25 GMT+0200",
+    "sling:redirectStatus": 302,
+    "cq:deviceGroups": [
+      "/etc/mobile/groups/responsive"
+    ],
+    "sling:resourceType": "foundation/components/redirect",
+    "cq:allowedTemplates": [
+      "/conf/aem-pwa-blog/settings/wcm/templates/.*"
+    ],
+    "image": {
+      "jcr:primaryType": "nt:unstructured"
+    }
+  }
+}

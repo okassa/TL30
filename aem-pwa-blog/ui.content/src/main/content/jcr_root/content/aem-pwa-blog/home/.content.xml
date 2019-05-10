@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2019-04-20T14:51:19.570+02:00"
+        cq:lastModifiedBy="admin"
+        cq:tags="[aem-pwa-blog:travel,aem-pwa-blog:family,aem-pwa-blog:nature]"
+        cq:template="/conf/aem-pwa-blog/settings/wcm/templates/content-page"
+        jcr:description="AEM PWA Blog Home Page"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Home"
+        sling:resourceType="aem-pwa-blog/components/structure/page"
+        icon="fa fa-home">
+        <navigation
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/navigation"/>
+        <tiles
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/tiles"/>
+        <footer
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Recent articles"
+            sling:resourceType="aem-pwa-blog/components/content/footer"/>
+        <image/>
+    </jcr:content>
+</jcr:root>

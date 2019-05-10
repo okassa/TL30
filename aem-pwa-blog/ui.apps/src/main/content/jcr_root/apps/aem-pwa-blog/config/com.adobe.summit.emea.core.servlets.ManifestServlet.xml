@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="sling:OsgiConfig"
+    backgroundColor="#003c7f"
+    description="PWA-TL30 is a progressive web application powerded by Adobe Experience Manager"
+    dir="ltr"
+    display="fullscreen"
+    gcmSenderId="103953800507"
+    gcmUserVisibleOnly="true"
+    lang="en"
+    name="PWA-TL30"
+    orientation="portrait"
+    scope="/content/aem-pwa-blog/"
+    shortName="PWA-TL30"
+    startUrl="/content/aem-pwa-blog/home.html"
+    themeColor="#003c7f"/>

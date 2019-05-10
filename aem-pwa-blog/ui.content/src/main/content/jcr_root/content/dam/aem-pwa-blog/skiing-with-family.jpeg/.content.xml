@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:Iptc4xmpCore="http://iptc.org/std/Iptc4xmpCore/1.0/xmlns/" xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/" xmlns:prismusagerights="http://prismstandard.org/namespaces/prismusagerights/2.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:mixinTypes="[mix:referenceable]"
+    jcr:primaryType="dam:Asset"
+    jcr:uuid="6f99539a-8414-4d2a-8d5b-717df71ccfd0">
+    <jcr:content
+        dam:assetState="processed"
+        jcr:lastModified="{Date}2019-04-02T15:34:12.934+02:00"
+        jcr:lastModifiedBy="admin"
+        jcr:primaryType="dam:AssetContent">
+        <metadata
+            cq:tags="[aem-pwa-blog:sport,aem-pwa-blog:family]"
+            dam:Bitsperpixel="{Long}24"
+            dam:extracted="{Date}2019-04-02T15:34:11.668+02:00"
+            dam:Fileformat="JPEG"
+            dam:MIMEtype="image/jpeg"
+            dam:Numberofimages="{Long}1"
+            dam:Numberoftextualcomments="{Long}0"
+            dam:Physicalheightindpi="{Long}41"
+            dam:Physicalheightininches="{Decimal}16.268293380737305"
+            dam:Physicalwidthindpi="{Long}41"
+            dam:Physicalwidthininches="{Decimal}24.390243530273438"
+            dam:Progressive="no"
+            dam:sha1="4d4c2715149f667f2825273d5b9ed2bb18920157"
+            dam:size="{Long}410697"
+            dc:format="image/jpeg"
+            dc:rights="©cppzone - stock.adobe.com"
+            jcr:mixinTypes="[cq:Taggable]"
+            jcr:primaryType="nt:unstructured"
+            photoshop:Credit="cppzone - stock.adobe.com"
+            prismusagerights:creditLine="[cppzone - stock.adobe.com]"
+            prismusagerights:creditLine_xmpArrayType="rdf:Bag"
+            tiff:ImageLength="{Long}667"
+            tiff:ImageWidth="{Long}1000"
+            tiff:ResolutionUnit="{Long}2"
+            tiff:XResolution="1875/46"
+            tiff:YCbCrPositioning="{Long}1"
+            tiff:YResolution="1875/46"
+            xmp:CreateDate="{Date}2017-01-09T00:00:00.000+01:00"
+            xmp:CreatorTool="Adobe Stock Platform"
+            xmp:MetadataDate="{Date}2019-04-01T11:58:41.000+02:00"
+            xmp:ModifyDate="{Date}2017-01-09T00:00:00.000+01:00"
+            xmpMM:DocumentID="132672906"
+            xmpMM:InstanceID="Adobe Stock 132672906"
+            xmpRights:Marked="{Boolean}true"
+            teaserDescription="Do you want to learn skiing with family ? A plane might be an option for you, get your flight ticket..."
+            teaserTitle="Skiing with family">
+            <Iptc4xmpCore:CreatorContactInfo jcr:primaryType="nt:unstructured"/>
+        </metadata>
+        <related jcr:primaryType="nt:unstructured"/>
+    </jcr:content>
+</jcr:root>

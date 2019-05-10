@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#" xmlns:prismusagerights="http://prismstandard.org/namespaces/prismusagerights/2.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:mixinTypes="[mix:referenceable]"
+    jcr:primaryType="dam:Asset"
+    jcr:uuid="d15796ba-145f-4aab-9ee9-c1f7a4f57263">
+    <jcr:content
+        dam:assetState="processed"
+        jcr:lastModified="{Date}2019-04-02T15:34:59.127+02:00"
+        jcr:lastModifiedBy="admin"
+        jcr:primaryType="dam:AssetContent">
+        <metadata
+            dam:Bitsperpixel="{Long}24"
+            dam:extracted="{Date}2019-04-02T15:34:52.230+02:00"
+            dam:Fileformat="JPEG"
+            dam:MIMEtype="image/jpeg"
+            dam:Numberofimages="{Long}1"
+            dam:Numberoftextualcomments="{Long}0"
+            dam:Physicalheightindpi="{Long}300"
+            dam:Physicalheightininches="{Decimal}16.613332748413086"
+            dam:Physicalwidthindpi="{Long}300"
+            dam:Physicalwidthininches="{Decimal}30.0"
+            dam:Progressive="no"
+            dam:sha1="9c76b37aa395ac3574bfb918444ce0745cb13f09"
+            dam:size="{Long}6520909"
+            dc:creator="[Romolo Tavani]"
+            dc:creator_xmpArrayType="rdf:Seq"
+            dc:format="image/jpeg"
+            dc:rights="©Romolo Tavani - stock.adobe.com"
+            dc:subject="[lightning,storm,rain,dramatic,sky,thunder,thunderstorm,stormy,weather,cloud,danger,bolt,nature,dark,background,night,scenic,strike,energy,blue,climate,cloudy,rainstorm,electricity,lightning,storm,rain,dramatic,sky,thunder,thunderstorm,stormy,weather,cloud,danger,bolt,nature,dark,background,night,scenic,strike,energy,blue,climate,cloudy,rainstorm,electricity,lightning,storm,rain,dramatic,sky,thunder,thunderstorm,stormy,weather,cloud,danger,bolt,nature,dark,background,night,scenic,strike,energy,blue,climate,cloudy,rainstorm,electricity]"
+            dc:subject_xmpArrayType="rdf:Bag"
+            jcr:mixinTypes="[cq:Taggable]"
+            jcr:primaryType="nt:unstructured"
+            photoshop:Country="Italy"
+            photoshop:Credit="Romolo Tavani - stock.adobe.com"
+            photoshop:Source="171242480"
+            prismusagerights:creditLine="[Romolo Tavani - stock.adobe.com]"
+            prismusagerights:creditLine_xmpArrayType="rdf:Bag"
+            tiff:ImageLength="{Long}4984"
+            tiff:ImageWidth="{Long}9000"
+            tiff:ResolutionUnit="{Long}2"
+            tiff:XResolution="300/1"
+            tiff:YCbCrPositioning="{Long}1"
+            tiff:YResolution="300/1"
+            xmp:CreatorTool="Adobe Photoshop CC 2014 (Macintosh)"
+            xmpMM:DocumentID="xmp.did:84254DC78F5F11E7AD94D8D9FAC8F8E2"
+            xmpMM:InstanceID="xmp.iid:84254DC68F5F11E7AD94D8D9FAC8F8E2"
+            xmpMM:OriginalDocumentID="B4BDA8488F0D05E8DDB4417882E0B676"
+            teaserDescription="Do you want to explore storms ? Let's have a look at the weather maybe you'll see some buzzes .."
+            teaserTitle="The storm">
+            <xmpMM:DerivedFrom
+                jcr:primaryType="nt:unstructured"
+                stRef:documentID="adobe:docid:photoshop:80d9e0a8-d779-117a-b164-d9b94b8f9874"
+                stRef:instanceID="xmp.iid:36407a21-5037-4c3c-923f-680136ea54cb"
+                xmpNodeType="xmpStruct"/>
+        </metadata>
+        <related jcr:primaryType="nt:unstructured"/>
+    </jcr:content>
+</jcr:root>

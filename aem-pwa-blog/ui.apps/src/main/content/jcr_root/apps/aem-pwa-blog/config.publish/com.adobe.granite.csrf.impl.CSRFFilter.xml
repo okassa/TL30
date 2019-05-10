@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="sling:OsgiConfig"
+    filter.enable.safe.user.agents="false"
+    filter.excluded.paths="[&quot;/libs/dam/gui/content/assets/assetlinkshare&quot;,&quot;/content/communities/scorm/RecordResults&quot;]"
+    filter.methods="[&quot;PUT&quot;,&quot;DELETE&quot;]"
+    filter.safe.user.agents="[&quot;Apache-HttpClient/*&quot;,&quot;Jakarta Commons-HttpClient/*&quot;,&quot;Jakarta-Commons-VFS&quot;,&quot;curl/*&quot;,&quot;Wget/*&quot;,&quot;WebDAVFS/*&quot;,&quot;Microsoft-WebDAV-MiniRedir/*&quot;,&quot;Ruby&quot;,&quot;Adobe-Campaign/*&quot;,&quot;Forms-Mobile *&quot;]"/>
