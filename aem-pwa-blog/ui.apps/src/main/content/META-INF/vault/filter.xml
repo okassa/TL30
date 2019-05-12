@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
     <filter root="/apps/aem-pwa-blog"/>
-    <filter root="/apps/weretail" mode="merge"/>
-    <filter root="/apps/weretail/config.publish" />
-    <filter root="/apps/sling" />
     <filter root="/etc/clientlibs/aem-pwa-blog/" />
     <filter root="/etc/map/http/localhost_any" />
     <filter root="/home/users/aem-pwa-blog" />
