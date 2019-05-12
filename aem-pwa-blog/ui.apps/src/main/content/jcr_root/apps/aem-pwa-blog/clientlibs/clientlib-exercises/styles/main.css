@@ -83,6 +83,14 @@ Handle image responsiveness for mobile
         height: 211px;
         width: 110px;
     }
+
+
+    .aem-pwa-blog__notificationImage {
+        height:20rem;
+    }
+
+
+
 }
 
 .aem-pwa-blog__mainContainer {
@@ -200,4 +208,8 @@ Handle image responsiveness for mobile
 #canvas {
     width:327px;
     height:250px;
+}
+
+.aem-pwa-blog__notificationImage {
+    height:20rem;
 }

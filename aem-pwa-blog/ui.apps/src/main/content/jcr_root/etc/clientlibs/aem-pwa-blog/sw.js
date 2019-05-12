@@ -2,7 +2,7 @@ importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-utils.js');
 importScripts('/etc.clientlibs/aem-pwa-blog/clientlibs/clientlib-firebase.js');
 
 // ==============> TO INCREASE AFTER EACH AND EVERY MODIFICATION IN THE SERVICE WORKER <=================
-var VERSION=879;
+var VERSION=001;
 
 var CACHE_STATIC_NAME = 'static-v'+VERSION;
 var CACHE_DYNAMIC_NAME = 'dynamic-v'+VERSION;
@@ -62,7 +62,7 @@ var channel = new BroadcastChannel('sw-messages');
 
  Exercise 03 : Caching the App shell
  -----------
- Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-static.txt
+ Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-03/ex03-code-to-paste-static.txt
  below this commented block  :
 
  =============================================================================================
@@ -76,7 +76,7 @@ self.addEventListener('install', function (event) {
 
  Exercise 03 : Deleting old caches when a newer version is being installed
  -----------
- Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-delete.txt
+ Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-03/ex03-code-to-paste-delete.txt
  into the callback function : :
 
  =============================================================================================
@@ -92,7 +92,7 @@ self.addEventListener('activate', function (event) {
 
  Exercise 03 : Adding request to a dynamic cache
  -----------
- Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
+ Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-03/ex03-code-to-paste-dynamic.txt
  into the callback function :
 
  =============================================================================================
@@ -111,7 +111,7 @@ self.addEventListener('fetch', function (event) {
 
  Exercise 04 : Adding request to a dynamic cache
  -----------
- Copy the code from this file : /apps/aem-pwa-blog/config.exercise-03/ex03-code-to-paste-dynamic.txt
+ Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-03/ex03-code-to-paste-dynamic.txt
  into the callback function :
 
  =============================================================================================
