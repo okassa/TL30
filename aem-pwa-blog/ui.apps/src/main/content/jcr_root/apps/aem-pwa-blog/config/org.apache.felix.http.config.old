@@ -1,7 +1,0 @@
-org.apache.felix.https.enable=B"true"
-org.apache.felix.https.keystore="crx-quickstart/ssl/cqkeystore.keystore"
-org.apache.felix.https.keystore.key.password="password"
-org.apache.felix.https.truststore="crx-quickstart/ssl/cqkeystore.keystore"
-org.apache.felix.https.truststore.password="password"
-org.apache.felix.http.nio=B"true"
-org.osgi.service.http.port.secure=I"8443"

@@ -8,6 +8,7 @@ var CACHE_STATIC_NAME = 'static-v'+VERSION;
 var CACHE_DYNAMIC_NAME = 'dynamic-v'+VERSION;
 
 var STATIC_FILES = [
+    '/',
     '/content/aem-pwa-blog/home.html',
     '/content/aem-pwa-blog/home.offline.html',
     '/content/aem-pwa-blog/post.html',
