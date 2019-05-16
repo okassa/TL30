@@ -60,7 +60,7 @@
 
                      Exercise 02 : Register the service worker
                      -----------
-                     Copy the code from this file : /apps/aem-pwa-blog/config.exercise-02/ex02-code-to-paste.txt
+                     Copy the code from this file : /apps/aem-pwa-blog/code-snippets/exercise-02/ex02-code-to-paste.txt
                      below this commented block  :
 
                      =============================================================================================

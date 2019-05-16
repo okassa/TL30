@@ -48,6 +48,9 @@
                         //alert("The service worker has synchronized the post")
                         var $backSync = $("#background-sync");
                         $backSync.modal("show");
+                        $("#create-post").hide();
+                        $("#view-post").show();
+
                     }
 
                 } );

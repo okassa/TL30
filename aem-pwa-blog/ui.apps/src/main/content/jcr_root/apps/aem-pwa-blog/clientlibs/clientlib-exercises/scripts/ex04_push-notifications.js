@@ -56,6 +56,7 @@
                             $webPush.find("#notification-image").prop("hidden", "hidden");
                         }else{
                             $webPush.find("#notification-image").prop("src", data.path);
+                            $webPush.find("#notification-image").removeAttr( "hidden" );
                         }
 
                         $webPush.modal("show");

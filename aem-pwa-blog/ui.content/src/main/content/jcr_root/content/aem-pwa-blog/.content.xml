@@ -13,7 +13,7 @@
         sling:redirect="{Boolean}true"
         sling:redirectStatus="{Long}302"
         sling:resourceType="foundation/components/redirect"
-        redirectTarget="/content/aem-pwa-blog/en">
+        redirectTarget="/content/aem-pwa-blog/home">
         <image jcr:primaryType="nt:unstructured"/>
     </jcr:content>
 </jcr:root>
