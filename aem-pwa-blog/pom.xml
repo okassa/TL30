@@ -19,7 +19,7 @@
     <groupId>com.adobe.summit.emea</groupId>
     <artifactId>aem-pwa-blog</artifactId>
     <packaging>pom</packaging>
-    <version>1.3</version>
+    <version>1.4.0-SNAPSHOT</version>
     <name>Adobe Summit EMEA 2019 - TL30 : Building a PWA with AEM -  Parent project </name>
     <description>Parent project for TL30</description>
 
