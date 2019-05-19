@@ -38,13 +38,12 @@ This technical lab aims to create a web application (HTML, CSS, JavaScript) with
 - Good understanding of AEM technical platform 
 - The sample code, see Get setup
 
-#### Chapters
+#### Materials
 
-- Chapter 0 - [Get setup](chapters/chapter-0.md)
-- Chapter 1 - [Progressive Web Apllication in a nutshell](chapters/chapter-1.md)
-- Chapter 2 - [Add the web app manifest](chapters/chapter-2.md)
-- Chapter 3 - [Add a service worker](chapters/chapter-3.md)
-- Chapter 4 - [Cache the app shell](chapters/chapter-4.md)
-- Chapter 5 - [Background Synchronization](chapters/chapter-5.md)
-- Chapter 6 - [Send push notifications](chapters/chapter-6.md)
-- Chapter 7 - [Access device camera ](chapters/chapter-7.md)
+- Powerpoint - [Get setup](chapters/Presentation.pdf)
+- Lessons - [Lessons](chapters/lab30-final.pdf)
+
+#### Push Notifications
+
+- You will need to create a firebase project and create a configuration for FirebaseNotificationServiceImpl
+at /apps/aem-pwa-blog/config/com.adobe.summit.emea.core.services.impl.FirebaseNotificationServiceImpl.xml
