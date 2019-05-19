@@ -1,4 +1,5 @@
-![AEM Adobe](../chapters/images/Lab-Header.png)  
+![AEM Adobe](../chapters/images/logo/Lab-Header.png)  
+
 #  Simple AEM Blog with Progressive Web Application capabilities  
 
 This is a simple blog website with PWA capabilities for AEM-based applications. It is intended as a best-practice set of examples as well as a potential starting point to develop your own functionality.
