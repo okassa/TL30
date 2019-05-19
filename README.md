@@ -36,7 +36,6 @@ This technical lab aims to create a web application (HTML, CSS, JavaScript) with
 - An Android emulator for mobile testing
 - Basic knowledge of HTML, CSS, JavaScript, and Chrome DevTools
 - Good understanding of AEM technical platform 
-- The sample code, see Get setup
 
 #### Materials
 
