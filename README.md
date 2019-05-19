@@ -40,8 +40,8 @@ This technical lab aims to create a web application (HTML, CSS, JavaScript) with
 
 #### Materials
 
-- Powerpoint - [Get setup](chapters/Presentation.pdf)
-- Lessons - [Lessons](chapters/lab30-final.pdf)
+- [Package](chapters/aem-pwa-blog.ui.reactor-1.4.0.zip) 
+- [Lessons](chapters/lab30-final.pdf)
 
 #### Push Notifications
 
