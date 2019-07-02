@@ -22,9 +22,7 @@ import org.apache.sling.commons.scheduler.ScheduleOptions;
 import org.apache.sling.commons.scheduler.Scheduler;
 import org.apache.sling.jcr.resource.api.JcrResourceConstants;
 import org.osgi.framework.Constants;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.ConfigurationPolicy;
-import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.*;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
@@ -55,7 +53,6 @@ import static org.apache.sling.api.resource.ResourceResolverFactory.SUBSERVICE;
 
 @Component(service = EventHandler.class,
         immediate = true,
-        configurationPolicy = ConfigurationPolicy.REQUIRE,
         property = {
                 Constants.SERVICE_DESCRIPTION + "=BlogContent Change Listener - This service will notify a set of users who have suscribe to notifications when an page tagged with one of their hobby " +
                         "has been added to the website",
@@ -78,7 +75,7 @@ public class BlogContentChangeListener implements EventHandler {
     private Scheduler scheduler;
 
     @Reference
-    NotificationService notificationService;
+    private NotificationService notificationService;
 
     @Reference
     ResourceResolverFactory resolverFactory;

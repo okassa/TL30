@@ -46,8 +46,10 @@ import java.util.stream.Collectors;
 @Designate(ocd = NotificationServlet.Configuration.class)
 public class NotificationServlet extends SlingAllMethodsServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServlet.class);
+
     @Reference
     private NotificationService notificationService;
+
     @Reference
     private CryptoSupport cryptoSupport;
 
